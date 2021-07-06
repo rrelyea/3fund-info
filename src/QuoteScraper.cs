@@ -38,14 +38,7 @@ namespace daily
 
                         await File.WriteAllTextAsync(filePath.FullName, result.Item1.ToString());
 
-                        if (year == DateTime.Now.Year && result.Item2 == DateTime.Now.ToShortDateString())
-                        {
-                            Console.Write($" {result.Item2}");
-                        }
-                        else
-                        {
-                            Console.Write($" {year}");
-                        }
+                        Console.Write($" {year}");
                     }
                 }
             }
