@@ -28,16 +28,24 @@ namespace daily
                     string url = $"https://personal.vanguard.com/us/funds/tools/pricehistorysearch?radio=1&results=get&FundType={fundType}&FundId={fundId}&Sc=1&radiobutton2=1&beginDate={beginDate}&endDate={endDate}&year=#res";
 
                     var response = CallUrl(url).Result;
-                    var sb = ParseHtml(response);
-                    if (sb != null)
+                    Tuple<StringBuilder, string> result = ParseHtml(response);
+                    if (result.Item1 != null)
                     {
                         if (!filePath.Directory.Exists)
                         {
                             filePath.Directory.Create();
                         }
 
-                        await File.WriteAllTextAsync(filePath.FullName, sb.ToString());
-                        Console.Write($" {year}");
+                        await File.WriteAllTextAsync(filePath.FullName, result.Item1.ToString());
+
+                        if (year == DateTime.Now.Year)
+                        {
+                            Console.Write($" {result.Item2}");
+                        }
+                        else
+                        {
+                            Console.Write($" {year}");
+                        }
                     }
                 }
             }
@@ -54,8 +62,10 @@ namespace daily
             return response;
         }
 
-        private static StringBuilder ParseHtml(string html)
+        private static Tuple<StringBuilder, string> ParseHtml(string html)
         {
+            string lastDate = null;
+
             var htmlDoc = new HtmlDocument();
             htmlDoc.LoadHtml(html);
             var tables = htmlDoc.DocumentNode.Descendants("table");
@@ -86,12 +96,13 @@ namespace daily
                         if (collectRows)
                         {
                             sb.AppendLine(c0 + "," + c1);
+                            lastDate = c0;
                         }
                     }
                 }
             }
 
-            return sb;
+            return new Tuple<StringBuilder, string>(sb, lastDate);
         }
     }
 }
