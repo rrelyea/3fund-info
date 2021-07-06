@@ -10,18 +10,21 @@ using System.Threading.Tasks;
 
 namespace daily
 {
-    public static class QuoteScraper
+    public static class QuoteFetcher
     {
         public static async Task WritePricesToCsvPerYear(int fundId, string fundName, int beginYear)
         {
+            bool recreateAll = true;
+            string lastQuote = null;
+
             Console.Write(fundName);
             for (int year = beginYear; year <= DateTime.Now.Year; year++)
             {
                 FileInfo filePath = new FileInfo(Path.Combine(System.Environment.CurrentDirectory, "prices", "vanguard", fundName, $"{fundName}-{year}.csv"));
 
-                if (!filePath.Exists || year == DateTime.Now.Year)
+                if (recreateAll || !filePath.Exists || year == DateTime.Now.Year)
                 {
-                    string beginDate = Uri.EscapeUriString(new DateTime(year, 1, 1).ToShortDateString());
+                    string beginDate = Uri.EscapeUriString(lastQuote == null ? new DateTime(year, 1, 1).ToShortDateString() : lastQuote);
                     string endDate = Uri.EscapeUriString(new DateTime(year, 12, 31).ToShortDateString());
 
                     string fundType = fundId < 900 ? "VanguardFunds" : "ExchangeTradedShares";
@@ -29,6 +32,8 @@ namespace daily
 
                     var response = CallUrl(url).Result;
                     Tuple<StringBuilder, string> result = ParseHtml(response);
+                    lastQuote = result.Item2;
+
                     if (result.Item1 != null)
                     {
                         if (!filePath.Directory.Exists)
