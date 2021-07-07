@@ -97,13 +97,14 @@ namespace daily
                     {
                         summarySB.AppendLine($"        {currentDate.Day} {day:0.##}%");
                     }
-                        lastMTD = mtd;
+
+                    lastMTD = mtd;
                     lastMonth = month;
                     finalYtd = ytd;
                 }
             }
 
-            summarySB.Append($"    {month:00} {lastMTD:0.##}%");
+            summarySB.AppendLine($"    {month:00} {lastMTD:0.##}%");
 
             File.WriteAllText(outputFile, sb.ToString());
             return finalYtd;
