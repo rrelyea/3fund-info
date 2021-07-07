@@ -95,7 +95,7 @@ namespace daily
                     sb.AppendLine($"{date}, {ytd:0.##}%, {mtd:0.##}%, {day:0.##}%");
                     if (year == DateTime.Now.Year && month == DateTime.Now.Month)
                     {
-                        summarySB.AppendLine($"        {currentDate.Day} {day:0.##}%");
+                        summarySB.AppendLine($"        {currentDate.Day:00} {day:0.##}%");
                     }
 
                     lastMTD = mtd;
