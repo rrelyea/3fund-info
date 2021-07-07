@@ -50,53 +50,52 @@ namespace daily
             double[] bondClose = new double[13];
             stockClose[0] = double.NaN;
             StringBuilder sb = new StringBuilder();
+
+            double lastStockPrice = double.NaN;
+            double lastIntlPrice = double.NaN;
+            double lastBondPrice = double.NaN;
+            double lastMTD = double.NaN;
+            int lastMonth = 0;
+
+            foreach (var date in stockPrices.Keys)
             {
-                double lastStockPrice = double.NaN;
-                double lastIntlPrice = double.NaN;
-                double lastBondPrice = double.NaN;
-                double lastMTD = double.NaN;
-                int lastMonth = 0;
-
-                foreach (var date in stockPrices.Keys)
+                var currentDate = DateTime.Parse(date);
+                int month = currentDate.Month;
+                if (index == 0)
                 {
-                    var currentDate = DateTime.Parse(date);
-                    int month = currentDate.Month;
-                    if (index == 0)
+                    stockClose[index] = double.Parse(stockPrices[date]);
+                    intlClose[index] = double.Parse(intlPrices[date]);
+                    bondClose[index] = double.Parse(bondPrices[date]);
+                    lastStockPrice = stockClose[index];
+                    lastIntlPrice = intlClose[index];
+                    lastBondPrice = bondClose[index];
+                    sb.AppendLine("Date, YTD, MTD, Day");
+                }
+
+                index = month;
+
+                if (year == currentDate.Year)
+                {
+                    if (lastMonth < month)
                     {
-                        stockClose[index] = double.Parse(stockPrices[date]);
-                        intlClose[index] = double.Parse(intlPrices[date]);
-                        bondClose[index] = double.Parse(bondPrices[date]);
-                        lastStockPrice = stockClose[index];
-                        lastIntlPrice = intlClose[index];
-                        lastBondPrice = bondClose[index];
-                        sb.AppendLine("Date, YTD, MTD, Day");
+                        summarySB.AppendLine($"    {month}-{year} {lastMTD:0.##}%");
                     }
 
-                    index = month;
+                    var stockPerf = calculateDaysPerf(stockClose, stockPrices, index, lastStockPrice, date);
+                    var intlPerf = calculateDaysPerf(intlClose, intlPrices, index, lastIntlPrice, date);
+                    var bondPerf = calculateDaysPerf(bondClose, bondPrices, index, lastBondPrice, date);
 
-                    if (year == currentDate.Year)
-                    {
-                        if (lastMonth > month)
-                        {
-                            summarySB.AppendLine($"    {month}-{year} {lastMTD:0.##}%");
-                        }
+                    lastStockPrice = stockPerf.Item4;
+                    lastIntlPrice = intlPerf.Item4;
+                    lastBondPrice = bondPerf.Item4;
 
-                        var stockPerf = calculateDaysPerf(stockClose, stockPrices, index, lastStockPrice, date);
-                        var intlPerf = calculateDaysPerf(intlClose, intlPrices, index, lastIntlPrice, date);
-                        var bondPerf = calculateDaysPerf(bondClose, bondPrices, index, lastBondPrice, date);
-
-                        lastStockPrice = stockPerf.Item4;
-                        lastIntlPrice = intlPerf.Item4;
-                        lastBondPrice = bondPerf.Item4;
-
-                        double ytd = stockPct * stockPerf.Item1  + intlPct * intlPerf.Item1  + bondPct * bondPerf.Item1; 
-                        double mtd = stockPct * stockPerf.Item2  + intlPct * intlPerf.Item2  + bondPct * bondPerf.Item2; 
-                        double day = stockPct * stockPerf.Item3  + intlPct * intlPerf.Item3  + bondPct * bondPerf.Item3;
-                        sb.AppendLine($"{date}, {ytd:0.##}%, {mtd:0.##}%, {day:0.##}%");
-                        lastMTD = mtd;
-                        lastMonth = month;
-                        finalYtd = ytd;
-                    }
+                    double ytd = stockPct * stockPerf.Item1 + intlPct * intlPerf.Item1 + bondPct * bondPerf.Item1;
+                    double mtd = stockPct * stockPerf.Item2 + intlPct * intlPerf.Item2 + bondPct * bondPerf.Item2;
+                    double day = stockPct * stockPerf.Item3 + intlPct * intlPerf.Item3 + bondPct * bondPerf.Item3;
+                    sb.AppendLine($"{date}, {ytd:0.##}%, {mtd:0.##}%, {day:0.##}%");
+                    lastMTD = mtd;
+                    lastMonth = month;
+                    finalYtd = ytd;
                 }
             }
 
@@ -104,7 +103,7 @@ namespace daily
             return finalYtd;
         }
 
-        private static Tuple<double,double,double,double> calculateDaysPerf(double[] monthlyCloses, Dictionary<string, string> dailyPrices, int index, double lastPrice, string date)
+        private static Tuple<double, double, double, double> calculateDaysPerf(double[] monthlyCloses, Dictionary<string, string> dailyPrices, int index, double lastPrice, string date)
         {
             monthlyCloses[index] = double.Parse(dailyPrices[date]);
             double ytd = (monthlyCloses[index] - monthlyCloses[0]) / monthlyCloses[0] * 100.0;
