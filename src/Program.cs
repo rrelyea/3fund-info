@@ -16,7 +16,7 @@ namespace daily
             {
                 for (int intl = 0; intl <= 50; intl += 10)
                 {
-                  //  await quoteData.CalculatePerf("vtsax", stock, "vtiax", intl, "vbtlx", 100 - stock);
+                    await quoteData.CalculatePerf(stock, intl, 100 - stock);
                 }
             }
         }
