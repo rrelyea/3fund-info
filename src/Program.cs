@@ -11,12 +11,15 @@ namespace daily
             await QuoteFetcher.WritePricesToCsvPerYear(584, "vbltx", 2001);
             await QuoteFetcher.WritePricesToCsvPerYear(970, "vti", 2001);
 
-            var quoteData = new QuoteData("vtsax", "vtiax", "vbltx", 2021);
-            for (int stock = 100; stock >= 0; stock -= 10)
+            for (int year = 2011; year <= 2021; year++)
             {
-                for (int intl = 0; intl <= 50; intl += 10)
+                var quoteData = new QuoteData("vtsax", "vtiax", "vbltx", year);
+                for (int stock = 100; stock >= 0; stock -= 5)
                 {
-                    await quoteData.CalculatePerf(stock, intl, 100 - stock);
+                    for (int intl = 0; intl <= 50; intl += 10)
+                    {
+                        await quoteData.CalculatePerf(stock, intl, 100 - stock, year);
+                    }
                 }
             }
         }

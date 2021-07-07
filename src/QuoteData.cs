@@ -30,13 +30,77 @@ namespace daily
             bondPrices = LoadData($"prices\\vanguard\\{bond}\\{bond}-{year}.csv");
         }
 
-        internal async Task CalculatePerf(int stock, int intl, int bond)
+        internal async Task CalculatePerf(double stock, double intl, double bond, int year)
         {
-            string outputFile = $"perf\\vanguard\\us {stock}-bond {bond}-intl {intl}\\us {stock}-bond {bond}-intl {intl}-{Year}.csv";
+            double bondPct = bond / 100.0;
+            double intlPct = stock / 100.0 * intl / 100.0;
+            double stockPct = stock / 100.0 * (100 - intl) / 100.0;
 
+            string outputFile = $"perf\\vanguard\\us {stock}-bond {bond}-intl {intl}\\us {stock}-bond {bond}-intl {intl}-{Year}.csv";
+            var outFile = new FileInfo(outputFile);
+            if (!outFile.Directory.Exists)
+            {
+                outFile.Directory.Create();
+            }
+
+            int index = 0;
+            double[] stockClose = new double[13];
+            double[] intlClose = new double[13];
+            double[] bondClose = new double[13];
+            stockClose[0] = double.NaN;
+            StringBuilder sb = new StringBuilder();
+            {
+                double lastStockPrice = double.NaN;
+                double lastIntlPrice = double.NaN;
+                double lastBondPrice = double.NaN;
+
+                foreach (var date in stockPrices.Keys)
+                {
+                    var currentDate = DateTime.Parse(date);
+                    int month = currentDate.Month;
+                    if (index == 0)
+                    {
+                        stockClose[index] = double.Parse(stockPrices[date]);
+                        intlClose[index] = double.Parse(intlPrices[date]);
+                        bondClose[index] = double.Parse(bondPrices[date]);
+                        lastStockPrice = stockClose[index];
+                        lastIntlPrice = intlClose[index];
+                        lastBondPrice = bondClose[index];
+                        sb.AppendLine("Date, YTD, MTD, Day");
+                    }
+
+                    index = month;
+
+                    if (year == currentDate.Year)
+                    {
+                        var stockPerf = calculateDaysPerf(stockClose, stockPrices, index, lastStockPrice, date);
+                        var intlPerf = calculateDaysPerf(intlClose, intlPrices, index, lastIntlPrice, date);
+                        var bondPerf = calculateDaysPerf(bondClose, bondPrices, index, lastBondPrice, date);
+
+                        lastStockPrice = stockPerf.Item4;
+                        lastIntlPrice = intlPerf.Item4;
+                        lastBondPrice = bondPerf.Item4;
+
+                        double ytd = stockPct * stockPerf.Item1  + intlPct * intlPerf.Item1  + bondPct * bondPerf.Item1; 
+                        double mtd = stockPct * stockPerf.Item2  + intlPct * intlPerf.Item2  + bondPct * bondPerf.Item2; 
+                        double day = stockPct * stockPerf.Item3  + intlPct * intlPerf.Item3  + bondPct * bondPerf.Item3;
+                        sb.AppendLine($"{date}, {ytd:0.##}%, {mtd:0.##}%, {day:0.##}%");
+                    }
+                }
+            }
+
+            File.WriteAllText(outputFile, sb.ToString());
             return;
         }
 
+        private static Tuple<double,double,double,double> calculateDaysPerf(double[] monthlyCloses, Dictionary<string, string> dailyPrices, int index, double lastPrice, string date)
+        {
+            monthlyCloses[index] = double.Parse(dailyPrices[date]);
+            double ytd = (monthlyCloses[index] - monthlyCloses[0]) / monthlyCloses[0] * 100.0;
+            double mtd = (monthlyCloses[index] - monthlyCloses[index - 1]) / monthlyCloses[index - 1] * 100.0;
+            double day = (monthlyCloses[index] - lastPrice) / lastPrice * 100.0;
+            return new Tuple<double, double, double, double>(ytd, mtd, day, monthlyCloses[index]);
+        }
         private Dictionary<string, string> LoadData(string fileName)
         {
             Dictionary<string, string> data = new Dictionary<string, string>();
