@@ -57,6 +57,7 @@ namespace daily
             double lastMTD = double.NaN;
             int lastMonth = 0;
             int month = 0;
+            bool headerForDaysShown = false;
             foreach (var date in stockPrices.Keys)
             {
                 var currentDate = DateTime.Parse(date);
@@ -95,7 +96,13 @@ namespace daily
                     sb.AppendLine($"{date}, {ytd:0.##}%, {mtd:0.##}%, {day:0.##}%");
                     if (year == DateTime.Now.Year && month == DateTime.Now.Month)
                     {
-                        summarySB.AppendLine($"       /{currentDate.Day:00} {day:0.##}%");
+                        if (!headerForDaysShown)
+                        {
+                            summarySB.AppendLine();
+                            headerForDaysShown = true;
+                        }
+
+                        summarySB.AppendLine($"               {currentDate.Month:00}/{currentDate.Day:00} {day:0.##}%");
                     }
 
                     lastMTD = mtd;
