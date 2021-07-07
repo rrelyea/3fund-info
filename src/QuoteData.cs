@@ -30,7 +30,7 @@ namespace daily
             bondPrices = LoadData($"prices\\vanguard\\{bond}\\{bond}-{year}.csv");
         }
 
-        internal async Task CalculatePerf(double stock, double intl, double bond, int year)
+        internal async Task<double> CalculatePerf(double stock, double intl, double bond, int year)
         {
             double bondPct = bond / 100.0;
             double intlPct = stock / 100.0 * intl / 100.0;
@@ -43,6 +43,7 @@ namespace daily
                 outFile.Directory.Create();
             }
 
+            double finalYtd = double.NaN;
             int index = 0;
             double[] stockClose = new double[13];
             double[] intlClose = new double[13];
@@ -85,12 +86,14 @@ namespace daily
                         double mtd = stockPct * stockPerf.Item2  + intlPct * intlPerf.Item2  + bondPct * bondPerf.Item2; 
                         double day = stockPct * stockPerf.Item3  + intlPct * intlPerf.Item3  + bondPct * bondPerf.Item3;
                         sb.AppendLine($"{date}, {ytd:0.##}%, {mtd:0.##}%, {day:0.##}%");
+
+                        finalYtd = ytd;
                     }
                 }
             }
 
             File.WriteAllText(outputFile, sb.ToString());
-            return;
+            return finalYtd;
         }
 
         private static Tuple<double,double,double,double> calculateDaysPerf(double[] monthlyCloses, Dictionary<string, string> dailyPrices, int index, double lastPrice, string date)
