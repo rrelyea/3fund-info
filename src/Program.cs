@@ -11,7 +11,7 @@ namespace daily
             await QuoteFetcher.WritePricesToCsvPerYear(584, "vbltx", 2001);
             await QuoteFetcher.WritePricesToCsvPerYear(970, "vti", 2001);
 
-            var quoteData = new QuoteData("vtsax", "vtiax", "vbtlx");
+            var quoteData = new QuoteData("vtsax", "vtiax", "vbtlx", 2021);
             for (int stock = 100; stock >= 0; stock -= 10)
             {
                 for (int intl = 0; intl <= 50; intl += 10)
