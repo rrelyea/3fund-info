@@ -30,7 +30,7 @@ namespace daily
             bondPrices = LoadData($"prices\\vanguard\\{bond}\\{bond}-{year}.csv");
         }
 
-        internal async Task<double> CalculatePerf(double stock, double intl, double bond, int year)
+        internal async Task<double> CalculatePerf(double stock, double intl, double bond, int year, StringBuilder summarySB)
         {
             double bondPct = bond / 100.0;
             double intlPct = stock / 100.0 * intl / 100.0;
@@ -54,6 +54,8 @@ namespace daily
                 double lastStockPrice = double.NaN;
                 double lastIntlPrice = double.NaN;
                 double lastBondPrice = double.NaN;
+                double lastMTD = double.NaN;
+                int lastMonth = 0;
 
                 foreach (var date in stockPrices.Keys)
                 {
@@ -74,6 +76,11 @@ namespace daily
 
                     if (year == currentDate.Year)
                     {
+                        if (lastMonth > month)
+                        {
+                            summarySB.AppendLine($"    {month}-{year} {lastMTD:0.##}%");
+                        }
+
                         var stockPerf = calculateDaysPerf(stockClose, stockPrices, index, lastStockPrice, date);
                         var intlPerf = calculateDaysPerf(intlClose, intlPrices, index, lastIntlPrice, date);
                         var bondPerf = calculateDaysPerf(bondClose, bondPrices, index, lastBondPrice, date);
@@ -86,7 +93,8 @@ namespace daily
                         double mtd = stockPct * stockPerf.Item2  + intlPct * intlPerf.Item2  + bondPct * bondPerf.Item2; 
                         double day = stockPct * stockPerf.Item3  + intlPct * intlPerf.Item3  + bondPct * bondPerf.Item3;
                         sb.AppendLine($"{date}, {ytd:0.##}%, {mtd:0.##}%, {day:0.##}%");
-
+                        lastMTD = mtd;
+                        lastMonth = month;
                         finalYtd = ytd;
                     }
                 }

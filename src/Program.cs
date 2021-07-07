@@ -24,17 +24,17 @@ namespace daily
             {
                 for (int intl = 0; intl <= 50; intl += 10)
                 {
-                    StringBuilder sb = new StringBuilder();
+                    StringBuilder summarySB = new StringBuilder();
 
                     for (int year = 2021; year >= 2011; year--)
                     {
-                        double ytd = await quoteData[year - 2011].CalculatePerf(stock, intl, 100 - stock, year);
-                        sb.AppendLine($"{year} {ytd}");
+                        double ytd = await quoteData[year - 2011].CalculatePerf(stock, intl, 100 - stock, year, summarySB);
+                        summarySB.AppendLine($"{year} {ytd:0.##}%");
                     }
 
                     int bond = 100 - stock;
                     string outputFile = $"perf\\vanguard\\us {stock}-bond {bond}-intl {intl}\\us {stock}-bond {bond}-intl {intl}-Summary.txt";
-                    File.WriteAllText(outputFile, sb.ToString());
+                    File.WriteAllText(outputFile, summarySB.ToString());
                 }
             }
         }
