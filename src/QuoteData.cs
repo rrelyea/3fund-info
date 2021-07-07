@@ -56,11 +56,11 @@ namespace daily
             double lastBondPrice = double.NaN;
             double lastMTD = double.NaN;
             int lastMonth = 0;
-
+            int month = 0;
             foreach (var date in stockPrices.Keys)
             {
                 var currentDate = DateTime.Parse(date);
-                int month = currentDate.Month;
+                month = currentDate.Month;
                 if (index == 0)
                 {
                     stockClose[index] = double.Parse(stockPrices[date]);
@@ -76,9 +76,9 @@ namespace daily
 
                 if (year == currentDate.Year)
                 {
-                    if (lastMonth < month && month > 0)
+                    if (lastMonth < month && month > 1)
                     {
-                        summarySB.AppendLine($"    {month:00} {lastMTD:0.##}%");
+                        summarySB.AppendLine($"    {month-1:00} {lastMTD:0.##}%");
                     }
 
                     var stockPerf = calculateDaysPerf(stockClose, stockPrices, index, lastStockPrice, date);
@@ -97,6 +97,11 @@ namespace daily
                     lastMonth = month;
                     finalYtd = ytd;
                 }
+            }
+
+            if (lastMonth < month && month > 1)
+            {
+                summarySB.AppendLine($"    {month - 1:00} {lastMTD:0.##}%");
             }
 
             File.WriteAllText(outputFile, sb.ToString());
