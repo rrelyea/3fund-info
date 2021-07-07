@@ -30,6 +30,7 @@ namespace daily
                     {
                         double ytd = await quoteData[year - 2011].CalculatePerf(stock, intl, 100 - stock, year, summarySB);
                         summarySB.AppendLine($"{year} {ytd:0.##}%");
+                        summarySB.AppendLine();
                     }
 
                     int bond = 100 - stock;

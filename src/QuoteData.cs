@@ -76,9 +76,9 @@ namespace daily
 
                 if (year == currentDate.Year)
                 {
-                    if (lastMonth < month)
+                    if (lastMonth < month && month > 0)
                     {
-                        summarySB.AppendLine($"    {month}-{year} {lastMTD:0.##}%");
+                        summarySB.AppendLine($"    {month:00} {lastMTD:0.##}%");
                     }
 
                     var stockPerf = calculateDaysPerf(stockClose, stockPrices, index, lastStockPrice, date);
