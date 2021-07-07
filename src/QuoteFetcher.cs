@@ -14,8 +14,7 @@ namespace daily
     {
         public static async Task WritePricesToCsvPerYear(int fundId, string fundName, int beginYear)
         {
-            bool recreateAll = true;
-            string lastQuote = null;
+            bool recreateAll = false;
 
             Console.Write(fundName);
             for (int year = beginYear; year <= DateTime.Now.Year; year++)
@@ -24,24 +23,23 @@ namespace daily
 
                 if (recreateAll || !filePath.Exists || year == DateTime.Now.Year)
                 {
-                    string beginDate = Uri.EscapeUriString(lastQuote == null ? new DateTime(year, 1, 1).ToShortDateString() : lastQuote);
+                    string beginDate = Uri.EscapeUriString(new DateTime(year - 1, 12, 28).ToShortDateString());
                     string endDate = Uri.EscapeUriString(new DateTime(year, 12, 31).ToShortDateString());
 
                     string fundType = fundId < 900 ? "VanguardFunds" : "ExchangeTradedShares";
                     string url = $"https://personal.vanguard.com/us/funds/tools/pricehistorysearch?radio=1&results=get&FundType={fundType}&FundId={fundId}&Sc=1&radiobutton2=1&beginDate={beginDate}&endDate={endDate}&year=#res";
 
                     var response = CallUrl(url).Result;
-                    Tuple<StringBuilder, string> result = ParseHtml(response);
-                    lastQuote = result.Item2;
+                    StringBuilder sb = ParseHtml(response, year);
 
-                    if (result.Item1 != null)
+                    if (sb != null)
                     {
                         if (!filePath.Directory.Exists)
                         {
                             filePath.Directory.Create();
                         }
 
-                        await File.WriteAllTextAsync(filePath.FullName, result.Item1.ToString());
+                        await File.WriteAllTextAsync(filePath.FullName, sb.ToString());
 
                         Console.Write($" {year}");
                     }
@@ -60,10 +58,8 @@ namespace daily
             return response;
         }
 
-        private static Tuple<StringBuilder, string> ParseHtml(string html)
+        private static StringBuilder ParseHtml(string html, int year)
         {
-            string lastDate = null;
-
             var htmlDoc = new HtmlDocument();
             htmlDoc.LoadHtml(html);
             var tables = htmlDoc.DocumentNode.Descendants("table");
@@ -73,7 +69,12 @@ namespace daily
 
             if (dataTables.Count > 1)
             {
-                bool collectRows = false;
+                bool wroteHeader = false;
+                bool wroteLastYearClose = false;
+                string previousNode0 = null;
+                string previousNode1 = null;
+                string c0 = null;
+                string c1 = null;
                 foreach (HtmlNode row in dataTables[1].SelectNodes("//tbody//tr"))
                 {
                     if (row.ChildNodes.Count >= 2)
@@ -83,24 +84,40 @@ namespace daily
                             sb = new StringBuilder();
                         }
 
-                        var c0 = row.ChildNodes[0].InnerText;
-                        var c1 = row.ChildNodes[1].InnerText;
+                        previousNode0 = c0;
+                        previousNode1 = c1;
 
-                        if (c0 == "Date")
+                        c0 = row.ChildNodes[0].InnerText;
+                        c1 = row.ChildNodes[1].InnerText;
+
+                        if (!wroteHeader)
                         {
-                            collectRows = true;
+                            if (c0 == "Date")
+                            {
+                                sb.AppendLine($"{c0},{c1}");
+                                wroteHeader = true;
+                            }
                         }
-
-                        if (collectRows)
+                        else
                         {
-                            sb.AppendLine(c0 + "," + c1);
-                            lastDate = c0;
+                            DateTime date;
+                            bool okDate = DateTime.TryParse(c0, out date);
+                            if (okDate && date.Year == year)
+                            {
+                                if (previousNode0 != null && previousNode0 != "Date" && (DateTime.Parse(previousNode0).Year == year - 1) && !wroteLastYearClose)
+                                {
+                                    sb.AppendLine($"{previousNode0},{previousNode1}");
+                                    wroteLastYearClose = true;
+                                }
+
+                                sb.AppendLine($"{c0},{c1}");
+                            }
                         }
                     }
                 }
             }
 
-            return new Tuple<StringBuilder, string>(sb, lastDate);
+            return sb;
         }
     }
 }
