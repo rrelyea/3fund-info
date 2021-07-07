@@ -12,9 +12,9 @@ namespace daily
         public string Stock { get; private set; }
         public string Intl { get; private set; }
         public string Bond { get; private set; }
-        Dictionary<string, string> stockPrices = new Dictionary<string, string>();
-        Dictionary<string, string> intlPrices = new Dictionary<string, string>();
-        Dictionary<string, string> bondPrices = new Dictionary<string, string>();
+        Dictionary<string, string> stockPrices;
+        Dictionary<string, string> intlPrices;
+        Dictionary<string, string> bondPrices;
 
         public QuoteData(string stock, string intl, string bond, int year)
         {
@@ -22,9 +22,17 @@ namespace daily
             Intl = intl;
             Bond = bond;
 
+            stockPrices = LoadData($"prices\\vanguard\\{stock}\\{stock}-{year}.csv");
+            intlPrices = LoadData($"prices\\vanguard\\{intl}\\{intl}-{year}.csv");
+            bondPrices = LoadData($"prices\\vanguard\\{bond}\\{bond}-{year}.csv");
+        }
+
+        private Dictionary<string, string> LoadData(string fileName)
+        {
+            Dictionary<string, string> data = new Dictionary<string, string>();
             bool skipNextLine = true;
 
-            foreach (var line in File.ReadAllLines($"prices\\vanguard\\{stock}\\{stock}-{year}.csv"))
+            foreach (var line in File.ReadAllLines(fileName))
             {
                 if (skipNextLine)
                 {
@@ -33,10 +41,11 @@ namespace daily
                 }
 
                 var chunks = line.Split(',');
-                stockPrices.Add(chunks[0], chunks[1].Substring(1));
+                data.Add(chunks[0], chunks[1].Substring(1));
             }
-        }
 
+            return data;
+        }
 
     }
 }
