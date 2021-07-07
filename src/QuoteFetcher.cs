@@ -14,7 +14,7 @@ namespace daily
     {
         public static async Task WritePricesToCsvPerYear(int fundId, string fundName, int beginYear)
         {
-            bool recreateAll = false;
+            bool recreateAll = true;
             string lastQuote = null;
 
             Console.Write(fundName);

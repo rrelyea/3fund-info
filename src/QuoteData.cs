@@ -24,7 +24,7 @@ namespace daily
 
             bool skipNextLine = true;
 
-            foreach (var line in File.ReadAllLines($"prices\\vanguard\\{stock}-{year}.csv"))
+            foreach (var line in File.ReadAllLines($"prices\\vanguard\\{stock}\\{stock}-{year}.csv"))
             {
                 if (skipNextLine)
                 {
