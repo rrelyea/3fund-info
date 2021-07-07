@@ -12,6 +12,7 @@ namespace daily
         public string Stock { get; private set; }
         public string Intl { get; private set; }
         public string Bond { get; private set; }
+        public int Year { get; private set; }
 
         Dictionary<string, string> stockPrices;
         Dictionary<string, string> intlPrices;
@@ -22,15 +23,18 @@ namespace daily
             Stock = stock;
             Intl = intl;
             Bond = bond;
+            Year = year;
 
             stockPrices = LoadData($"prices\\vanguard\\{stock}\\{stock}-{year}.csv");
             intlPrices = LoadData($"prices\\vanguard\\{intl}\\{intl}-{year}.csv");
             bondPrices = LoadData($"prices\\vanguard\\{bond}\\{bond}-{year}.csv");
         }
 
-        internal Task CalculatePerf(int stock, int intl, int bond)
+        internal async Task CalculatePerf(int stock, int intl, int bond)
         {
-            throw new NotImplementedException();
+            string outputFile = $"perf\\vanguard\\us {stock}-bond {bond}-intl {intl}\\us {stock}-bond {bond}-intl {intl}-{Year}.csv";
+
+            return;
         }
 
         private Dictionary<string, string> LoadData(string fileName)
