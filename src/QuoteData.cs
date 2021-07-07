@@ -93,13 +93,17 @@ namespace daily
                     double mtd = stockPct * stockPerf.Item2 + intlPct * intlPerf.Item2 + bondPct * bondPerf.Item2;
                     double day = stockPct * stockPerf.Item3 + intlPct * intlPerf.Item3 + bondPct * bondPerf.Item3;
                     sb.AppendLine($"{date}, {ytd:0.##}%, {mtd:0.##}%, {day:0.##}%");
-                    lastMTD = mtd;
+                    if (year == DateTime.Now.Year && month == DateTime.Now.Month)
+                    {
+                        summarySB.AppendLine($"        {currentDate.Day} {day:0.##}%");
+                    }
+                        lastMTD = mtd;
                     lastMonth = month;
                     finalYtd = ytd;
                 }
             }
 
-            summarySB.AppendLine($"    {month:00} {lastMTD:0.##}%");
+            summarySB.Append($"    {month:00} {lastMTD:0.##}%");
 
             File.WriteAllText(outputFile, sb.ToString());
             return finalYtd;
