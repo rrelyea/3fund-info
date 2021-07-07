@@ -78,7 +78,7 @@ namespace daily
                 {
                     if (lastMonth < month && month > 1)
                     {
-                        summarySB.AppendLine($"    {month-1:00} {lastMTD:0.##}%");
+                        summarySB.AppendLine($"    {month - 1:00} {lastMTD:0.##}%");
                     }
 
                     var stockPerf = calculateDaysPerf(stockClose, stockPrices, index, lastStockPrice, date);
@@ -99,10 +99,7 @@ namespace daily
                 }
             }
 
-            if (lastMonth < month && month > 1)
-            {
-                summarySB.AppendLine($"    {month - 1:00} {lastMTD:0.##}%");
-            }
+            summarySB.AppendLine($"    {month:00} {lastMTD:0.##}%");
 
             File.WriteAllText(outputFile, sb.ToString());
             return finalYtd;
