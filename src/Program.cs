@@ -12,6 +12,8 @@ namespace daily
             await QuoteFetcher.WritePricesToCsvPerYear(569, "vtiax", 2010);
             await QuoteFetcher.WritePricesToCsvPerYear(584, "vbltx", 2001);
             await QuoteFetcher.WritePricesToCsvPerYear(970, "vti", 2001);
+            await QuoteFetcher.WritePricesToCsvPerYear(3369, "vxus", 2011);
+            await QuoteFetcher.WritePricesToCsvPerYear(928, "bnd", 2007);
 
             QuoteData[] quoteData = new QuoteData[11];
 
@@ -34,7 +36,7 @@ namespace daily
                     }
 
                     int bond = 100 - stock;
-                    string outputFile = $"perf\\vanguard\\us {stock}-bond {bond}-intl {intl}\\us {stock}-bond {bond}-intl {intl}-Summary.txt";
+                    string outputFile = $"perf\\{stock}-{bond} ({intl}% intl)\\{stock}-{bond} ({intl}% intl)-VTSAX-VBLTX-VTIAX.txt";
                     File.WriteAllText(outputFile, summarySB.ToString());
                 }
             }

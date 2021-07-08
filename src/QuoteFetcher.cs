@@ -19,7 +19,7 @@ namespace daily
             Console.Write(fundName);
             for (int year = beginYear; year <= DateTime.Now.Year; year++)
             {
-                FileInfo filePath = new FileInfo(Path.Combine(System.Environment.CurrentDirectory, "prices", "vanguard", fundName, $"{fundName}-{year}.csv"));
+                FileInfo filePath = new FileInfo(Path.Combine(System.Environment.CurrentDirectory, "prices", fundName, $"{fundName}-{year}.csv"));
 
                 if (recreateAll || !filePath.Exists || year == DateTime.Now.Year)
                 {

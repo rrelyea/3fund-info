@@ -25,9 +25,9 @@ namespace daily
             Bond = bond;
             Year = year;
 
-            stockPrices = LoadData($"prices\\vanguard\\{stock}\\{stock}-{year}.csv");
-            intlPrices = LoadData($"prices\\vanguard\\{intl}\\{intl}-{year}.csv");
-            bondPrices = LoadData($"prices\\vanguard\\{bond}\\{bond}-{year}.csv");
+            stockPrices = LoadData($"prices\\{stock}\\{stock}-{year}.csv");
+            intlPrices = LoadData($"prices\\{intl}\\{intl}-{year}.csv");
+            bondPrices = LoadData($"prices\\{bond}\\{bond}-{year}.csv");
         }
 
         internal async Task<double> CalculatePerf(double stock, double intl, double bond, int year, StringBuilder summarySB)
@@ -36,7 +36,7 @@ namespace daily
             double intlPct = stock / 100.0 * intl / 100.0;
             double stockPct = stock / 100.0 * (100 - intl) / 100.0;
 
-            string outputFile = $"perf\\vanguard\\us {stock}-bond {bond}-intl {intl}\\us {stock}-bond {bond}-intl {intl}-{Year}.csv";
+            string outputFile = $"perf\\{stock}-{bond} ({intl}% intl)\\{stock}-{bond} ({intl}% intl)-{Year}.csv";
             var outFile = new FileInfo(outputFile);
             if (!outFile.Directory.Exists)
             {
@@ -110,7 +110,8 @@ namespace daily
                 summarySB.Append(daysSection.ToString());
             }
 
-            File.WriteAllText(outputFile, sb.ToString());
+            // Don't create yearly perf files.
+            // File.WriteAllText(outputFile, sb.ToString());
             return finalYtd;
         }
 
