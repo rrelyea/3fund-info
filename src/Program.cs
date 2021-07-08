@@ -40,7 +40,8 @@ namespace daily
                     for (int year = 2021; year >= startYear; year--)
                     {
                         double ytd = quoteData[year - startYear].CalculatePerf(stock, intl, 100 - stock, year, summarySB);
-                        summarySB.AppendLine($"{year} {ytd:0.##}%");
+                        summarySB.AppendLine("===============================================");
+                        summarySB.AppendLine($"{year} {ytd,9:0.00}%");
                         summarySB.AppendLine();
                     }
 
