@@ -57,7 +57,7 @@ namespace daily
             double lastMTD = double.NaN;
             int lastMonth = 0;
             int month = 0;
-            bool headerForDaysShown = false;
+            StringBuilder daysSection = new StringBuilder();
             foreach (var date in stockPrices.Keys)
             {
                 var currentDate = DateTime.Parse(date);
@@ -74,7 +74,6 @@ namespace daily
                 }
 
                 index = month;
-
                 if (year == currentDate.Year)
                 {
                     if (lastMonth < month && month > 1)
@@ -96,13 +95,7 @@ namespace daily
                     sb.AppendLine($"{date}, {ytd:0.##}%, {mtd:0.##}%, {day:0.##}%");
                     if (year == DateTime.Now.Year && month == DateTime.Now.Month)
                     {
-                        if (!headerForDaysShown)
-                        {
-                            summarySB.AppendLine();
-                            headerForDaysShown = true;
-                        }
-
-                        summarySB.AppendLine($"               {currentDate.Month:00}/{currentDate.Day:00} {day:0.##}%");
+                        daysSection.AppendLine($"               {currentDate.Month:00}/{currentDate.Day:00} {day:0.##}%");
                     }
 
                     lastMTD = mtd;
@@ -112,6 +105,10 @@ namespace daily
             }
 
             summarySB.AppendLine($"    /{month:00} {lastMTD:0.##}%");
+            if (year == DateTime.Now.Year && month == DateTime.Now.Month)
+            {
+                summarySB.Append(daysSection.ToString());
+            }
 
             File.WriteAllText(outputFile, sb.ToString());
             return finalYtd;
