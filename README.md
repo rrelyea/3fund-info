@@ -1,6 +1,6 @@
 # 3fund-info
 
-Emjoy daily updates of your 3 Fund Portfolio performance.
+Emjoy daily updates of your [Three-Fund Portfolio](https://www.bogleheads.org/wiki/Three-fund_portfolio) performance.
 
 Navigate to your data file ... perf \ stock - bond (based on your AA) \ 
 
