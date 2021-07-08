@@ -1,8 +1,8 @@
 # 3fund-info
 
-Emjoy daily updates of your [Three-Fund Portfolio](https://www.bogleheads.org/wiki/Three-fund_portfolio) performance.
+Enjoy daily updates of your [Three-Fund Portfolio](https://www.bogleheads.org/wiki/Three-fund_portfolio) performance.
 
-Navigate to your data file ... perf \ stock - bond (based on your AA) \ 
+Navigate to your data file ... \ perf \ stock - bond (based on your AA) \ 
 
 Currently, you'll see a mutual fund version and an ETF version of Vanguard 3 fund portfolios.
 Choose your international percentage...and click on that file.
