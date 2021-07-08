@@ -1,6 +1,6 @@
 # 3fund-info
 
-Emjoy daily updates of your 3 fund portfolio performance.
+Emjoy daily updates of your 3 Fund Portfolio performance.
 
 Navigate to your data file ... perf \ stock - bond (based on your AA) \ 
 
