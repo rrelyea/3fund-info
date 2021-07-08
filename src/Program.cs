@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,6 +9,7 @@ namespace daily
     {
         static async Task Main(string[] args)
         {
+            Console.WriteLine("Collecting prices:");
             await QuoteFetcher.WritePricesToCsvPerYear(585, "vtsax", 2000);
             await QuoteFetcher.WritePricesToCsvPerYear(569, "vtiax", 2010);
             await QuoteFetcher.WritePricesToCsvPerYear(584, "vbltx", 2001);
@@ -15,11 +17,12 @@ namespace daily
             await QuoteFetcher.WritePricesToCsvPerYear(3369, "vxus", 2011);
             await QuoteFetcher.WritePricesToCsvPerYear(928, "bnd", 2007);
 
-            await Output3FC("vtsax", "vtiax", "vbltx", 2011);
-            await Output3FC("vti", "vxus", "bnd", 2012);
+            Console.Write("Calculating perf");
+            await OutputThreeFundPerfSummary("vtsax", "vtiax", "vbltx", startYear:2011);
+            await OutputThreeFundPerfSummary("vti", "vxus", "bnd", startYear:2012);
         }
 
-        private static async Task Output3FC(string stockFund, string intlFund, string bondFund, int startYear)
+        private static async Task OutputThreeFundPerfSummary(string stockFund, string intlFund, string bondFund, int startYear)
         {
             QuoteData[] quoteData = new QuoteData[2021-startYear+1];
 
@@ -36,16 +39,19 @@ namespace daily
 
                     for (int year = 2021; year >= startYear; year--)
                     {
-                        double ytd = await quoteData[year - startYear].CalculatePerf(stock, intl, 100 - stock, year, summarySB);
+                        double ytd = quoteData[year - startYear].CalculatePerf(stock, intl, 100 - stock, year, summarySB);
                         summarySB.AppendLine($"{year} {ytd:0.##}%");
                         summarySB.AppendLine();
                     }
 
                     int bond = 100 - stock;
                     string outputFile = $"perf\\{stock}-{bond}\\{stock}-{bond} ({intl}% intl)-{stockFund.ToUpper()}-{bondFund.ToUpper()}-{intlFund.ToUpper()}.txt";
-                    File.WriteAllText(outputFile, summarySB.ToString());
+                    await File.WriteAllTextAsync(outputFile, summarySB.ToString());
+                    Console.Write(".");
                 }
             }
+
+            Console.WriteLine();
         }
     }
 }

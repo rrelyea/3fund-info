@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -30,18 +29,11 @@ namespace daily
             bondPrices = LoadData($"prices\\{bond}\\{bond}-{year}.csv");
         }
 
-        internal async Task<double> CalculatePerf(double stock, double intl, double bond, int year, StringBuilder summarySB)
+        internal double CalculatePerf(double stock, double intl, double bond, int year, StringBuilder summarySB)
         {
             double bondPct = bond / 100.0;
             double intlPct = stock / 100.0 * intl / 100.0;
             double stockPct = stock / 100.0 * (100 - intl) / 100.0;
-
-            string outputFile = $"perf\\{stock}-{bond}\\{stock}-{bond} ({intl}% intl)-{Year}.csv";
-            var outFile = new FileInfo(outputFile);
-            if (!outFile.Directory.Exists)
-            {
-                outFile.Directory.Create();
-            }
 
             double finalYtd = double.NaN;
             int index = 0;
@@ -49,7 +41,7 @@ namespace daily
             double[] intlClose = new double[13];
             double[] bondClose = new double[13];
             stockClose[0] = double.NaN;
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
 
             double lastStockPrice = double.NaN;
             double lastIntlPrice = double.NaN;
@@ -110,8 +102,20 @@ namespace daily
                 summarySB.Append(daysSection.ToString());
             }
 
-            // Don't create yearly perf files.
-            // File.WriteAllText(outputFile, sb.ToString());
+
+            bool writeYearlyPerfFiles = false;
+            if (writeYearlyPerfFiles)
+            {
+                string outputFile = $"perf\\{stock}-{bond}\\{stock}-{bond} ({intl}% intl)-{Year}.csv";
+                var outFile = new FileInfo(outputFile);
+                if (!outFile.Directory.Exists)
+                {
+                    outFile.Directory.Create();
+                }
+
+                File.WriteAllText(outputFile, sb.ToString());
+            }
+
             return finalYtd;
         }
 
