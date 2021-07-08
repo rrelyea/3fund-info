@@ -36,7 +36,7 @@ namespace daily
             double intlPct = stock / 100.0 * intl / 100.0;
             double stockPct = stock / 100.0 * (100 - intl) / 100.0;
 
-            string outputFile = $"perf\\{stock}-{bond} ({intl}% intl)\\{stock}-{bond} ({intl}% intl)-{Year}.csv";
+            string outputFile = $"perf\\{stock}-{bond}\\{stock}-{bond} ({intl}% intl)-{Year}.csv";
             var outFile = new FileInfo(outputFile);
             if (!outFile.Directory.Exists)
             {

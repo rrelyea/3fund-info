@@ -15,11 +15,17 @@ namespace daily
             await QuoteFetcher.WritePricesToCsvPerYear(3369, "vxus", 2011);
             await QuoteFetcher.WritePricesToCsvPerYear(928, "bnd", 2007);
 
-            QuoteData[] quoteData = new QuoteData[11];
+            await Output3FC("vtsax", "vtiax", "vbltx", 2011);
+            await Output3FC("vti", "vxus", "bnd", 2012);
+        }
 
-            for (int year = 2011; year <= 2021; year++)
+        private static async Task Output3FC(string stockFund, string intlFund, string bondFund, int startYear)
+        {
+            QuoteData[] quoteData = new QuoteData[2021-startYear+1];
+
+            for (int year = startYear; year <= 2021; year++)
             {
-                quoteData[year - 2011] = new QuoteData("vtsax", "vtiax", "vbltx", year);
+                quoteData[year - startYear] = new QuoteData(stockFund, intlFund, bondFund, year);
             }
 
             for (int stock = 100; stock >= 0; stock -= 5)
@@ -28,15 +34,15 @@ namespace daily
                 {
                     StringBuilder summarySB = new StringBuilder();
 
-                    for (int year = 2021; year >= 2011; year--)
+                    for (int year = 2021; year >= startYear; year--)
                     {
-                        double ytd = await quoteData[year - 2011].CalculatePerf(stock, intl, 100 - stock, year, summarySB);
+                        double ytd = await quoteData[year - startYear].CalculatePerf(stock, intl, 100 - stock, year, summarySB);
                         summarySB.AppendLine($"{year} {ytd:0.##}%");
                         summarySB.AppendLine();
                     }
 
                     int bond = 100 - stock;
-                    string outputFile = $"perf\\{stock}-{bond} ({intl}% intl)\\{stock}-{bond} ({intl}% intl)-VTSAX-VBLTX-VTIAX.txt";
+                    string outputFile = $"perf\\{stock}-{bond}\\{stock}-{bond} ({intl}% intl)-{stockFund.ToUpper()}-{bondFund.ToUpper()}-{intlFund.ToUpper()}.txt";
                     File.WriteAllText(outputFile, summarySB.ToString());
                 }
             }
