@@ -38,7 +38,7 @@ namespace daily
                     int bond = 100 - stock;
 
                     StringBuilder summarySB = new StringBuilder();
-                    summarySB.AppendLine($"Performance for {stock}-{bond} ({intl}% intl)-{stockFund.ToUpper()}-{bondFund.ToUpper()}-{intlFund.ToUpper()}");
+                    summarySB.AppendLine($"Performance for {stock}/{bond} ({intl}% intl)-{stockFund.ToUpper()}-{bondFund.ToUpper()}-{intlFund.ToUpper()}");
                     summarySB.AppendLine();
                     summarySB.AppendLine("      Year % |     Month % |          Day %");
                     summarySB.AppendLine();
