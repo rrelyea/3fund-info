@@ -1,6 +1,6 @@
 Performance for 90-10 (40% intl)-VTI-BND-VXUS
 
-Yearly      | Monthly     | Daily
+      Year % |     Month % |          Day %
 
 -------------------------------------------
 2021:

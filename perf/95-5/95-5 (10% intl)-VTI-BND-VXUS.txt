@@ -1,6 +1,6 @@
 Performance for 95-5 (10% intl)-VTI-BND-VXUS
 
-Yearly      | Monthly     | Daily
+      Year % |     Month % |          Day %
 
 -------------------------------------------
 2021:

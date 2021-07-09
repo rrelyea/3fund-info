@@ -1,6 +1,6 @@
 Performance for 55-45 (30% intl)-VTI-BND-VXUS
 
-Yearly      | Monthly     | Daily
+      Year % |     Month % |          Day %
 
 -------------------------------------------
 2021:

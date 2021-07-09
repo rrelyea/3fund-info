@@ -1,6 +1,6 @@
 Performance for 15-85 (20% intl)-VTSAX-VBLTX-VTIAX
 
-Yearly      | Monthly     | Daily
+      Year % |     Month % |          Day %
 
 -------------------------------------------
 2021:

@@ -1,6 +1,6 @@
 Performance for 95-5 (40% intl)-VTSAX-VBLTX-VTIAX
 
-Yearly      | Monthly     | Daily
+      Year % |     Month % |          Day %
 
 -------------------------------------------
 2021:
