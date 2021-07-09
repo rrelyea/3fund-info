@@ -1,4 +1,4 @@
-Performance for 50-50 (0% intl)-VTSAX-VBLTX-VTIAX
+Performance for 50/50 (0% intl)-VTSAX-VBLTX-VTIAX
 
       Year % |     Month % |          Day %
 

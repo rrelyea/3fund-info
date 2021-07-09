@@ -1,4 +1,4 @@
-Performance for 20-80 (20% intl)-VTSAX-VBLTX-VTIAX
+Performance for 20/80 (20% intl)-VTSAX-VBLTX-VTIAX
 
       Year % |     Month % |          Day %
 

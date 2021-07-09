@@ -1,4 +1,4 @@
-Performance for 0-100 (20% intl)-VTI-BND-VXUS
+Performance for 0/100 (20% intl)-VTI-BND-VXUS
 
       Year % |     Month % |          Day %
 

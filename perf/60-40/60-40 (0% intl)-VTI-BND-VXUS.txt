@@ -1,4 +1,4 @@
-Performance for 60-40 (0% intl)-VTI-BND-VXUS
+Performance for 60/40 (0% intl)-VTI-BND-VXUS
 
       Year % |     Month % |          Day %
 

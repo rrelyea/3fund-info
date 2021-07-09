@@ -1,4 +1,4 @@
-Performance for 5-95 (30% intl)-VTSAX-VBLTX-VTIAX
+Performance for 5/95 (30% intl)-VTSAX-VBLTX-VTIAX
 
       Year % |     Month % |          Day %
 

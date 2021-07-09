@@ -1,4 +1,4 @@
-Performance for 95-5 (20% intl)-VTSAX-VBLTX-VTIAX
+Performance for 95/5 (20% intl)-VTSAX-VBLTX-VTIAX
 
       Year % |     Month % |          Day %
 

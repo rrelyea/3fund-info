@@ -1,4 +1,4 @@
-Performance for 65-35 (50% intl)-VTI-BND-VXUS
+Performance for 65/35 (50% intl)-VTI-BND-VXUS
 
       Year % |     Month % |          Day %
 

@@ -1,4 +1,4 @@
-Performance for 45-55 (30% intl)-VTSAX-VBLTX-VTIAX
+Performance for 45/55 (30% intl)-VTSAX-VBLTX-VTIAX
 
       Year % |     Month % |          Day %
 

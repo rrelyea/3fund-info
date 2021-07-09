@@ -1,4 +1,4 @@
-Performance for 10-90 (50% intl)-VTI-BND-VXUS
+Performance for 10/90 (50% intl)-VTI-BND-VXUS
 
       Year % |     Month % |          Day %
 

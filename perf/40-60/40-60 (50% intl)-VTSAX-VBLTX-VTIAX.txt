@@ -1,4 +1,4 @@
-Performance for 40-60 (50% intl)-VTSAX-VBLTX-VTIAX
+Performance for 40/60 (50% intl)-VTSAX-VBLTX-VTIAX
 
       Year % |     Month % |          Day %
 
