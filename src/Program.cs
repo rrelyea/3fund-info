@@ -40,7 +40,7 @@ namespace daily
                     StringBuilder summarySB = new StringBuilder();
                     summarySB.AppendLine($"Performance for {stock}-{bond} ({intl}% intl)-{stockFund.ToUpper()}-{bondFund.ToUpper()}-{intlFund.ToUpper()}");
                     summarySB.AppendLine();
-                    summarySB.AppendLine("Yearly      | Monthly     | Daily");
+                    summarySB.AppendLine("      Year % |     Month % |          Day %");
                     summarySB.AppendLine();
                     for (int year = 2021; year >= startYear; year--)
                     {
