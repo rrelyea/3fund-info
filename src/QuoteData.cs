@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
@@ -50,6 +51,8 @@ namespace daily
             int lastMonth = 0;
             int month = 0;
             StringBuilder daysSection = new StringBuilder();
+            DateTime lastDate = DateTime.MinValue;
+
             foreach (var date in stockPrices.Keys)
             {
                 var currentDate = DateTime.Parse(date);
@@ -70,7 +73,7 @@ namespace daily
                 {
                     if (lastMonth < month && month > 1)
                     {
-                        summarySB.AppendLine($"    /{month - 1:00} {lastMTD,6:0.00}%");
+                        summarySB.AppendLine($"    {lastDate.ToString("MMM", CultureInfo.InvariantCulture)} {lastMTD,7: ##.00;-##.00}%");
                     }
 
                     var stockPerf = calculateDaysPerf(stockClose, stockPrices, index, lastStockPrice, date);
@@ -87,16 +90,18 @@ namespace daily
                     sb.AppendLine($"{date}, {ytd:0.##}%, {mtd:0.##}%, {day:0.##}%");
                     if (year == DateTime.Now.Year && month == DateTime.Now.Month)
                     {
-                        daysSection.AppendLine($"               {currentDate.Month:00}/{currentDate.Day:00} {day,6:0.00}%");
+                        daysSection.AppendLine($"               {currentDate.ToString("MMM", CultureInfo.InvariantCulture)} {currentDate.Day:00} {day,7: ##.00;-##.00}%");
                     }
 
                     lastMTD = mtd;
                     lastMonth = month;
                     finalYtd = ytd;
                 }
+
+                lastDate = currentDate;
             }
 
-            summarySB.AppendLine($"    /{month:00} {lastMTD,6:0.00}%");
+            summarySB.AppendLine($"    {lastDate.ToString("MMM", CultureInfo.InvariantCulture)} {lastMTD,7: ##.00;-##.00}%");
             if (year == DateTime.Now.Year && month == DateTime.Now.Month)
             {
                 summarySB.Append(daysSection.ToString());
