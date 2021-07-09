@@ -35,18 +35,23 @@ namespace daily
             {
                 for (int intl = 0; intl <= 50; intl += 10)
                 {
-                    StringBuilder summarySB = new StringBuilder();
+                    int bond = 100 - stock;
 
+                    StringBuilder summarySB = new StringBuilder();
+                    summarySB.AppendLine($"Performance for {stock}-{bond} ({intl}% intl)-{stockFund.ToUpper()}-{bondFund.ToUpper()}-{intlFund.ToUpper()}");
+                    summarySB.AppendLine();
+                    summarySB.AppendLine("Yearly      | Monthly     | Daily");
+                    summarySB.AppendLine();
                     for (int year = 2021; year >= startYear; year--)
                     {
-                        summarySB.AppendLine($"{year}: ========================");
+                        summarySB.AppendLine("-------------------------------------------");
+                        summarySB.AppendLine($"{year}:");
                         double ytd = quoteData[year - startYear].CalculatePerf(stock, intl, 100 - stock, year, summarySB);
-                        summarySB.AppendLine("==============================");
-                        summarySB.AppendLine($"{year}  {ytd,9:0.00}%");
+                        summarySB.AppendLine("===========================================");
+                        summarySB.AppendLine($"{year}{ytd,7:0.00}%");
                         summarySB.AppendLine();
                     }
 
-                    int bond = 100 - stock;
                     string outputFile = $"perf\\{stock}-{bond}\\{stock}-{bond} ({intl}% intl)-{stockFund.ToUpper()}-{bondFund.ToUpper()}-{intlFund.ToUpper()}.txt";
                     await File.WriteAllTextAsync(outputFile, summarySB.ToString());
                     Console.Write(".");

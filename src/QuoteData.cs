@@ -73,7 +73,7 @@ namespace daily
                 {
                     if (lastMonth < month && month > 1)
                     {
-                        summarySB.AppendLine($"    {lastDate.ToString("MMM", CultureInfo.InvariantCulture)} {lastMTD,7: ##.00;-##.00}%");
+                        summarySB.AppendLine($"              {lastDate.ToString("MMM", CultureInfo.InvariantCulture)} {lastMTD,7: ##.00;-##.00}%");
                     }
 
                     var stockPerf = calculateDaysPerf(stockClose, stockPrices, index, lastStockPrice, date);
@@ -90,7 +90,7 @@ namespace daily
                     sb.AppendLine($"{date}, {ytd:0.##}%, {mtd:0.##}%, {day:0.##}%");
                     if (year == DateTime.Now.Year && month == DateTime.Now.Month)
                     {
-                        daysSection.AppendLine($"               {currentDate.ToString("MMM", CultureInfo.InvariantCulture)} {currentDate.Day:00} {day,7: ##.00;-##.00}%");
+                        daysSection.AppendLine($"                            {currentDate.ToString("MMM", CultureInfo.InvariantCulture)} {currentDate.Day:00} {day,7: ##.00;-##.00}%");
                     }
 
                     lastMTD = mtd;
@@ -101,7 +101,7 @@ namespace daily
                 lastDate = currentDate;
             }
 
-            summarySB.AppendLine($"    {lastDate.ToString("MMM", CultureInfo.InvariantCulture)} {lastMTD,7: ##.00;-##.00}%");
+            summarySB.AppendLine($"              {lastDate.ToString("MMM", CultureInfo.InvariantCulture)} {lastMTD,7: ##.00;-##.00}%");
             if (year == DateTime.Now.Year && month == DateTime.Now.Month)
             {
                 summarySB.Append(daysSection.ToString());
