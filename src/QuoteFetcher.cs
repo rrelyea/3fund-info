@@ -12,14 +12,14 @@ namespace daily
 {
     public static class QuoteFetcher
     {
-        public static async Task WritePricesToCsvPerYear(int fundId, string fundName, int beginYear)
+        public static async Task WritePricesToCsvPerYear(int fundId, Fund fund, int beginYear)
         {
             bool recreateAll = false;
 
-            Console.Write(fundName);
+            Console.Write(fund.Symbol);
             for (int year = beginYear; year <= DateTime.Now.Year; year++)
             {
-                FileInfo filePath = new FileInfo(Path.Combine(System.Environment.CurrentDirectory, "prices", fundName, $"{fundName}-{year}.csv"));
+                FileInfo filePath = new FileInfo(Path.Combine(System.Environment.CurrentDirectory, "prices", fund.Symbol, $"{fund.Symbol}-{year}.csv"));
 
                 if (recreateAll || !filePath.Exists || year == DateTime.Now.Year)
                 {

@@ -1,64 +1,101 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
-using System.Text;
+using System.Net.Http;
+using System.Text.Json;
 using System.Threading.Tasks;
+using System.Timers;
 
 namespace daily
 {
     class Program
     {
+        static Timer timer;
         static async Task Main(string[] args)
         {
-            Console.WriteLine("Collecting prices:");
-            await QuoteFetcher.WritePricesToCsvPerYear(585, "vtsax", 2000);
-            await QuoteFetcher.WritePricesToCsvPerYear(569, "vtiax", 2010);
-            await QuoteFetcher.WritePricesToCsvPerYear(584, "vbltx", 2001);
-            await QuoteFetcher.WritePricesToCsvPerYear(970, "vti", 2001);
-            await QuoteFetcher.WritePricesToCsvPerYear(3369, "vxus", 2011);
-            await QuoteFetcher.WritePricesToCsvPerYear(928, "bnd", 2007);
+            if (args.Length > 0 && args[0] == "/watch")
+            {
+                Console.WriteLine("Watching for latest prices:");
+                double minutes = .1;
+                timer = new Timer(minutes * 60 * 1000);
+                timer.Elapsed += WatchTimer_Elapsed;
+                timer.Enabled = true;
+                timer.Start();
 
-            Console.Write("Calculating perf");
-            await OutputThreeFundPerfSummary("vtsax", "vtiax", "vbltx", startYear:2011);
-            await OutputThreeFundPerfSummary("vti", "vxus", "bnd", startYear:2012);
+                while (true) ;
+            }
+            else
+            {
+                Dictionary<string, ThreeFund> threeFunds = InitializeThreeFunds();
+
+                Console.WriteLine("Collecting prices:");
+                await threeFunds["Vanguard ETFs"].WritePricesToCsvPerYear(2012);
+                await threeFunds["Vanguard Mutual Funds"].WritePricesToCsvPerYear(2011);
+
+                Console.WriteLine("Calculating perf:");
+                await threeFunds["Vanguard ETFs"].OutputThreeFundPerfSummary(2012);
+                await threeFunds["Vanguard Mutual Funds"].OutputThreeFundPerfSummary(2011);
+
+            }
         }
 
-        private static async Task OutputThreeFundPerfSummary(string stockFund, string intlFund, string bondFund, int startYear)
+        private static Dictionary<string, ThreeFund> InitializeThreeFunds()
         {
-            QuoteData[] quoteData = new QuoteData[2021-startYear+1];
+            Dictionary<string, ThreeFund> threeFunds = new Dictionary<string, ThreeFund>();
 
-            for (int year = startYear; year <= 2021; year++)
+            threeFunds.Add("Vanguard Mutual Funds", new ThreeFund("vtsax", "vtiax", "vbtlx", FundStyle.MutualFund, "Vanguard"));
+            threeFunds.Add("Vanguard ETFs", new ThreeFund("vti", "vxus", "bnd", FundStyle.ETF, "Vanguard"));
+
+            return threeFunds;
+        }
+
+        private static async void WatchTimer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            timer.Interval = 5 * 60 * 1000;
+
+            string apiKey = File.ReadAllText("c:\\temp\\alphaVantageApiKey.txt");
+
+            using (HttpClient client = new HttpClient())
             {
-                quoteData[year - startYear] = new QuoteData(stockFund, intlFund, bondFund, year);
+                await FetchQuote(apiKey, client, "vti");
+                await FetchQuote(apiKey, client, "vtsax");
+                await FetchQuote(apiKey, client, "msft");
             }
+        }
 
-            for (int stock = 100; stock >= 0; stock -= 5)
+        private static async Task FetchQuote(string apiKey, HttpClient client, string symbol)
+        {
+            Console.Write($"Fetching [{symbol}] {DateTime.Now.ToLongTimeString()}:  ");
+
+            string QUERY_URL = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol="+symbol+"&apikey=" + apiKey;
+            Uri queryUri = new Uri(QUERY_URL);
+            
+            string result = await client.GetStringAsync(queryUri);
+
+            var json_root = JsonDocument.Parse(result).RootElement;
+            JsonElement metadata, lastRefreshed;
+            bool foundMetadata = json_root.TryGetProperty("Meta Data", out metadata);
+            if (foundMetadata)
             {
-                for (int intl = 0; intl <= 50; intl += 10)
+                bool foundLastRefreshed = metadata.TryGetProperty("3. Last Refreshed", out lastRefreshed);
+                if (foundLastRefreshed)
                 {
-                    int bond = 100 - stock;
+                    string lastRefreshedString = lastRefreshed.GetString();
+                    Console.Write(lastRefreshedString);
 
-                    StringBuilder summarySB = new StringBuilder();
-                    summarySB.AppendLine($"Performance for {stock}/{bond} ({intl}% intl)-{stockFund.ToUpper()}-{bondFund.ToUpper()}-{intlFund.ToUpper()}");
-                    summarySB.AppendLine();
-                    summarySB.AppendLine("      Year % |     Month % |          Day %");
-                    summarySB.AppendLine();
-                    for (int year = 2021; year >= startYear; year--)
+                    string fileName = symbol + "-" + lastRefreshedString.Replace(':','-') + ".json";
+                    if (!File.Exists(fileName))
                     {
-                        summarySB.AppendLine("-------------------------------------------");
-                        summarySB.AppendLine($"{year}:");
-                        double ytd = quoteData[year - startYear].CalculatePerf(stock, intl, 100 - stock, year, summarySB);
-                        summarySB.AppendLine("===========================================");
-                        summarySB.AppendLine($"{year}{ytd,7:0.00}%");
-                        summarySB.AppendLine();
+                        File.WriteAllText(fileName, result);
                     }
 
-                    string outputFile = $"perf\\{stock}-{bond}\\{stock}-{bond} ({intl}% intl)-{stockFund.ToUpper()}-{bondFund.ToUpper()}-{intlFund.ToUpper()}.txt";
-                    await File.WriteAllTextAsync(outputFile, summarySB.ToString());
-                    Console.Write(".");
+                    DateTime lastRefreshedDateTime = DateTime.Parse(lastRefreshedString);
+                    JsonElement dayData = json_root.GetProperty("Time Series (Daily)").GetProperty(lastRefreshedDateTime.ToString("yyyy-MM-dd"));
+                    string close = dayData.GetProperty("4. close").GetString();
+                    string dividend = dayData.GetProperty("7. dividend amount").GetString();
+                    Console.WriteLine($"  Price: {close} {(dividend != "0.0000" ? "Dividend: " + dividend : "")}");
                 }
             }
-
-            Console.WriteLine();
         }
     }
 }

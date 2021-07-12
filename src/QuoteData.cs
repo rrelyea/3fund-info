@@ -3,31 +3,26 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace daily
 {
     public class QuoteData
     {
-        public string Stock { get; private set; }
-        public string Intl { get; private set; }
-        public string Bond { get; private set; }
+        public ThreeFund ThreeFund { get; private set; }
         public int Year { get; private set; }
 
         Dictionary<string, string> stockPrices;
         Dictionary<string, string> intlPrices;
         Dictionary<string, string> bondPrices;
 
-        public QuoteData(string stock, string intl, string bond, int year)
+        public QuoteData(ThreeFund threeFund, int year)
         {
-            Stock = stock;
-            Intl = intl;
-            Bond = bond;
+            ThreeFund = threeFund;
             Year = year;
 
-            stockPrices = LoadData($"prices\\{stock}\\{stock}-{year}.csv");
-            intlPrices = LoadData($"prices\\{intl}\\{intl}-{year}.csv");
-            bondPrices = LoadData($"prices\\{bond}\\{bond}-{year}.csv");
+            stockPrices = LoadData($"prices\\{ThreeFund.StockFund.Symbol}\\{ThreeFund.StockFund.Symbol}-{year}.csv");
+            intlPrices = LoadData($"prices\\{ThreeFund.InternationStockFund.Symbol}\\{ThreeFund.InternationStockFund.Symbol}-{year}.csv");
+            bondPrices = LoadData($"prices\\{ThreeFund.BondFund.Symbol}\\{ThreeFund.BondFund.Symbol}-{year}.csv");
         }
 
         internal double CalculatePerf(double stock, double intl, double bond, int year, StringBuilder summarySB)
