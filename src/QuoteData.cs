@@ -11,18 +11,10 @@ namespace daily
         public ThreeFund ThreeFund { get; private set; }
         public int Year { get; private set; }
 
-        Dictionary<string, string> stockPrices;
-        Dictionary<string, string> intlPrices;
-        Dictionary<string, string> bondPrices;
-
         public QuoteData(ThreeFund threeFund, int year)
         {
             ThreeFund = threeFund;
             Year = year;
-
-            stockPrices = LoadData($"prices\\{ThreeFund.StockFund.Symbol}\\{ThreeFund.StockFund.Symbol}-{year}.csv");
-            intlPrices = LoadData($"prices\\{ThreeFund.InternationStockFund.Symbol}\\{ThreeFund.InternationStockFund.Symbol}-{year}.csv");
-            bondPrices = LoadData($"prices\\{ThreeFund.BondFund.Symbol}\\{ThreeFund.BondFund.Symbol}-{year}.csv");
         }
 
         internal double CalculatePerf(double stock, double intl, double bond, int year, StringBuilder summarySB)
@@ -32,7 +24,6 @@ namespace daily
             double stockPct = stock / 100.0 * (100 - intl) / 100.0;
 
             double finalYtd = double.NaN;
-            int index = 0;
             double[] stockClose = new double[13];
             double[] intlClose = new double[13];
             double[] bondClose = new double[13];
@@ -47,33 +38,32 @@ namespace daily
             int month = 0;
             StringBuilder daysSection = new StringBuilder();
             DateTime lastDate = DateTime.MinValue;
-
-            foreach (var date in stockPrices.Keys)
+            bool storedOpenPrice = false;
+            foreach (var date in ThreeFund.StockFund.FundValues[year].Keys)
             {
-                var currentDate = DateTime.Parse(date);
-                month = currentDate.Month;
-                if (index == 0)
+                month = date.Month;
+                if (!storedOpenPrice)
                 {
-                    stockClose[index] = double.Parse(stockPrices[date]);
-                    intlClose[index] = double.Parse(intlPrices[date]);
-                    bondClose[index] = double.Parse(bondPrices[date]);
-                    lastStockPrice = stockClose[index];
-                    lastIntlPrice = intlClose[index];
-                    lastBondPrice = bondClose[index];
+                    stockClose[0] = ThreeFund.StockFund.FundValues[year][date].Value;
+                    intlClose[0] = ThreeFund.InternationStockFund.FundValues[year][date].Value;
+                    bondClose[0] = ThreeFund.BondFund.FundValues[year][date].Value;
+                    lastStockPrice = stockClose[0];
+                    lastIntlPrice = intlClose[0];
+                    lastBondPrice = bondClose[0];
                     sb.AppendLine("Date, YTD, MTD, Day");
+                    storedOpenPrice = true;
                 }
 
-                index = month;
-                if (year == currentDate.Year)
+                if (year == date.Year)
                 {
                     if (lastMonth < month && month > 1)
                     {
                         summarySB.AppendLine($"              {lastDate.ToString("MMM", CultureInfo.InvariantCulture)} {lastMTD,7: ##.00;-##.00}%");
                     }
 
-                    var stockPerf = calculateDaysPerf(stockClose, stockPrices, index, lastStockPrice, date);
-                    var intlPerf = calculateDaysPerf(intlClose, intlPrices, index, lastIntlPrice, date);
-                    var bondPerf = calculateDaysPerf(bondClose, bondPrices, index, lastBondPrice, date);
+                    var stockPerf = calculateDaysPerf(stockClose, ThreeFund.StockFund.FundValues[year], month, lastStockPrice, date);
+                    var intlPerf = calculateDaysPerf(intlClose, ThreeFund.InternationStockFund.FundValues[year], month, lastIntlPrice, date);
+                    var bondPerf = calculateDaysPerf(bondClose, ThreeFund.BondFund.FundValues[year], month, lastBondPrice, date);
 
                     lastStockPrice = stockPerf.Item4;
                     lastIntlPrice = intlPerf.Item4;
@@ -85,7 +75,7 @@ namespace daily
                     sb.AppendLine($"{date}, {ytd:0.##}%, {mtd:0.##}%, {day:0.##}%");
                     if (year == DateTime.Now.Year && month == DateTime.Now.Month)
                     {
-                        daysSection.AppendLine($"                            {currentDate.ToString("MMM", CultureInfo.InvariantCulture)} {currentDate.Day:00} {day,7: ##.00;-##.00}%");
+                        daysSection.AppendLine($"                            {date.ToString("MMM", CultureInfo.InvariantCulture)} {date.Day:00} {day,7: ##.00;-##.00}%");
                     }
 
                     lastMTD = mtd;
@@ -93,7 +83,7 @@ namespace daily
                     finalYtd = ytd;
                 }
 
-                lastDate = currentDate;
+                lastDate = date;
             }
 
             summarySB.AppendLine($"              {lastDate.ToString("MMM", CultureInfo.InvariantCulture)} {lastMTD,7: ##.00;-##.00}%");
@@ -101,7 +91,6 @@ namespace daily
             {
                 summarySB.Append(daysSection.ToString());
             }
-
 
             bool writeYearlyPerfFiles = false;
             if (writeYearlyPerfFiles)
@@ -119,33 +108,13 @@ namespace daily
             return finalYtd;
         }
 
-        private static Tuple<double, double, double, double> calculateDaysPerf(double[] monthlyCloses, Dictionary<string, string> dailyPrices, int index, double lastPrice, string date)
+        private static Tuple<double, double, double, double> calculateDaysPerf(double[] monthlyCloses, Dictionary<DateTime, FundValue> dailyPrices, int index, double lastPrice, DateTime date)
         {
-            monthlyCloses[index] = double.Parse(dailyPrices[date]);
+            monthlyCloses[index] = dailyPrices[date].Value;
             double ytd = (monthlyCloses[index] - monthlyCloses[0]) / monthlyCloses[0] * 100.0;
             double mtd = (monthlyCloses[index] - monthlyCloses[index - 1]) / monthlyCloses[index - 1] * 100.0;
             double day = (monthlyCloses[index] - lastPrice) / lastPrice * 100.0;
             return new Tuple<double, double, double, double>(ytd, mtd, day, monthlyCloses[index]);
         }
-        private Dictionary<string, string> LoadData(string fileName)
-        {
-            Dictionary<string, string> data = new Dictionary<string, string>();
-            bool skipNextLine = true;
-
-            foreach (var line in File.ReadAllLines(fileName))
-            {
-                if (skipNextLine)
-                {
-                    skipNextLine = false;
-                    continue;
-                }
-
-                var chunks = line.Split(',');
-                data.Add(chunks[0], chunks[1].Substring(1));
-            }
-
-            return data;
-        }
-
     }
 }

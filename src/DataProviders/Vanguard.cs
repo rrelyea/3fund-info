@@ -1,49 +1,30 @@
 ﻿using HtmlAgilityPack;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace daily
+namespace daily.DataProviders
 {
-    public static class QuoteFetcher
+    public static class Vanguard
     {
-        public static async Task WritePricesToCsvPerYear(int fundId, Fund fund, int beginYear)
+        public static void LoadPricesIntoFund(int fundId, Fund fund, int beginYear)
         {
-            bool recreateAll = false;
-
             Console.Write(fund.Symbol);
             for (int year = beginYear; year <= DateTime.Now.Year; year++)
             {
-                FileInfo filePath = new FileInfo(Path.Combine(System.Environment.CurrentDirectory, "prices", fund.Symbol, $"{fund.Symbol}-{year}.csv"));
+                Console.Write($" {year}");
+                string beginDate = Uri.EscapeUriString(new DateTime(year - 1, 12, 28).ToShortDateString());
+                string endDate = Uri.EscapeUriString(new DateTime(year, 12, 31).ToShortDateString());
 
-                if (recreateAll || !filePath.Exists || year == DateTime.Now.Year)
-                {
-                    string beginDate = Uri.EscapeUriString(new DateTime(year - 1, 12, 28).ToShortDateString());
-                    string endDate = Uri.EscapeUriString(new DateTime(year, 12, 31).ToShortDateString());
+                string fundType = fundId < 900 ? "VanguardFunds" : "ExchangeTradedShares";
+                string url = $"https://personal.vanguard.com/us/funds/tools/pricehistorysearch?radio=1&results=get&FundType={fundType}&FundId={fundId}&Sc=1&radiobutton2=1&beginDate={beginDate}&endDate={endDate}&year=#res";
 
-                    string fundType = fundId < 900 ? "VanguardFunds" : "ExchangeTradedShares";
-                    string url = $"https://personal.vanguard.com/us/funds/tools/pricehistorysearch?radio=1&results=get&FundType={fundType}&FundId={fundId}&Sc=1&radiobutton2=1&beginDate={beginDate}&endDate={endDate}&year=#res";
-
-                    var response = CallUrl(url).Result;
-                    StringBuilder sb = ParseHtml(response, year);
-
-                    if (sb != null)
-                    {
-                        if (!filePath.Directory.Exists)
-                        {
-                            filePath.Directory.Create();
-                        }
-
-                        await File.WriteAllTextAsync(filePath.FullName, sb.ToString());
-
-                        Console.Write($" {year}");
-                    }
-                }
+                var response = CallUrl(url).Result;
+                ParseHtml(fund.FundValues, response, year);
             }
 
             Console.WriteLine();
@@ -58,8 +39,10 @@ namespace daily
             return response;
         }
 
-        private static StringBuilder ParseHtml(string html, int year)
+        private static void ParseHtml(Dictionary<int, FundValues> yearlyValues, string html, int year)
         {
+            FundValues fundValues = new FundValues();
+            yearlyValues[year] = fundValues;
             var htmlDoc = new HtmlDocument();
             htmlDoc.LoadHtml(html);
             var tables = htmlDoc.DocumentNode.Descendants("table");
@@ -94,7 +77,6 @@ namespace daily
                         {
                             if (c0 == "Date")
                             {
-                                sb.AppendLine($"{c0},{c1}");
                                 wroteHeader = true;
                             }
                         }
@@ -104,20 +86,19 @@ namespace daily
                             bool okDate = DateTime.TryParse(c0, out date);
                             if (okDate && date.Year == year)
                             {
-                                if (previousNode0 != null && previousNode0 != "Date" && (DateTime.Parse(previousNode0).Year == year - 1) && !wroteLastYearClose)
+                                DateTime previousDate = DateTime.Parse(previousNode0);
+                                if (previousNode0 != null && previousNode0 != "Date" && (previousDate.Year == year - 1) && !wroteLastYearClose)
                                 {
-                                    sb.AppendLine($"{previousNode0},{previousNode1}");
+                                    fundValues.Add(previousDate, new FundValue() { Value = double.Parse(previousNode1.Substring(1)) });
                                     wroteLastYearClose = true;
                                 }
 
-                                sb.AppendLine($"{c0},{c1}");
+                                fundValues.Add(date, new FundValue() { Value = double.Parse(c1.Substring(1))});
                             }
                         }
                     }
                 }
             }
-
-            return sb;
         }
     }
 }

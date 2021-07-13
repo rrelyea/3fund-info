@@ -1,8 +1,7 @@
-﻿using System;
+﻿using daily.DataProviders;
+using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Net.Http;
-using System.Text.Json;
 using System.Threading.Tasks;
 using System.Timers;
 
@@ -29,8 +28,8 @@ namespace daily
                 Dictionary<string, ThreeFund> threeFunds = InitializeThreeFunds();
 
                 Console.WriteLine("Collecting prices:");
-                await threeFunds["Vanguard ETFs"].WritePricesToCsvPerYear(2012);
-                await threeFunds["Vanguard Mutual Funds"].WritePricesToCsvPerYear(2011);
+                threeFunds["Vanguard ETFs"].LoadPricesIntoFunds(2012);
+                threeFunds["Vanguard Mutual Funds"].LoadPricesIntoFunds(2011);
 
                 Console.WriteLine("Calculating perf:");
                 await threeFunds["Vanguard ETFs"].OutputThreeFundPerfSummary(2012);
@@ -53,48 +52,11 @@ namespace daily
         {
             timer.Interval = 5 * 60 * 1000;
 
-            string apiKey = File.ReadAllText("c:\\temp\\alphaVantageApiKey.txt");
-
             using (HttpClient client = new HttpClient())
             {
-                await FetchQuote(apiKey, client, "vti");
-                await FetchQuote(apiKey, client, "vtsax");
-                await FetchQuote(apiKey, client, "msft");
-            }
-        }
-
-        private static async Task FetchQuote(string apiKey, HttpClient client, string symbol)
-        {
-            Console.Write($"Fetching [{symbol}] {DateTime.Now.ToLongTimeString()}:  ");
-
-            string QUERY_URL = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol="+symbol+"&apikey=" + apiKey;
-            Uri queryUri = new Uri(QUERY_URL);
-            
-            string result = await client.GetStringAsync(queryUri);
-
-            var json_root = JsonDocument.Parse(result).RootElement;
-            JsonElement metadata, lastRefreshed;
-            bool foundMetadata = json_root.TryGetProperty("Meta Data", out metadata);
-            if (foundMetadata)
-            {
-                bool foundLastRefreshed = metadata.TryGetProperty("3. Last Refreshed", out lastRefreshed);
-                if (foundLastRefreshed)
-                {
-                    string lastRefreshedString = lastRefreshed.GetString();
-                    Console.Write(lastRefreshedString);
-
-                    string fileName = symbol + "-" + lastRefreshedString.Replace(':','-') + ".json";
-                    if (!File.Exists(fileName))
-                    {
-                        File.WriteAllText(fileName, result);
-                    }
-
-                    DateTime lastRefreshedDateTime = DateTime.Parse(lastRefreshedString);
-                    JsonElement dayData = json_root.GetProperty("Time Series (Daily)").GetProperty(lastRefreshedDateTime.ToString("yyyy-MM-dd"));
-                    string close = dayData.GetProperty("4. close").GetString();
-                    string dividend = dayData.GetProperty("7. dividend amount").GetString();
-                    Console.WriteLine($"  Price: {close} {(dividend != "0.0000" ? "Dividend: " + dividend : "")}");
-                }
+                await AlphaVantage.FetchQuote(client, "vti", TimeSeries.Monthly);
+                await AlphaVantage.FetchQuote(client, "vxus", TimeSeries.Monthly);
+                await AlphaVantage.FetchQuote(client, "bnd", TimeSeries.Monthly);
             }
         }
     }

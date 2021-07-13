@@ -1,4 +1,5 @@
-﻿using System;
+﻿using daily.DataProviders;
+using System;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,11 +24,11 @@ namespace daily
         public FundStyle FundStyle { get; private set; }
         public string FundSource { get; private set; }
 
-        public async Task WritePricesToCsvPerYear(int beginYear)
+        public void LoadPricesIntoFunds(int beginYear)
         {
-            await QuoteFetcher.WritePricesToCsvPerYear(LookupFundId(StockFund), StockFund, beginYear);
-            await QuoteFetcher.WritePricesToCsvPerYear(LookupFundId(InternationStockFund), InternationStockFund, beginYear);
-            await QuoteFetcher.WritePricesToCsvPerYear(LookupFundId(BondFund), BondFund, beginYear);
+            Vanguard.LoadPricesIntoFund(LookupFundId(StockFund), StockFund, beginYear);
+            Vanguard.LoadPricesIntoFund(LookupFundId(InternationStockFund), InternationStockFund, beginYear);
+            Vanguard.LoadPricesIntoFund(LookupFundId(BondFund), BondFund, beginYear);
         }
 
         public async Task OutputThreeFundPerfSummary(int startYear)
