@@ -72,8 +72,15 @@ namespace daily
                     if (year == DateTime.Now.Year && month == DateTime.Now.Month)
                     {
                         bool interim = stockPerf.Item5 || intlPerf.Item5 || bondPerf.Item5;
-                        string interimStr = interim ? $" ** {date.AddHours(3).TimeOfDay:g} **" : "";
-                        daysSection.AppendLine($"                            {date.ToString("MMM", CultureInfo.InvariantCulture)} {date.Day:00} {day,7: ##.00;-##.00}% {interimStr}");
+                        string interimStr = "";
+                        if (interim)
+                        {
+                            TimeSpan captureTime = date.AddHours(3).TimeOfDay;
+                            TimeSpan timeSpan = new TimeSpan(captureTime.Hours, captureTime.Minutes, 0);
+                            interimStr = $"  ** {timeSpan:g} **";
+                        }
+
+                        daysSection.AppendLine($"                            {date.ToString("MMM", CultureInfo.InvariantCulture)} {date.Day:00} {day,7: ##.00;-##.00}%{interimStr}");
                     }
 
                     lastMTD = mtd;
