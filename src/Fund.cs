@@ -12,14 +12,14 @@ namespace daily
         public string Symbol { get; private set; }
         public string UpperSymbol { get { return Symbol.ToUpper(); } }
 
-        private Dictionary<int, FundValues> _fundValues;
-        public Dictionary<int, FundValues> FundValues
+        private Dictionary<int, YearValues> _fundValues;
+        public Dictionary<int, YearValues> FundValues
         {
             get
             { 
                 if (_fundValues == null)
                 {
-                    _fundValues = new Dictionary<int, FundValues>();
+                    _fundValues = new Dictionary<int, YearValues>();
                 }
 
                 return _fundValues;

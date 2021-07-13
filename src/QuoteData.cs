@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
 using System.Text;
 
 namespace daily
@@ -28,7 +27,6 @@ namespace daily
             double[] intlClose = new double[13];
             double[] bondClose = new double[13];
             stockClose[0] = double.NaN;
-            var sb = new StringBuilder();
 
             double lastStockPrice = double.NaN;
             double lastIntlPrice = double.NaN;
@@ -50,7 +48,6 @@ namespace daily
                     lastStockPrice = stockClose[0];
                     lastIntlPrice = intlClose[0];
                     lastBondPrice = bondClose[0];
-                    sb.AppendLine("Date, YTD, MTD, Day");
                     storedOpenPrice = true;
                 }
 
@@ -72,10 +69,11 @@ namespace daily
                     double ytd = stockPct * stockPerf.Item1 + intlPct * intlPerf.Item1 + bondPct * bondPerf.Item1;
                     double mtd = stockPct * stockPerf.Item2 + intlPct * intlPerf.Item2 + bondPct * bondPerf.Item2;
                     double day = stockPct * stockPerf.Item3 + intlPct * intlPerf.Item3 + bondPct * bondPerf.Item3;
-                    sb.AppendLine($"{date}, {ytd:0.##}%, {mtd:0.##}%, {day:0.##}%");
                     if (year == DateTime.Now.Year && month == DateTime.Now.Month)
                     {
-                        daysSection.AppendLine($"                            {date.ToString("MMM", CultureInfo.InvariantCulture)} {date.Day:00} {day,7: ##.00;-##.00}%");
+                        bool interim = stockPerf.Item5 || intlPerf.Item5 || bondPerf.Item5;
+                        string interimStr = interim ? $" ** {date.AddHours(3).TimeOfDay:g} **" : "";
+                        daysSection.AppendLine($"                            {date.ToString("MMM", CultureInfo.InvariantCulture)} {date.Day:00} {day,7: ##.00;-##.00}% {interimStr}");
                     }
 
                     lastMTD = mtd;
@@ -92,29 +90,16 @@ namespace daily
                 summarySB.Append(daysSection.ToString());
             }
 
-            bool writeYearlyPerfFiles = false;
-            if (writeYearlyPerfFiles)
-            {
-                string outputFile = $"perf\\{stock}-{bond}\\{stock}-{bond} ({intl}% intl)-{Year}.csv";
-                var outFile = new FileInfo(outputFile);
-                if (!outFile.Directory.Exists)
-                {
-                    outFile.Directory.Create();
-                }
-
-                File.WriteAllText(outputFile, sb.ToString());
-            }
-
             return finalYtd;
         }
 
-        private static Tuple<double, double, double, double> calculateDaysPerf(double[] monthlyCloses, Dictionary<DateTime, FundValue> dailyPrices, int index, double lastPrice, DateTime date)
+        private static Tuple<double, double, double, double, bool> calculateDaysPerf(double[] monthlyCloses, Dictionary<DateTime, FundValue> dailyPrices, int index, double lastPrice, DateTime date)
         {
             monthlyCloses[index] = dailyPrices[date].Value;
             double ytd = (monthlyCloses[index] - monthlyCloses[0]) / monthlyCloses[0] * 100.0;
             double mtd = (monthlyCloses[index] - monthlyCloses[index - 1]) / monthlyCloses[index - 1] * 100.0;
             double day = (monthlyCloses[index] - lastPrice) / lastPrice * 100.0;
-            return new Tuple<double, double, double, double>(ytd, mtd, day, monthlyCloses[index]);
+            return new Tuple<double, double, double, double, bool>(ytd, mtd, day, monthlyCloses[index], dailyPrices[date].Interim);
         }
     }
 }

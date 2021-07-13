@@ -2,18 +2,17 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace daily.DataProviders
 {
     public static class Vanguard
     {
-        public static void LoadPricesIntoFund(int fundId, Fund fund, int beginYear)
+        public static void LoadPricesIntoFund(Fund fund, int beginYear)
         {
             Console.Write(fund.Symbol);
+
+            int fundId = LookupFundId(fund);
             for (int year = beginYear; year <= DateTime.Now.Year; year++)
             {
                 Console.Write($" {year}");
@@ -23,25 +22,16 @@ namespace daily.DataProviders
                 string fundType = fundId < 900 ? "VanguardFunds" : "ExchangeTradedShares";
                 string url = $"https://personal.vanguard.com/us/funds/tools/pricehistorysearch?radio=1&results=get&FundType={fundType}&FundId={fundId}&Sc=1&radiobutton2=1&beginDate={beginDate}&endDate={endDate}&year=#res";
 
-                var response = CallUrl(url).Result;
+                var response = HttpUtility.CallUrl(url).Result;
                 ParseHtml(fund.FundValues, response, year);
             }
 
             Console.WriteLine();
         }
 
-        private static async Task<string> CallUrl(string fullUrl)
+        private static void ParseHtml(Dictionary<int, YearValues> yearlyValues, string html, int year)
         {
-            HttpClient client = new HttpClient();
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls13;
-            client.DefaultRequestHeaders.Accept.Clear();
-            string response = await client.GetStringAsync(fullUrl);
-            return response;
-        }
-
-        private static void ParseHtml(Dictionary<int, FundValues> yearlyValues, string html, int year)
-        {
-            FundValues fundValues = new FundValues();
+            YearValues fundValues = new YearValues();
             yearlyValues[year] = fundValues;
             var htmlDoc = new HtmlDocument();
             htmlDoc.LoadHtml(html);
@@ -98,6 +88,20 @@ namespace daily.DataProviders
                         }
                     }
                 }
+            }
+        }
+
+        private static int LookupFundId(Fund fund)
+        {
+            switch (fund.Symbol)
+            {
+                case "vti": return 970;
+                case "vxus": return 3369;
+                case "bnd": return 928;
+                case "vtsax": return 585;
+                case "vtiax": return 569;
+                case "vbtlx": return 584;
+                default: return -1;
             }
         }
     }

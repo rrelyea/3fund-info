@@ -26,9 +26,17 @@ namespace daily
 
         public void LoadPricesIntoFunds(int beginYear)
         {
-            Vanguard.LoadPricesIntoFund(LookupFundId(StockFund), StockFund, beginYear);
-            Vanguard.LoadPricesIntoFund(LookupFundId(InternationStockFund), InternationStockFund, beginYear);
-            Vanguard.LoadPricesIntoFund(LookupFundId(BondFund), BondFund, beginYear);
+            Vanguard.LoadPricesIntoFund(StockFund, beginYear);
+            Vanguard.LoadPricesIntoFund(InternationStockFund, beginYear);
+            Vanguard.LoadPricesIntoFund(BondFund, beginYear);
+
+            if (FundStyle == FundStyle.ETF)
+            {
+                DateTime now = DateTime.Now;
+                MartketWatch.LoadRealTimePriceIntoFund(StockFund, now);
+                MartketWatch.LoadRealTimePriceIntoFund(InternationStockFund, now);
+                MartketWatch.LoadRealTimePriceIntoFund(BondFund, now);
+            }
         }
 
         public async Task OutputThreeFundPerfSummary(int startYear)
@@ -73,20 +81,6 @@ namespace daily
             }
 
             Console.WriteLine();
-        }
-
-        private static int LookupFundId(Fund fund)
-        {
-            switch (fund.Symbol)
-            {
-                case "vti": return 970;
-                case "vxus": return 3369;
-                case "bnd": return 928;
-                case "vtsax": return 585;
-                case "vtiax": return 569;
-                case "vbtlx": return 584;
-                default: return -1;
-            }
         }
     }
 }
