@@ -26,7 +26,7 @@ namespace daily.DataProviders
                 ParseHtml(fund.FundValues, response, year);
             }
 
-            Console.WriteLine();
+            Console.WriteLine($" Last: {fund.FundValues[DateTime.Now.Year].Keys.Last<DateTime>().ToShortDateString()}");
         }
 
         private static void ParseHtml(Dictionary<int, YearValues> yearlyValues, string html, int year)
