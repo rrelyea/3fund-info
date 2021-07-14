@@ -1,4 +1,4 @@
-﻿namespace daily
+﻿namespace daily.DataProviders
 {
     public enum TimeSeries
     {
