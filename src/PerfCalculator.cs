@@ -5,18 +5,19 @@ using System.Text;
 
 namespace daily
 {
-    public class QuoteData
+    public class PerfCalculator
+
     {
         public ThreeFund ThreeFund { get; private set; }
         public int Year { get; private set; }
 
-        public QuoteData(ThreeFund threeFund, int year)
+        public PerfCalculator(ThreeFund threeFund, int year)
         {
             ThreeFund = threeFund;
             Year = year;
         }
 
-        internal double CalculatePerf(double stock, double intl, double bond, int year, StringBuilder summarySB)
+        internal double OutputPerfForOneYear(double stock, double intl, double bond, int year, StringBuilder summarySB)
         {
             double bondPct = bond / 100.0;
             double intlPct = stock / 100.0 * intl / 100.0;
@@ -37,6 +38,9 @@ namespace daily
             StringBuilder daysSection = new StringBuilder();
             DateTime lastDate = DateTime.MinValue;
             bool storedOpenPrice = false;
+            summarySB.AppendLine("-------------------------------------------");
+            summarySB.AppendLine($"{year}:");
+
             foreach (var date in ThreeFund.StockFund.FundValues[year].Keys)
             {
                 month = date.Month;
@@ -76,8 +80,7 @@ namespace daily
                         if (interim)
                         {
                             TimeSpan captureTime = date.AddHours(3).TimeOfDay;
-                            TimeSpan timeSpan = new TimeSpan(captureTime.Hours, captureTime.Minutes, 0);
-                            interimStr = $" *{timeSpan:g}*";
+                            interimStr = $" *{captureTime.Hours}:{captureTime.Minutes} ET";
                         }
 
                         daysSection.AppendLine($"                            {date.ToString("MMM", CultureInfo.InvariantCulture)} {date.Day:00} {day,7: ##.00;-##.00}%{interimStr}");
@@ -96,6 +99,8 @@ namespace daily
             {
                 summarySB.Append(daysSection.ToString());
             }
+
+            summarySB.AppendLine("===========================================");
 
             return finalYtd;
         }

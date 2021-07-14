@@ -41,11 +41,11 @@ namespace daily
 
         public async Task OutputThreeFundPerfSummary(int startYear)
         {
-            QuoteData[] quoteData = new QuoteData[2021 - startYear + 1];
+            PerfCalculator[] quoteData = new PerfCalculator[2021 - startYear + 1];
 
             for (int year = startYear; year <= 2021; year++)
             {
-                quoteData[year - startYear] = new QuoteData(this, year);
+                quoteData[year - startYear] = new PerfCalculator(this, year);
             }
 
             for (int stock = 100; stock >= 0; stock -= 5)
@@ -61,10 +61,7 @@ namespace daily
                     summarySB.AppendLine();
                     for (int year = 2021; year >= startYear; year--)
                     {
-                        summarySB.AppendLine("-------------------------------------------");
-                        summarySB.AppendLine($"{year}:");
-                        double ytd = quoteData[year - startYear].CalculatePerf(stock, intl, 100 - stock, year, summarySB);
-                        summarySB.AppendLine("===========================================");
+                        double ytd = quoteData[year - startYear].OutputPerfForOneYear(stock, intl, 100 - stock, year, summarySB);
                         summarySB.AppendLine($"{year}{ytd,7:0.00}%");
                         summarySB.AppendLine();
                     }
