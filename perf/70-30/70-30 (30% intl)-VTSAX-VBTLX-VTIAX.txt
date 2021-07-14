@@ -10,7 +10,7 @@ Performance for 70/30 (30% intl)-VTSAX-VBTLX-VTIAX
               Apr    3.34%
               May     .90%
               Jun    1.02%
-              Jul     .52%
+              Jul     .60%
                             Jul 01     .23%
                             Jul 02     .40%
                             Jul 06    -.18%
@@ -19,8 +19,9 @@ Performance for 70/30 (30% intl)-VTSAX-VBTLX-VTIAX
                             Jul 09     .82%
                             Jul 12     .18%
                             Jul 13    -.42%
+                            Jul 14     .08% *18:04 ET
 ===========================================
-2021   8.70%
+2021   8.77%
 
 -------------------------------------------
 2020:

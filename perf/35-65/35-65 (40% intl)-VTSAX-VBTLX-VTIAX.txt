@@ -10,7 +10,7 @@ Performance for 35/65 (40% intl)-VTSAX-VBTLX-VTIAX
               Apr    1.99%
               May     .59%
               Jun     .70%
-              Jul     .31%
+              Jul     .54%
                             Jul 01     .10%
                             Jul 02     .28%
                             Jul 06     .07%
@@ -19,8 +19,9 @@ Performance for 35/65 (40% intl)-VTSAX-VBTLX-VTIAX
                             Jul 09     .20%
                             Jul 12     .09%
                             Jul 13    -.33%
+                            Jul 14     .23% *18:04 ET
 ===========================================
-2021   2.85%
+2021   3.07%
 
 -------------------------------------------
 2020:

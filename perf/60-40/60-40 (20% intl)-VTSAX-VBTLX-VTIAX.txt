@@ -10,7 +10,7 @@ Performance for 60/40 (20% intl)-VTSAX-VBTLX-VTIAX
               Apr    3.12%
               May     .62%
               Jun    1.17%
-              Jul     .55%
+              Jul     .64%
                             Jul 01     .23%
                             Jul 02     .38%
                             Jul 06    -.07%
@@ -19,8 +19,9 @@ Performance for 60/40 (20% intl)-VTSAX-VBTLX-VTIAX
                             Jul 09     .62%
                             Jul 12     .16%
                             Jul 13    -.41%
+                            Jul 14     .10% *18:04 ET
 ===========================================
-2021   7.54%
+2021   7.63%
 
 -------------------------------------------
 2020:

@@ -10,7 +10,7 @@ Performance for 5/95 (20% intl)-VTSAX-VBTLX-VTIAX
               Apr    1.00%
               May     .13%
               Jun     .67%
-              Jul     .21%
+              Jul     .54%
                             Jul 01     .02%
                             Jul 02     .19%
                             Jul 06     .32%
@@ -19,8 +19,9 @@ Performance for 5/95 (20% intl)-VTSAX-VBTLX-VTIAX
                             Jul 09    -.35%
                             Jul 12     .01%
                             Jul 13    -.28%
+                            Jul 14     .33% *18:04 ET
 ===========================================
-2021  -1.66%
+2021  -1.34%
 
 -------------------------------------------
 2020:
