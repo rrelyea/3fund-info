@@ -28,8 +28,8 @@ namespace daily
                 Dictionary<string, ThreeFund> threeFunds = InitializeThreeFunds();
                 MarketTime marketTime = GetMarketTime();
                 
-                threeFunds["Vanguard ETFs"].CreatePerfSummary(2012, marketTime);
-                threeFunds["Vanguard Mutual Funds"].CreatePerfSummary(2011, marketTime);
+                await threeFunds ["Vanguard ETFs"].CreatePerfSummary(2012, marketTime);
+                await threeFunds["Vanguard Mutual Funds"].CreatePerfSummary(2011, marketTime);
             }
         }
 

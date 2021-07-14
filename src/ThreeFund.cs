@@ -24,7 +24,7 @@ namespace daily
         public FundStyle FundStyle { get; private set; }
         public string FundSource { get; private set; }
 
-        public void CreatePerfSummary(int startYear, MarketTime marketTime)
+        public async Task CreatePerfSummary(int startYear, MarketTime marketTime)
         {
             if (marketTime != MarketTime.None)
             {
@@ -45,11 +45,11 @@ namespace daily
             if (marketTime != MarketTime.None)
             {
                 Console.Write("Calculating perf:");
-                OutputThreeFundPerfSummary(startYear);
+                await OutputThreeFundPerfSummary(startYear);
             }
         }
 
-        public void OutputThreeFundPerfSummary(int startYear)
+        public async Task OutputThreeFundPerfSummary(int startYear)
         {
             PerfCalculator[] quoteData = new PerfCalculator[2021 - startYear + 1];
 
@@ -82,7 +82,7 @@ namespace daily
                         outputFile.Directory.Create();
                     }
 
-                    File.WriteAllTextAsync(outputFile.FullName, summarySB.ToString());
+                    await File.WriteAllTextAsync(outputFile.FullName, summarySB.ToString());
                     Console.Write(".");
                 }
             }
