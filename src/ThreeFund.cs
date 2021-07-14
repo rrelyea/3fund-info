@@ -28,6 +28,7 @@ namespace daily
         {
             if (marketTime != MarketTime.None)
             {
+                Console.WriteLine();
                 Console.WriteLine("Collecting prices:");
                 Vanguard.LoadPricesIntoFund(StockFund, startYear);
                 Vanguard.LoadPricesIntoFund(InternationStockFund, startYear);
@@ -46,6 +47,7 @@ namespace daily
             {
                 Console.Write("Calculating perf:");
                 await OutputThreeFundPerfSummary(startYear);
+                Console.WriteLine();
             }
         }
 
