@@ -80,7 +80,7 @@ namespace daily
                         if (interim)
                         {
                             TimeSpan captureTime = date.AddHours(3).TimeOfDay;
-                            interimStr = $" *{captureTime.Hours}:{captureTime.Minutes} ET";
+                            interimStr = $" *{captureTime.Hours}:{captureTime.Minutes:00} ET";
                         }
 
                         daysSection.AppendLine($"                            {date.ToString("MMM", CultureInfo.InvariantCulture)} {date.Day:00} {day,7: ##.00;-##.00}%{interimStr}");
