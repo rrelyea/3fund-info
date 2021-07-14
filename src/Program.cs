@@ -26,15 +26,33 @@ namespace daily
             else
             {
                 Dictionary<string, ThreeFund> threeFunds = InitializeThreeFunds();
+                MarketTime marketTime = GetMarketTime();
+                
+                threeFunds["Vanguard ETFs"].CreatePerfSummary(2012, marketTime);
+                threeFunds["Vanguard Mutual Funds"].CreatePerfSummary(2011, marketTime);
+            }
+        }
 
-                Console.WriteLine("Collecting prices:");
-                threeFunds["Vanguard ETFs"].LoadPricesIntoFunds(2012);
-                threeFunds["Vanguard Mutual Funds"].LoadPricesIntoFunds(2011);
+        private static MarketTime GetMarketTime()
+        {
+            DateTime now = DateTime.UtcNow;
+            double time = (now.Hour - 4.0) + now.Minute / 60.0;
 
-                Console.WriteLine("Calculating perf:");
-                await threeFunds["Vanguard ETFs"].OutputThreeFundPerfSummary(2012);
-                await threeFunds["Vanguard Mutual Funds"].OutputThreeFundPerfSummary(2011);
-
+            if (time >= 9.5 && time < 16.1)
+            {
+                return MarketTime.Open;
+            }
+            else if (time > 18.0 && time < 18.25)
+            {
+                return MarketTime.MutualFundPricesPublished;
+            }
+            else if (time > 18.75 && time < 19.5)
+            {
+                return MarketTime.VanguardHistoricalPricesUpdated;
+            }
+            else
+            {
+                return MarketTime.None;
             }
         }
 

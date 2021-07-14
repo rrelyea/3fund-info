@@ -24,22 +24,32 @@ namespace daily
         public FundStyle FundStyle { get; private set; }
         public string FundSource { get; private set; }
 
-        public void LoadPricesIntoFunds(int beginYear)
+        public void CreatePerfSummary(int startYear, MarketTime marketTime)
         {
-            Vanguard.LoadPricesIntoFund(StockFund, beginYear);
-            Vanguard.LoadPricesIntoFund(InternationStockFund, beginYear);
-            Vanguard.LoadPricesIntoFund(BondFund, beginYear);
+            if (marketTime != MarketTime.None)
+            {
+                Console.WriteLine("Collecting prices:");
+                Vanguard.LoadPricesIntoFund(StockFund, startYear);
+                Vanguard.LoadPricesIntoFund(InternationStockFund, startYear);
+                Vanguard.LoadPricesIntoFund(BondFund, startYear);
+            }
 
-            if (FundStyle == FundStyle.ETF)
+            if ((marketTime == MarketTime.Open && FundStyle == FundStyle.ETF) || (marketTime == MarketTime.MutualFundPricesPublished && FundStyle == FundStyle.MutualFund))
             {
                 DateTime now = DateTime.Now;
                 MartketWatch.LoadRealTimePriceIntoFund(StockFund, now);
                 MartketWatch.LoadRealTimePriceIntoFund(InternationStockFund, now);
                 MartketWatch.LoadRealTimePriceIntoFund(BondFund, now);
             }
+
+            if (marketTime != MarketTime.None)
+            {
+                Console.Write("Calculating perf:");
+                OutputThreeFundPerfSummary(startYear);
+            }
         }
 
-        public async Task OutputThreeFundPerfSummary(int startYear)
+        public void OutputThreeFundPerfSummary(int startYear)
         {
             PerfCalculator[] quoteData = new PerfCalculator[2021 - startYear + 1];
 
@@ -72,7 +82,7 @@ namespace daily
                         outputFile.Directory.Create();
                     }
 
-                    await File.WriteAllTextAsync(outputFile.FullName, summarySB.ToString());
+                    File.WriteAllTextAsync(outputFile.FullName, summarySB.ToString());
                     Console.Write(".");
                 }
             }
