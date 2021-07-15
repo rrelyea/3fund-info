@@ -10,7 +10,7 @@ Performance for 25/75 (40% intl)-VTSAX-VBTLX-VTIAX
               Apr    1.66%          .01%
               May     .45%          .01%
               Jun     .68%          .09%
-              Jul     .56%          .00%
+              Jul     .54%          .00%
                                            Jul 01     .07%
                                            Jul 02     .25%
                                            Jul 06     .15%
@@ -20,7 +20,6 @@ Performance for 25/75 (40% intl)-VTSAX-VBTLX-VTIAX
                                            Jul 12     .07%
                                            Jul 13    -.31%
                                            Jul 14     .27%
-                                           Jul 15     .02% *18:05 ET
 ===========================================
 2021 YTD             1.58%         0.20%
 
