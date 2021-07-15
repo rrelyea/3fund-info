@@ -73,8 +73,9 @@ namespace daily
                     summarySB.AppendLine();
                     for (int year = 2021; year >= startYear; year--)
                     {
+                        string ytdStr = year == DateTime.Now.Year ? "YTD" : "   ";
                         var ytd = quoteData[year - startYear].OutputPerfForOneYear(stock, intl, 100 - stock, year, summarySB);
-                        summarySB.AppendLine($"{year} YTD {ytd.Item1,16:0.00}%  {ytd.Item2,11:0.00}%");
+                        summarySB.AppendLine($"{year} {ytdStr} {ytd.Item1,16:0.00}%  {ytd.Item2,11:0.00}%");
                         summarySB.AppendLine();
                     }
 
