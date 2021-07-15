@@ -29,10 +29,9 @@ namespace daily
             if (marketTime != MarketTime.None)
             {
                 Console.WriteLine();
-                Console.WriteLine("Collecting prices:");
-                Vanguard.LoadPricesIntoFund(StockFund, startYear);
-                Vanguard.LoadPricesIntoFund(InternationStockFund, startYear);
-                Vanguard.LoadPricesIntoFund(BondFund, startYear);
+                await Vanguard.LoadPricesIntoFund(StockFund, startYear, refetchCurrentYear:false);
+                await Vanguard.LoadPricesIntoFund(InternationStockFund, startYear, refetchCurrentYear: false);
+                await Vanguard.LoadPricesIntoFund(BondFund, startYear, refetchCurrentYear: false);
             }
 
             if ((marketTime == MarketTime.Open && FundStyle == FundStyle.ETF) || (marketTime == MarketTime.MutualFundPricesPublished && FundStyle == FundStyle.MutualFund))
@@ -43,11 +42,12 @@ namespace daily
                 MartketWatch.LoadRealTimePriceIntoFund(BondFund, now);
             }
 
-            if (marketTime != MarketTime.None)
+            if ((marketTime == MarketTime.Open && FundStyle == FundStyle.ETF)
+                || (marketTime == MarketTime.MutualFundPricesPublished && FundStyle == FundStyle.MutualFund)
+                || (marketTime == MarketTime.VanguardHistoricalPricesUpdated))
             {
                 Console.Write("Calculating perf:");
                 await OutputThreeFundPerfSummary(startYear);
-                Console.WriteLine();
             }
         }
 
@@ -69,12 +69,12 @@ namespace daily
                     StringBuilder summarySB = new StringBuilder();
                     summarySB.AppendLine($"Performance for {stock}/{bond} ({intl}% intl)-{this.StockFund.UpperSymbol}-{this.BondFund.UpperSymbol}-{this.InternationStockFund.UpperSymbol}");
                     summarySB.AppendLine();
-                    summarySB.AppendLine("      Year % |     Month % |          Day %");
+                    summarySB.AppendLine("      Year % |     Month % | Month Div % | Day %");
                     summarySB.AppendLine();
                     for (int year = 2021; year >= startYear; year--)
                     {
-                        double ytd = quoteData[year - startYear].OutputPerfForOneYear(stock, intl, 100 - stock, year, summarySB);
-                        summarySB.AppendLine($"{year}{ytd,7:0.00}%");
+                        var ytd = quoteData[year - startYear].OutputPerfForOneYear(stock, intl, 100 - stock, year, summarySB);
+                        summarySB.AppendLine($"{year} YTD {ytd.Item1,17:0.00}%  {ytd.Item2,11:0.00}%");
                         summarySB.AppendLine();
                     }
 

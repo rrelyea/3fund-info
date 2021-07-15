@@ -4,24 +4,37 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace daily.DataProviders
 {
     public static class Vanguard
     {
-        public static void LoadPricesIntoFund(Fund fund, int beginYear)
+        public async static Task LoadPricesIntoFund(Fund fund, int beginYear, bool refetchCurrentYear)
         {
-            Console.Write(fund.Symbol);
             int fundId = LookupFundId(fund);
             string fundType = fundId < 900 ? "VanguardFunds" : "ExchangeTradedShares";
+            bool dividendDataFetched = false;
+            JsonElement dataRoot = new JsonElement();
+            Console.Write($"Fetching [{fund.Symbol}]");
+
             for (int year = beginYear; year <= DateTime.Now.Year; year++)
             {
                 FileInfo yearDataFile = new FileInfo($"prices\\{fund.Symbol}\\{fund.Symbol}-{year}.csv");
                 fund.FundValues[year] = new YearValues();
 
                 bool isCurrentYear = DateTime.Now.Year == year;
-                if (!yearDataFile.Exists || isCurrentYear )
+                if (!yearDataFile.Exists || (refetchCurrentYear && isCurrentYear))
                 {
+                    if (dividendDataFetched)
+                    {
+                        // get dividend data
+                        JsonElement alphaVantageMontlyData = await AlphaVantage.FetchAllData(fund.Symbol, TimeSeries.Monthly);
+                        dataRoot = AlphaVantage.GetDataRoot(alphaVantageMontlyData, TimeSeries.Monthly);
+                        dividendDataFetched = true;
+                    }
+
                     Console.Write($" {year}");
                     string beginDate = Uri.EscapeUriString(new DateTime(year - 1, 12, 28).ToShortDateString());
                     string endDate = Uri.EscapeUriString(new DateTime(year, 12, 31).ToShortDateString());
@@ -29,21 +42,26 @@ namespace daily.DataProviders
                     var htmlResponse = HttpUtility.CallUrl(url).Result;
                     ParseHtml(fund.FundValues[year], htmlResponse, year);
 
-                    if (!isCurrentYear)
+                    var csvOutputContents = new StringBuilder();
+                    foreach (var date in fund.FundValues[year].Keys)
                     {
-                        var csvOutputContents = new StringBuilder();
-                        foreach (var date in fund.FundValues[year].Keys)
+                        JsonElement dateData;
+                        bool foundData = dataRoot.TryGetProperty(date.ToString("yyyy-MM-dd"), out dateData);
+                        string dividendStr = null;
+                        if (foundData)
                         {
-                            csvOutputContents.AppendLine($"{date.ToShortDateString()},{fund.FundValues[year][date].Value}");
+                            dividendStr = "," + dateData.GetProperty("7. dividend amount").GetString();
                         }
 
-                        if (!yearDataFile.Directory.Exists)
-                        {
-                            yearDataFile.Directory.Create();
-                        }
-
-                        File.WriteAllText(yearDataFile.FullName, csvOutputContents.ToString());
+                        csvOutputContents.AppendLine($"{date.ToShortDateString()},{fund.FundValues[year][date].Value}{dividendStr}");
                     }
+
+                    if (!yearDataFile.Directory.Exists)
+                    {
+                        yearDataFile.Directory.Create();
+                    }
+
+                    File.WriteAllText(yearDataFile.FullName, csvOutputContents.ToString());
                 }
                 else
                 {
@@ -51,7 +69,13 @@ namespace daily.DataProviders
                     {
                         string[] chunks = line.Split(',');
                         DateTime date = DateTime.Parse(chunks[0]);
-                        fund.FundValues[year].Add(date, new FundValue() { Value = double.Parse(chunks[1]) });
+                        FundValue fundValue = new FundValue() { Value = double.Parse(chunks[1]) };
+                        if (chunks.Length == 3)
+                        {
+                            fundValue.Dividend = double.Parse(chunks[2]);
+                        }
+
+                        fund.FundValues[year].Add(date, fundValue);
                     }
                 }
             }
@@ -112,7 +136,7 @@ namespace daily.DataProviders
                                     wroteLastYearClose = true;
                                 }
 
-                                yearValues.Add(date, new FundValue() { Value = double.Parse(c1.Substring(1))});
+                                yearValues.Add(date, new FundValue() { Value = double.Parse(c1.Substring(1)) });
                             }
                         }
                     }

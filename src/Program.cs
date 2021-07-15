@@ -27,8 +27,8 @@ namespace daily
             {
                 Dictionary<string, ThreeFund> threeFunds = InitializeThreeFunds();
                 MarketTime marketTime = GetMarketTime();
-                
-                await threeFunds ["Vanguard ETFs"].CreatePerfSummary(2012, marketTime);
+
+                await threeFunds["Vanguard ETFs"].CreatePerfSummary(2012, marketTime);
                 await threeFunds["Vanguard Mutual Funds"].CreatePerfSummary(2011, marketTime);
             }
         }
@@ -70,12 +70,9 @@ namespace daily
         {
             timer.Interval = 5 * 60 * 1000;
 
-            using (HttpClient client = new HttpClient())
-            {
-                await AlphaVantage.FetchQuote(client, "vti", TimeSeries.Monthly);
-                await AlphaVantage.FetchQuote(client, "vxus", TimeSeries.Monthly);
-                await AlphaVantage.FetchQuote(client, "bnd", TimeSeries.Monthly);
-            }
+            await AlphaVantage.FetchQuote("vti", TimeSeries.Monthly);
+            await AlphaVantage.FetchQuote("vxus", TimeSeries.Monthly);
+            await AlphaVantage.FetchQuote("bnd", TimeSeries.Monthly);
         }
     }
 }

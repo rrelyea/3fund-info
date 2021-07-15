@@ -8,24 +8,19 @@ namespace daily.DataProviders
 {
     public static class AlphaVantage
     {
-        public static async Task FetchQuote(HttpClient client, string symbol, TimeSeries timeSeries)
+        public static async Task<JsonElement> FetchAllData(string symbol, TimeSeries timeSeries)
         {
-
+            var client = new HttpClient();
             string apiKey = File.ReadAllText("c:\\temp\\alphaVantageApiKey.txt");
 
-            Console.Write($"Fetching [{symbol}] {DateTime.Now.ToLongTimeString()}:  ");
-
             string function = "TIME_SERIES_";
-            string dataRootPropetyName;
             switch (timeSeries)
             {
                 case TimeSeries.Daily:
                     function += "DAILY_ADJUSTED";
-                    dataRootPropetyName = "Time Series (Daily)";
                     break;
                 case TimeSeries.Monthly:
                     function += "MONTHLY_ADJUSTED";
-                    dataRootPropetyName = "Monthly Adjusted Time Series";
                     break;
                 default:
                     throw new ArgumentException("timeSeries");
@@ -36,7 +31,31 @@ namespace daily.DataProviders
 
             string result = await client.GetStringAsync(queryUri);
 
-            var json_root = JsonDocument.Parse(result).RootElement;
+            JsonElement json_root = JsonDocument.Parse(result).RootElement;
+            string lastRefreshedString = null;
+
+            try
+            {
+                lastRefreshedString = GetLastRefreshed(json_root);
+            }
+            catch (Exception)
+            {
+                lastRefreshedString = "bad Last Refreshed"; // likely due to API calls per minute restrictions
+            }
+            finally
+            {
+                string fileName = symbol + "-" + lastRefreshedString.Replace(':', '-') + ".json";
+                if (!File.Exists(fileName))
+                {
+                    File.WriteAllText(fileName, result);
+                }
+            }
+
+            return json_root;
+        }
+
+        private static string GetLastRefreshed(JsonElement json_root)
+        {
             JsonElement metadata, lastRefreshed;
             bool foundMetadata = json_root.TryGetProperty("Meta Data", out metadata);
             if (foundMetadata)
@@ -44,23 +63,42 @@ namespace daily.DataProviders
                 bool foundLastRefreshed = metadata.TryGetProperty("3. Last Refreshed", out lastRefreshed);
                 if (foundLastRefreshed)
                 {
-                    string lastRefreshedString = lastRefreshed.GetString();
-                    Console.Write(lastRefreshedString);
-
-                    string fileName = symbol + "-" + lastRefreshedString.Replace(':', '-') + ".json";
-                    if (!File.Exists(fileName))
-                    {
-                        File.WriteAllText(fileName, result);
-                    }
-
-                    DateTime lastRefreshedDateTime = DateTime.Parse(lastRefreshedString);
-                    string dateKey = lastRefreshedDateTime.ToString("yyyy-MM-dd");
-                    JsonElement dayData = json_root.GetProperty(dataRootPropetyName).GetProperty(dateKey);
-                    string close = dayData.GetProperty("4. close").GetString();
-                    string dividend = dayData.GetProperty("7. dividend amount").GetString();
-                    Console.WriteLine($"  Price: {close} {(dividend != "0.0000" ? "Dividend: " + dividend : "")}");
+                    return lastRefreshed.GetString();
                 }
             }
+
+            throw new InvalidDataException();
+        }
+
+        public static JsonElement GetDataRoot(JsonElement json_root, TimeSeries timeSeries)
+        {
+            string dataRootPropetyName;
+            switch (timeSeries)
+            {
+                case TimeSeries.Daily:
+                    dataRootPropetyName = "Time Series (Daily)";
+                    break;
+                case TimeSeries.Monthly:
+                    dataRootPropetyName = "Monthly Adjusted Time Series";
+                    break;
+                default:
+                    throw new ArgumentException("timeSeries");
+            }
+
+            return json_root.GetProperty(dataRootPropetyName);
+        }
+
+        public static async Task FetchQuote(string symbol, TimeSeries timeSeries)
+        {
+            JsonElement json_root = await FetchAllData(symbol, timeSeries);
+            string lastRefreshedString = GetLastRefreshed(json_root);
+            DateTime lastRefreshedDateTime = DateTime.Parse(lastRefreshedString);
+            string dateKey = lastRefreshedDateTime.ToString("yyyy-MM-dd");
+            JsonElement dataRoot = GetDataRoot(json_root, timeSeries);
+            JsonElement dayData = dataRoot.GetProperty(dateKey);
+            string close = dayData.GetProperty("4. close").GetString();
+            string dividend = dayData.GetProperty("7. dividend amount").GetString();
+            Console.WriteLine($"  Price: {close} {(dividend != "0.0000" ? "Dividend: " + dividend : "")}");
         }
     }
 }

@@ -18,8 +18,14 @@ namespace daily.DataProviders
         {
             var htmlDoc = new HtmlDocument();
             htmlDoc.LoadHtml(html);
-            var quotes = htmlDoc.DocumentNode.Descendants("h3").Where(node => node.GetAttributeValue("class","").Contains("intraday__price")).ToList();
-            string quote = quotes[0].InnerText.Trim();
+
+            //div class="status"
+            string marketStatus = htmlDoc.DocumentNode.Descendants("div").Where(node => node.GetAttributeValue("class", "").Contains("status")).FirstOrDefault<HtmlNode>().InnerText;
+
+            string quote = htmlDoc.DocumentNode.Descendants("h3").Where(node => node.GetAttributeValue("class", "").Contains("intraday__price")).FirstOrDefault<HtmlNode>().InnerText.Trim();
+
+            // td class="table__cell u-semi
+            string lastClose = htmlDoc.DocumentNode.Descendants("td").Where(node => node.GetAttributeValue("class", "").Contains("table__cell u-semi")).FirstOrDefault<HtmlNode>().InnerText;
 
             DateTime lastDate = yearValues.Keys.Last<DateTime>();
             if (now.Date != lastDate.Date)
