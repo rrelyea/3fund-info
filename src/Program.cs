@@ -41,7 +41,7 @@ namespace daily
             {
                 return MarketTime.Open;
             }
-            else if (time > 18.0 && time < 18.1)
+            else if (time > 18.0 && time < 18.0)
             {
                 return MarketTime.MutualFundPricesPublished;
             }
