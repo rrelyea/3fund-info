@@ -10,6 +10,7 @@ namespace daily.DataProviders
     {
         public static async Task<JsonElement> FetchAllData(string symbol, TimeSeries timeSeries)
         {
+            bool writeDebugJsonFile = false;
             var client = new HttpClient();
             string apiKey = File.ReadAllText("c:\\temp\\alphaVantageApiKey.txt");
 
@@ -45,7 +46,7 @@ namespace daily.DataProviders
             finally
             {
                 string fileName = symbol + "-" + lastRefreshedString.Replace(':', '-') + ".json";
-                if (!File.Exists(fileName))
+                if (writeDebugJsonFile)
                 {
                     File.WriteAllText(fileName, result);
                 }
