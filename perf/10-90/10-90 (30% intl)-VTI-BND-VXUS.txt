@@ -10,7 +10,7 @@ Performance for 10/90 (30% intl)-VTI-BND-VXUS
               Apr    1.04%
               May     .22%
               Jun     .73%
-              Jul     .50%
+              Jul     .51%
                             Jul 01    -.12%
                             Jul 02     .21%
                             Jul 06     .29%
@@ -20,7 +20,7 @@ Performance for 10/90 (30% intl)-VTI-BND-VXUS
                             Jul 12    -.02%
                             Jul 13    -.28%
                             Jul 14     .30%
-                            Jul 15     .12% *12:43 ET
+                            Jul 15     .12% *12:48 ET
 ===========================================
 2021  -0.45%
 
