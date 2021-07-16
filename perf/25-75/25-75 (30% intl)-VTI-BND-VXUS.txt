@@ -10,7 +10,7 @@ Performance for 25/75 (30% intl)-VTI-BND-VXUS
     Apr    1.61%          .14%
     May     .39%          .10%
     Jun     .81%          .26%
-    Jul     .39%          .10%
+    Jul     .38%          .10%
                                  Jul 01    -.05%
                                  Jul 02     .26%
                                  Jul 06     .18%
@@ -21,7 +21,7 @@ Performance for 25/75 (30% intl)-VTI-BND-VXUS
                                  Jul 13    -.31%
                                  Jul 14     .24%
                                  Jul 15     .08%
-                                 Jul 16    -.12% *14:11 ET
+                                 Jul 16    -.12% *14:16 ET
 ===========================================
 2021 YTD   1.71%         0.93%
 
