@@ -10,7 +10,7 @@ Performance for 65/35 (40% intl)-VTI-BND-VXUS
     Apr    2.96%          .07%
     May    1.02%          .05%
     Jun     .78%          .44%
-    Jul    -.18%          .05%
+    Jul    -.17%          .05%
                                  Jul 01     .12%
                                  Jul 02     .37%
                                  Jul 06    -.17%
@@ -21,7 +21,7 @@ Performance for 65/35 (40% intl)-VTI-BND-VXUS
                                  Jul 13    -.38%
                                  Jul 14     .12%
                                  Jul 15    -.20%
-                                 Jul 16    -.46% *15:39 ET
+                                 Jul 16    -.45% *15:44 ET
 ===========================================
 2021 YTD   6.81%         1.00%
 
