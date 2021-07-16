@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "daily": {
+      "commandName": "Project",
+      "workingDirectory": "c:\\repos\\3fund-info"
+    }
+  }
+}
