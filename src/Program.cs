@@ -10,6 +10,7 @@ namespace daily
     {
         static async Task Main(string[] args)
         {
+            Console.WriteLine(DateTime.Now.ToShortTimeString());
             Dictionary<string, ThreeFund> threeFunds = InitializeThreeFunds();
             MarketTime marketTime = GetMarketTime();
 
