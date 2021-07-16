@@ -22,11 +22,11 @@ namespace daily
             DateTime now = DateTime.UtcNow;
             double time = (now.Hour - 4.0) + now.Minute / 60.0;
 
-            if (time >= 9.5 && time < 16.1)
+            if (time >= 9.5 && time <= 16.0)
             {
                 return MarketTime.Open;
             }
-            else if (time > 18.0 && time < 18.0)
+            else if (time >= 18.0 && time < 18.125)
             {
                 return MarketTime.MutualFundPricesPublished;
             }
