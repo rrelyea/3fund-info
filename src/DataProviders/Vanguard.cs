@@ -18,30 +18,30 @@ namespace daily.DataProviders
             bool dividendDataFetched = false;
             JsonElement dataRoot = new JsonElement();
             Console.Write($"Fetching [{fund.Symbol}]");
+            if (!dividendDataFetched)
+            {
+                try
+                {
+                    var alphaVantage = new AlphaVantage(fund.Symbol, TimeSeries.Monthly);
+                    dataRoot = await alphaVantage.GetDataRoot();
+                    dividendDataFetched = true;
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("dividend data - API allowance exceeded.");
+                }
+            }
 
             for (int year = beginYear; year <= DateTime.Now.Year; year++)
             {
                 FileInfo yearDataFile = new FileInfo($"prices\\{fund.Symbol}\\{fund.Symbol}-{year}.csv");
                 fund.FundValues[year] = new YearValues();
 
-                bool isCurrentYear = DateTime.Now.Year == year;
-                if (!yearDataFile.Exists || (refetchCurrentYear && isCurrentYear))
-                {
-                    if (dividendDataFetched)
-                    {
-                        // get dividend data
-                        JsonElement alphaVantageMontlyData = await AlphaVantage.FetchAllData(fund.Symbol, TimeSeries.Monthly);
-                        try
-                        {
-                            dataRoot = AlphaVantage.GetDataRoot(alphaVantageMontlyData, TimeSeries.Monthly);
-                            dividendDataFetched = true;
-                        }
-                        catch (Exception)
-                        {
-                            Console.WriteLine("dividend data - API allowance exceeded.");
-                        }
-                    }
 
+
+                bool isCurrentYear = DateTime.Now.Year == year;
+                if (!yearDataFile.Exists || isCurrentYear)
+                {
                     Console.Write($" {year}");
                     string beginDate = Uri.EscapeUriString(new DateTime(year - 1, 12, 28).ToShortDateString());
                     string endDate = Uri.EscapeUriString(new DateTime(year, 12, 31).ToShortDateString());

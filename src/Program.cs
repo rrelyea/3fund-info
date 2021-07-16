@@ -8,28 +8,13 @@ namespace daily
 {
     class Program
     {
-        static Timer timer;
         static async Task Main(string[] args)
         {
-            if (args.Length > 0 && args[0] == "/watch")
-            {
-                Console.WriteLine("Watching for latest prices:");
-                double minutes = .1;
-                timer = new Timer(minutes * 60 * 1000);
-                timer.Elapsed += WatchTimer_Elapsed;
-                timer.Enabled = true;
-                timer.Start();
+            Dictionary<string, ThreeFund> threeFunds = InitializeThreeFunds();
+            MarketTime marketTime = GetMarketTime();
 
-                while (true) ;
-            }
-            else
-            {
-                Dictionary<string, ThreeFund> threeFunds = InitializeThreeFunds();
-                MarketTime marketTime = GetMarketTime();
-
-                await threeFunds["Vanguard ETFs"].CreatePerfSummary(2012, marketTime);
-                await threeFunds["Vanguard Mutual Funds"].CreatePerfSummary(2011, marketTime);
-            }
+            await threeFunds["Vanguard ETFs"].CreatePerfSummary(2012, marketTime);
+            await threeFunds["Vanguard Mutual Funds"].CreatePerfSummary(2011, marketTime);
         }
 
         private static MarketTime GetMarketTime()
@@ -63,15 +48,6 @@ namespace daily
             threeFunds.Add("Vanguard ETFs", new ThreeFund("vti", "vxus", "bnd", FundStyle.ETF, "Vanguard"));
 
             return threeFunds;
-        }
-
-        private static async void WatchTimer_Elapsed(object sender, ElapsedEventArgs e)
-        {
-            timer.Interval = 5 * 60 * 1000;
-
-            await AlphaVantage.FetchQuote("vti", TimeSeries.Monthly);
-            await AlphaVantage.FetchQuote("vxus", TimeSeries.Monthly);
-            await AlphaVantage.FetchQuote("bnd", TimeSeries.Monthly);
         }
     }
 }
