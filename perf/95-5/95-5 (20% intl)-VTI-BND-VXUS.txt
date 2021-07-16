@@ -10,7 +10,7 @@ Performance for 95/5 (20% intl)-VTI-BND-VXUS
     Apr    4.47%          .01%
     May     .93%          .01%
     Jun    1.49%          .62%
-    Jul    -.28%          .01%
+    Jul    -.29%          .01%
                                  Jul 01     .35%
                                  Jul 02     .50%
                                  Jul 06    -.32%
@@ -21,7 +21,7 @@ Performance for 95/5 (20% intl)-VTI-BND-VXUS
                                  Jul 13    -.50%
                                  Jul 14    -.05%
                                  Jul 15    -.36%
-                                 Jul 16    -.62% *15:09 ET
+                                 Jul 16    -.62% *15:14 ET
 ===========================================
 2021 YTD  12.22%         1.19%
 
