@@ -1,6 +1,6 @@
 Performance for 25/75 (40% intl)-VTI-BND-VXUS
 
-  Appreciation % |  Dividend % | Day %
+  Appreciation % |  Dividend % | Appreciation % (Per Day)
 
 -------------------------------------------
 2021:
@@ -10,7 +10,7 @@ Performance for 25/75 (40% intl)-VTI-BND-VXUS
     Apr    1.55%          .14%
     May     .46%          .10%
     Jun     .72%          .25%
-    Jul     .32%          .10%
+    Jul     .30%          .10%
                                  Jul 01    -.06%
                                  Jul 02     .25%
                                  Jul 06     .17%
@@ -21,9 +21,9 @@ Performance for 25/75 (40% intl)-VTI-BND-VXUS
                                  Jul 13    -.31%
                                  Jul 14     .25%
                                  Jul 15     .07%
-                                 Jul 16    -.16% *15:01 ET
+                                 Jul 16    -.18% *15:04 ET
 ===========================================
-2021 YTD   1.48%         0.91%
+2021 YTD   1.46%         0.91%
 
 -------------------------------------------
 2020:

@@ -1,6 +1,6 @@
 Performance for 100/0 (50% intl)-VTI-BND-VXUS
 
-  Appreciation % |  Dividend % | Day %
+  Appreciation % |  Dividend % | Appreciation % (Per Day)
 
 -------------------------------------------
 2021:
@@ -10,7 +10,7 @@ Performance for 100/0 (50% intl)-VTI-BND-VXUS
     Apr    3.97%          .00%
     May    1.79%          .00%
     Jun     .49%          .60%
-    Jul    -.55%          .00%
+    Jul    -.61%          .00%
                                  Jul 01     .23%
                                  Jul 02     .45%
                                  Jul 06    -.51%
@@ -21,9 +21,9 @@ Performance for 100/0 (50% intl)-VTI-BND-VXUS
                                  Jul 13    -.42%
                                  Jul 14     .03%
                                  Jul 15    -.47%
-                                 Jul 16    -.55% *15:01 ET
+                                 Jul 16    -.61% *15:04 ET
 ===========================================
-2021 YTD  10.94%         1.01%
+2021 YTD  10.87%         1.01%
 
 -------------------------------------------
 2020:
