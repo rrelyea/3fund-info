@@ -31,8 +31,15 @@ namespace daily.DataProviders
                     {
                         // get dividend data
                         JsonElement alphaVantageMontlyData = await AlphaVantage.FetchAllData(fund.Symbol, TimeSeries.Monthly);
-                        dataRoot = AlphaVantage.GetDataRoot(alphaVantageMontlyData, TimeSeries.Monthly);
-                        dividendDataFetched = true;
+                        try
+                        {
+                            dataRoot = AlphaVantage.GetDataRoot(alphaVantageMontlyData, TimeSeries.Monthly);
+                            dividendDataFetched = true;
+                        }
+                        catch (Exception)
+                        {
+                            Console.WriteLine("dividend data - API allowance exceeded.");
+                        }
                     }
 
                     Console.Write($" {year}");
@@ -46,11 +53,15 @@ namespace daily.DataProviders
                     foreach (var date in fund.FundValues[year].Keys)
                     {
                         JsonElement dateData;
-                        bool foundData = dataRoot.TryGetProperty(date.ToString("yyyy-MM-dd"), out dateData);
+
                         string dividendStr = null;
-                        if (foundData)
+                        if (dataRoot.ValueKind != JsonValueKind.Undefined)
                         {
-                            dividendStr = "," + dateData.GetProperty("7. dividend amount").GetString();
+                            bool foundData = dataRoot.TryGetProperty(date.ToString("yyyy-MM-dd"), out dateData);
+                            if (foundData)
+                            {
+                                dividendStr = "," + dateData.GetProperty("7. dividend amount").GetString();
+                            }
                         }
 
                         csvOutputContents.AppendLine($"{date.ToShortDateString()},{fund.FundValues[year][date].Value}{dividendStr}");

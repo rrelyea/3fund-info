@@ -45,7 +45,7 @@ namespace daily
             {
                 return MarketTime.MutualFundPricesPublished;
             }
-            else if (time > 18.75 && time < 19.5)
+            else if ((time > 18.75 && time < 24.00) || (time > -6.00 && time < 0))
             {
                 return MarketTime.VanguardHistoricalPricesUpdated;
             }

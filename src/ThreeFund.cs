@@ -29,9 +29,9 @@ namespace daily
             if (marketTime != MarketTime.None)
             {
                 Console.WriteLine();
-                await Vanguard.LoadPricesIntoFund(StockFund, startYear, refetchCurrentYear:false);
-                await Vanguard.LoadPricesIntoFund(InternationStockFund, startYear, refetchCurrentYear: false);
-                await Vanguard.LoadPricesIntoFund(BondFund, startYear, refetchCurrentYear: false);
+                await Vanguard.LoadPricesIntoFund(StockFund, startYear, refetchCurrentYear: (marketTime == MarketTime.VanguardHistoricalPricesUpdated));
+                await Vanguard.LoadPricesIntoFund(InternationStockFund, startYear, refetchCurrentYear: (marketTime == MarketTime.VanguardHistoricalPricesUpdated));
+                await Vanguard.LoadPricesIntoFund(BondFund, startYear, refetchCurrentYear: (marketTime == MarketTime.VanguardHistoricalPricesUpdated));
             }
 
             if ((marketTime == MarketTime.Open && FundStyle == FundStyle.ETF) || (marketTime == MarketTime.MutualFundPricesPublished && FundStyle == FundStyle.MutualFund))
