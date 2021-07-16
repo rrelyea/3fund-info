@@ -1,6 +1,6 @@
 Performance for 95/5 (40% intl)-VTI-BND-VXUS
 
-  Appreciation % | Month Div % | Day %
+  Appreciation % |  Dividend % | Day %
 
 -------------------------------------------
 2021:
@@ -10,7 +10,7 @@ Performance for 95/5 (40% intl)-VTI-BND-VXUS
     Apr    4.02%          .01%
     May    1.45%          .01%
     Jun     .83%          .59%
-    Jul    -.17%          .01%
+    Jul    -.19%          .01%
                                  Jul 01     .26%
                                  Jul 02     .46%
                                  Jul 06    -.41%
@@ -21,9 +21,9 @@ Performance for 95/5 (40% intl)-VTI-BND-VXUS
                                  Jul 13    -.44%
                                  Jul 14     .01%
                                  Jul 15    -.41%
-                                 Jul 16    -.30% *13:59 ET
+                                 Jul 16    -.32% *14:00 ET
 ===========================================
-2021 YTD  11.23%         1.07%
+2021 YTD  11.21%         1.07%
 
 -------------------------------------------
 2020:
