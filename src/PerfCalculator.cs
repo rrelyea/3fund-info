@@ -64,7 +64,7 @@ namespace daily
                     if (lastMonth < month && month > 1)
                     {
                         double mtdDividendPct1 = stockPct * stockDividendMTD + intlPct *intlDividendMTD + bondPct * bondDividendMTD;
-                        summarySB.AppendLine($"              {lastDate.ToString("MMM", CultureInfo.InvariantCulture)} {lastMTD,7: ##.00;-##.00}%         {mtdDividendPct1: ##.00}%");
+                        summarySB.AppendLine($"    {lastDate.ToString("MMM", CultureInfo.InvariantCulture)} {lastMTD,7: ##.00;-##.00}%         {mtdDividendPct1: ##.00}%");
                         stockDividendYTD += stockDividendMTD;
                         intlDividendYTD += intlDividendMTD;
                         bondDividendYTD += bondDividendMTD;
@@ -97,7 +97,7 @@ namespace daily
                             interimStr = $" *{captureTime.Hours}:{captureTime.Minutes:00} ET";
                         }
 
-                        daysSection.AppendLine($"                                           {date.ToString("MMM", CultureInfo.InvariantCulture)} {date.Day:00} {day,7: ##.00;-##.00}%{interimStr}");
+                        daysSection.AppendLine($"                                 {date.ToString("MMM", CultureInfo.InvariantCulture)} {date.Day:00} {day,7: ##.00;-##.00}%{interimStr}");
                     }
 
                     lastMTD = mtd;
@@ -109,7 +109,7 @@ namespace daily
             }
 
             double mtdDividendPct2 = stockPct * stockDividendMTD + intlPct * intlDividendMTD + bondPct * bondDividendMTD;
-            summarySB.AppendLine($"              {lastDate.ToString("MMM", CultureInfo.InvariantCulture)} {lastMTD,7: ##.00;-##.00}%         {mtdDividendPct2: ##.00}%");
+            summarySB.AppendLine($"    {lastDate.ToString("MMM", CultureInfo.InvariantCulture)} {lastMTD,7: ##.00;-##.00}%         {mtdDividendPct2: ##.00}%");
             stockDividendYTD += stockDividendMTD;
             intlDividendYTD += intlDividendMTD;
             bondDividendYTD += bondDividendMTD;

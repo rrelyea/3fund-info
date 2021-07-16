@@ -69,13 +69,13 @@ namespace daily
                     StringBuilder summarySB = new StringBuilder();
                     summarySB.AppendLine($"Performance for {stock}/{bond} ({intl}% intl)-{this.StockFund.UpperSymbol}-{this.BondFund.UpperSymbol}-{this.InternationStockFund.UpperSymbol}");
                     summarySB.AppendLine();
-                    summarySB.AppendLine("      Year % |     Month % | Month Div % | Day %");
+                    summarySB.AppendLine("  Appreciation % |  Dividend % | Appreciation % (Per Day)");
                     summarySB.AppendLine();
                     for (int year = 2021; year >= startYear; year--)
                     {
-                        string ytdStr = year == DateTime.Now.Year ? "YTD" : "   ";
+                        string ytdStr = year == DateTime.Now.Year ? "YTD " : "Year";
                         var ytd = quoteData[year - startYear].OutputPerfForOneYear(stock, intl, 100 - stock, year, summarySB);
-                        summarySB.AppendLine($"{year} {ytdStr} {ytd.Item1,16:0.00}%  {ytd.Item2,11:0.00}%");
+                        summarySB.AppendLine($"{year} {ytdStr} {ytd.Item1,5:0.00}%  {ytd.Item2,11:0.00}%");
                         summarySB.AppendLine();
                     }
 

@@ -40,7 +40,7 @@ namespace daily.DataProviders
 
 
                 bool isCurrentYear = DateTime.Now.Year == year;
-                if (!yearDataFile.Exists || isCurrentYear)
+                if (!yearDataFile.Exists || (refetchCurrentYear && isCurrentYear))
                 {
                     Console.Write($" {year}");
                     string beginDate = Uri.EscapeUriString(new DateTime(year - 1, 12, 28).ToShortDateString());
