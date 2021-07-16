@@ -10,7 +10,7 @@ Performance for 20/80 (40% intl)-VTI-BND-VXUS
     Apr    1.37%          .15%
     May     .39%          .10%
     Jun     .71%          .23%
-    Jul     .32%          .11%
+    Jul     .31%          .11%
                                  Jul 01    -.08%
                                  Jul 02     .23%
                                  Jul 06     .21%
@@ -21,7 +21,7 @@ Performance for 20/80 (40% intl)-VTI-BND-VXUS
                                  Jul 13    -.30%
                                  Jul 14     .27%
                                  Jul 15     .11%
-                                 Jul 16    -.19% *15:49 ET
+                                 Jul 16    -.19% *15:54 ET
 ===========================================
 2021 YTD   0.75%         0.90%
 
