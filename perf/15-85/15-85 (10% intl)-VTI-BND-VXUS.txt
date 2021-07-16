@@ -1,6 +1,6 @@
 Performance for 15/85 (10% intl)-VTI-BND-VXUS
 
-         Month % | Month Div % | Day %
+  Appreciation % | Month Div % | Day %
 
 -------------------------------------------
 2021:
@@ -10,7 +10,7 @@ Performance for 15/85 (10% intl)-VTI-BND-VXUS
     Apr    1.30%          .16%
     May     .19%          .11%
     Jun     .86%          .21%
-    Jul     .50%          .11%
+    Jul     .51%          .11%
                                  Jul 01    -.08%
                                  Jul 02     .23%
                                  Jul 06     .27%
@@ -23,7 +23,7 @@ Performance for 15/85 (10% intl)-VTI-BND-VXUS
                                  Jul 15     .15%
                                  Jul 16    -.07% *13:59 ET
 ===========================================
-2021 YTD   0.49%         0.92%
+2021 YTD   0.50%         0.92%
 
 -------------------------------------------
 2020:

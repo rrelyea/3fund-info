@@ -1,6 +1,6 @@
 Performance for 55/45 (20% intl)-VTI-BND-VXUS
 
-         Month % | Month Div % | Day %
+  Appreciation % | Month Div % | Day %
 
 -------------------------------------------
 2021:
@@ -10,7 +10,7 @@ Performance for 55/45 (20% intl)-VTI-BND-VXUS
     Apr    2.87%          .09%
     May     .58%          .06%
     Jun    1.15%          .41%
-    Jul     .27%          .06%
+    Jul     .26%          .06%
                                  Jul 01     .13%
                                  Jul 02     .37%
                                  Jul 06    -.03%

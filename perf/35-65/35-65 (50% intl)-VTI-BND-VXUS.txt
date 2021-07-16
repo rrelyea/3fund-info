@@ -1,6 +1,6 @@
 Performance for 35/65 (50% intl)-VTI-BND-VXUS
 
-         Month % | Month Div % | Day %
+  Appreciation % | Month Div % | Day %
 
 -------------------------------------------
 2021:
@@ -10,7 +10,7 @@ Performance for 35/65 (50% intl)-VTI-BND-VXUS
     Apr    1.82%          .13%
     May     .70%          .08%
     Jun     .61%          .30%
-    Jul     .26%          .09%
+    Jul     .27%          .09%
                                  Jul 01    -.03%
                                  Jul 02     .27%
                                  Jul 06     .06%
@@ -21,7 +21,7 @@ Performance for 35/65 (50% intl)-VTI-BND-VXUS
                                  Jul 13    -.31%
                                  Jul 14     .23%
                                  Jul 15   - .00%
-                                 Jul 16    -.13% *13:59 ET
+                                 Jul 16    -.12% *13:59 ET
 ===========================================
 2021 YTD   2.69%         0.91%
 

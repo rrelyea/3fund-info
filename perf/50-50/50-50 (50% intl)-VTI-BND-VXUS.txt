@@ -1,6 +1,6 @@
 Performance for 50/50 (50% intl)-VTI-BND-VXUS
 
-         Month % | Month Div % | Day %
+  Appreciation % | Month Div % | Day %
 
 -------------------------------------------
 2021:
@@ -10,7 +10,7 @@ Performance for 50/50 (50% intl)-VTI-BND-VXUS
     Apr    2.31%          .10%
     May     .95%          .07%
     Jun     .58%          .36%
-    Jul     .13%          .07%
+    Jul     .14%          .07%
                                  Jul 01     .03%
                                  Jul 02     .31%
                                  Jul 06    -.07%
@@ -21,7 +21,7 @@ Performance for 50/50 (50% intl)-VTI-BND-VXUS
                                  Jul 13    -.34%
                                  Jul 14     .19%
                                  Jul 15    -.11%
-                                 Jul 16    -.17% *13:59 ET
+                                 Jul 16    -.16% *13:59 ET
 ===========================================
 2021 YTD   4.66%         0.93%
 

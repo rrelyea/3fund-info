@@ -1,6 +1,6 @@
 Performance for 60/40 (20% intl)-VTI-BND-VXUS
 
-         Month % | Month Div % | Day %
+  Appreciation % | Month Div % | Day %
 
 -------------------------------------------
 2021:
@@ -21,7 +21,7 @@ Performance for 60/40 (20% intl)-VTI-BND-VXUS
                                  Jul 13    -.41%
                                  Jul 14     .09%
                                  Jul 15    -.14%
-                                 Jul 16    -.19% *13:59 ET
+                                 Jul 16    -.20% *13:59 ET
 ===========================================
 2021 YTD   7.25%         1.07%
 

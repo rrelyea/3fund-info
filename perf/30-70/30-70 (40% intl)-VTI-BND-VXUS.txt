@@ -1,6 +1,6 @@
 Performance for 30/70 (40% intl)-VTI-BND-VXUS
 
-         Month % | Month Div % | Day %
+  Appreciation % | Month Div % | Day %
 
 -------------------------------------------
 2021:
@@ -10,7 +10,7 @@ Performance for 30/70 (40% intl)-VTI-BND-VXUS
     Apr    1.72%          .13%
     May     .53%          .09%
     Jun     .73%          .28%
-    Jul     .34%          .09%
+    Jul     .35%          .09%
                                  Jul 01    -.04%
                                  Jul 02     .26%
                                  Jul 06     .12%
@@ -23,7 +23,7 @@ Performance for 30/70 (40% intl)-VTI-BND-VXUS
                                  Jul 15     .04%
                                  Jul 16    -.11% *13:59 ET
 ===========================================
-2021 YTD   2.24%         0.92%
+2021 YTD   2.25%         0.92%
 
 -------------------------------------------
 2020:
