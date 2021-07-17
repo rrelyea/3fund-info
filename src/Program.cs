@@ -20,7 +20,14 @@ namespace daily
 
         private static MarketTime GetMarketTime()
         {
-            DateTime now = DateTime.UtcNow;
+            TimeZoneInfo zone = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+            DateTime now = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, zone);
+
+            if (now.DayOfWeek == DayOfWeek.Saturday || now.DayOfWeek == DayOfWeek.Sunday)
+            {
+                return MarketTime.MarketClosedAllDay;
+            }
+
             double time = (now.Hour - 4.0) + now.Minute / 60.0;
 
             if (time >= 9.5 && time <= 16.0)

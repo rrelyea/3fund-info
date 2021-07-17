@@ -6,5 +6,6 @@
         Open,
         MutualFundPricesPublished,
         VanguardHistoricalPricesUpdated,
+        MarketClosedAllDay,
     }
 }
