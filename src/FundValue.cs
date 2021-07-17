@@ -12,6 +12,6 @@ namespace daily
         public double Value { get; set; }
         public double Dividend { get; set; }
 
-        public bool Interim { get; set; }
+        public string Time { get; set; }
     }
 }

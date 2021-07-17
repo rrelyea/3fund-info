@@ -30,7 +30,7 @@ namespace daily.DataProviders
             DateTime lastDate = yearValues.Keys.Last<DateTime>();
             if (now.Date != lastDate.Date)
             {
-                yearValues.Add(now, new FundValue() { Value = double.Parse(quote.Substring(1)), Interim = true });
+                yearValues.Add(now, new FundValue() { Value = double.Parse(quote.Substring(1)), Time = now.ToShortTimeString() }); ;
             }
         }
     }
