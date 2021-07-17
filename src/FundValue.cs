@@ -1,17 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace daily
+﻿namespace daily
 {
-    public class YearValues : Dictionary<DateTime, FundValue>
-    {
-    }
-
     public class FundValue
     {
         public double Value { get; set; }
         public double Dividend { get; set; }
-
         public string Time { get; set; }
     }
 }
