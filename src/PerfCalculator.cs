@@ -9,15 +9,60 @@ namespace daily
 
     {
         public ThreeFund ThreeFund { get; private set; }
-        public int Year { get; private set; }
 
-        public PerfCalculator(ThreeFund threeFund, int year)
+        public PerfCalculator(ThreeFund threeFund)
         {
             ThreeFund = threeFund;
-            Year = year;
         }
 
-        internal Tuple<double,double> OutputPerfForOneYear(double stock, double intl, double bond, int year, StringBuilder summarySB)
+        internal string CreateTextPerfSummary(Dictionary<string, FundValue> perfSummaries)
+        {
+            var summarySB = new StringBuilder();
+            string year = null;
+            string currentYear = DateTime.Now.Year.ToString();
+            bool daysHeaderShown = false;
+            foreach (var date in perfSummaries.Keys)
+            {
+                string[] chunks = date.Split('-');
+                if (chunks[0] != year)
+                {
+                    year = chunks[0];
+                    summarySB.AppendLine();
+                    summarySB.AppendLine("----------------------------------");
+                    summarySB.AppendLine($"{year}:");
+                }
+                FundValue summaryData = perfSummaries[date];
+                if (chunks.Length == 2)
+                {
+                    if (date == DateTime.Now.ToString("yyyy-MMM"))
+                    {
+                        summarySB.AppendLine("--------------------");
+                    }
+                    summarySB.AppendLine($"    {chunks[1]} {summaryData.Value,7: ##.00;-##.00}%         {summaryData.Dividend: ##.00}%");
+                }
+                else if (chunks.Length == 1)
+                {
+                    summarySB.AppendLine("==================================");
+                    string ytdStr = year == currentYear ? "YTD " : "Year";
+                    summarySB.AppendLine($"{chunks[0]} {ytdStr}{summaryData.Value,6: ##.00;-##.00}%       {summaryData.Dividend,6: ##.00}%");
+                }
+                else
+                {
+                    if (!daysHeaderShown)
+                    {
+                        summarySB.AppendLine();
+                        summarySB.AppendLine($"--- {chunks[1]} Days -------");
+                        daysHeaderShown = true;
+                    }
+
+                    summarySB.AppendLine($"    {chunks[2]}   {summaryData.Value,6: ##.00;-##.00}%");
+                }
+            }
+
+            return summarySB.ToString();
+        }
+
+        internal void CalculateMonthlyAndYearlyPerf(double stock, double intl, double bond, int year, Dictionary<string, FundValue> perfSummaries)
         {
             double bondPct = bond / 100.0;
             double intlPct = stock / 100.0 * intl / 100.0;
@@ -37,8 +82,6 @@ namespace daily
             StringBuilder daysSection = new StringBuilder();
             DateTime lastDate = DateTime.MinValue;
             bool storedOpenPrice = false;
-            summarySB.AppendLine("-------------------------------------------");
-            summarySB.AppendLine($"{year}:");
             double stockDividendMTD = 0.0;
             double intlDividendMTD = 0.0;
             double bondDividendMTD = 0.0;
@@ -63,8 +106,11 @@ namespace daily
                 {
                     if (lastMonth < month && month > 1)
                     {
-                        double mtdDividendPct1 = stockPct * stockDividendMTD + intlPct *intlDividendMTD + bondPct * bondDividendMTD;
-                        summarySB.AppendLine($"    {lastDate.ToString("MMM", CultureInfo.InvariantCulture)} {lastMTD,7: ##.00;-##.00}%         {mtdDividendPct1: ##.00}%");
+                        double mtdDividendPct1 = stockPct * stockDividendMTD + intlPct * intlDividendMTD + bondPct * bondDividendMTD;
+
+                        string dateKey1 = lastDate.ToString("yyyy-MMM", CultureInfo.InvariantCulture);
+                        perfSummaries.Add(dateKey1, new FundValue() { Value = lastMTD, Dividend = mtdDividendPct1 });
+
                         stockDividendYTD += stockDividendMTD;
                         intlDividendYTD += intlDividendMTD;
                         bondDividendYTD += bondDividendMTD;
@@ -87,17 +133,18 @@ namespace daily
                     intlDividendMTD += intlPerf.Item6;
                     bondDividendMTD += bondPerf.Item6;
                     double day = stockPct * stockPerf.Item3 + intlPct * intlPerf.Item3 + bondPct * bondPerf.Item3;
+
                     if (year == DateTime.Now.Year && month == DateTime.Now.Month)
                     {
-                        bool interim = stockPerf.Item5 || intlPerf.Item5 || bondPerf.Item5;
-                        string interimStr = "";
+                        bool interim = stockPerf.Item5 != null || intlPerf.Item5 != null || bondPerf.Item5 != null;
+                        string interimStr = null;
                         if (interim)
                         {
                             TimeSpan captureTime = date.AddHours(3).TimeOfDay;
                             interimStr = $" *{captureTime.Hours}:{captureTime.Minutes:00} ET";
                         }
 
-                        daysSection.AppendLine($"                                 {date.ToString("MMM", CultureInfo.InvariantCulture)} {date.Day:00} {day,7: ##.00;-##.00}%{interimStr}");
+                        perfSummaries.Add(date.ToString("yyyy-MMM-dd"), new FundValue() { Value = day, Time = interimStr });
                     }
 
                     lastMTD = mtd;
@@ -109,24 +156,21 @@ namespace daily
             }
 
             double mtdDividendPct2 = stockPct * stockDividendMTD + intlPct * intlDividendMTD + bondPct * bondDividendMTD;
-            summarySB.AppendLine($"    {lastDate.ToString("MMM", CultureInfo.InvariantCulture)} {lastMTD,7: ##.00;-##.00}%         {mtdDividendPct2: ##.00}%");
+
+            string dateKey2 = lastDate.ToString("yyyy-MMM", CultureInfo.InvariantCulture);
+            perfSummaries.Add(dateKey2, new FundValue() { Value = lastMTD, Dividend = mtdDividendPct2 });
+
             stockDividendYTD += stockDividendMTD;
             intlDividendYTD += intlDividendMTD;
             bondDividendYTD += bondDividendMTD;
 
-            if (year == DateTime.Now.Year && month == DateTime.Now.Month)
-            {
-                summarySB.Append(daysSection.ToString());
-            }
-
-            summarySB.AppendLine("===========================================");
-
             double finalYtdDiv = stockPct * stockDividendYTD + intlPct * intlDividendYTD + bondPct * bondDividendYTD;
 
-            return new Tuple<double, double>(finalYtd, finalYtdDiv);
+            string dateKey3 = lastDate.ToString("yyyy", CultureInfo.InvariantCulture);
+            perfSummaries.Add(dateKey3, new FundValue() { Value = finalYtd, Dividend = finalYtdDiv });
         }
 
-        private static Tuple<double, double, double, double, bool, double> calculateDaysPerf(FundValue[] monthlyCloses, Dictionary<DateTime, FundValue> dailyPrices, int index, double lastPrice, DateTime date)
+        private static Tuple<double, double, double, double, string, double> calculateDaysPerf(FundValue[] monthlyCloses, Dictionary<DateTime, FundValue> dailyPrices, int index, double lastPrice, DateTime date)
         {
             if (monthlyCloses[index] == null)
             {
@@ -138,7 +182,7 @@ namespace daily
             double ytd = (monthlyCloses[index].Value - monthlyCloses[0].Value) / monthlyCloses[0].Value * 100.0;
             double mtd = (monthlyCloses[index].Value - monthlyCloses[index - 1].Value) / monthlyCloses[index - 1].Value * 100.0;
             double day = (monthlyCloses[index].Value - lastPrice) / lastPrice * 100.0;
-            return new Tuple<double, double, double, double, bool, double>(ytd, mtd, day, monthlyCloses[index].Value, dailyPrices[date].Interim, dailyPrices[date].Dividend);
+            return new Tuple<double, double, double, double, string, double>(ytd, mtd, day, monthlyCloses[index].Value, dailyPrices[date].Time, dailyPrices[date].Dividend);
         }
     }
 }

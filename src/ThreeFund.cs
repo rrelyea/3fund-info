@@ -1,5 +1,6 @@
 ﻿using daily.DataProviders;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
@@ -44,7 +45,9 @@ namespace daily
 
             if ((marketTime == MarketTime.Open && FundStyle == FundStyle.ETF)
                 || (marketTime == MarketTime.MutualFundPricesPublished && FundStyle == FundStyle.MutualFund)
-                || (marketTime == MarketTime.VanguardHistoricalPricesUpdated))
+                || (marketTime == MarketTime.VanguardHistoricalPricesUpdated)
+                || (marketTime == MarketTime.MarketClosedAllDay))
+
             {
                 Console.Write("Calculating perf:");
                 await OutputThreeFundPerfSummary(startYear);
@@ -53,44 +56,42 @@ namespace daily
 
         public async Task OutputThreeFundPerfSummary(int startYear)
         {
-            PerfCalculator[] quoteData = new PerfCalculator[2021 - startYear + 1];
-
-            for (int year = startYear; year <= 2021; year++)
-            {
-                quoteData[year - startYear] = new PerfCalculator(this, year);
-            }
+            var perfCalc = new PerfCalculator(this);
 
             for (int stock = 100; stock >= 0; stock -= 5)
             {
                 for (int intl = 0; intl <= 50; intl += 10)
                 {
                     int bond = 100 - stock;
+                    var perfSummaries = new Dictionary<string, FundValue>();
 
-                    StringBuilder summarySB = new StringBuilder();
-                    summarySB.AppendLine($"Performance for {stock}/{bond} ({intl}% intl)-{this.StockFund.UpperSymbol}-{this.BondFund.UpperSymbol}-{this.InternationStockFund.UpperSymbol}");
-                    summarySB.AppendLine();
-                    summarySB.AppendLine("  Appreciation % |  Dividend % | Appreciation % (Per Day)");
-                    summarySB.AppendLine();
                     for (int year = 2021; year >= startYear; year--)
                     {
-                        string ytdStr = year == DateTime.Now.Year ? "YTD " : "Year";
-                        var ytd = quoteData[year - startYear].OutputPerfForOneYear(stock, intl, 100 - stock, year, summarySB);
-                        summarySB.AppendLine($"{year} {ytdStr} {ytd.Item1,5:0.00}%  {ytd.Item2,11:0.00}%");
-                        summarySB.AppendLine();
+                        perfCalc.CalculateMonthlyAndYearlyPerf(stock, intl, 100 - stock, year, perfSummaries);
                     }
 
-                    FileInfo outputFile = new FileInfo($"perf\\{stock}-{bond}\\{stock}-{bond} ({intl}% intl)-{this.StockFund.UpperSymbol}-{this.BondFund.UpperSymbol}-{this.InternationStockFund.UpperSymbol}.txt");
-                    if (!outputFile.Directory.Exists)
-                    {
-                        outputFile.Directory.Create();
-                    }
-
-                    await File.WriteAllTextAsync(outputFile.FullName, summarySB.ToString());
-                    Console.Write(".");
+                    await OutputTextFile(startYear, perfCalc, stock, intl, bond, perfSummaries);
                 }
             }
 
             Console.WriteLine();
+        }
+
+        private async Task OutputTextFile(int startYear, PerfCalculator perfCalc, int stock, int intl, int bond, Dictionary<string, FundValue> perfSummaries)
+        {
+            FileInfo outputFile = new FileInfo($"perf\\{stock}-{bond}\\{stock}-{bond} ({intl}% intl)-{this.StockFund.UpperSymbol}-{this.BondFund.UpperSymbol}-{this.InternationStockFund.UpperSymbol}.txt");
+            if (!outputFile.Directory.Exists)
+            {
+                outputFile.Directory.Create();
+            }
+
+            StringBuilder summarySB = new StringBuilder();
+            summarySB.AppendLine($"Performance for {stock}/{bond} ({intl}% intl)  {this.StockFund.UpperSymbol}/{this.BondFund.UpperSymbol} ({this.InternationStockFund.UpperSymbol})");
+            summarySB.AppendLine();
+            summarySB.AppendLine("  Appreciation % |  Dividend %");
+            summarySB.AppendLine(perfCalc.CreateTextPerfSummary(perfSummaries));
+            await File.WriteAllTextAsync(outputFile.FullName, summarySB.ToString());
+            Console.Write(".");
         }
     }
 }
