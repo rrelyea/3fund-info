@@ -22,9 +22,73 @@ namespace daily.Formatters
             summarySB.AppendLine("<html>");
             summarySB.AppendLine("<head>");
             summarySB.AppendLine("<style> .right { text-align: right; } </style>");
+            summarySB.AppendLine("<script src='https://cdn.jsdelivr.net/npm/chart.js@3.4.1/dist/chart.min.js'></script>");
             summarySB.AppendLine("</head>");
             summarySB.AppendLine("<body>");
             AppendDiv($"Performance for {stock}/{bond} ({intl}% intl)  {threeFund.StockFund.UpperSymbol}/{threeFund.BondFund.UpperSymbol} ({threeFund.InternationStockFund.UpperSymbol})");
+            AppendDiv();
+            summarySB.AppendLine(
+                "<div style='height:200px;width:500px;background:yellow;'><canvas id=myChart></canvas></div>"
+            );
+            double cummulativeValue = 100;
+            string months = null;
+            string values = null;
+            foreach (var date in perfSummaries.Keys)
+            {
+                string[] chunks = date.Split('-');
+                if (chunks.Length == 2)
+                {
+                    cummulativeValue = cummulativeValue + perfSummaries[date].Value;
+                    string valueStr = cummulativeValue.ToString("##.00");
+                    months += months == null ? $"'{chunks[1]}'" : $",'{chunks[1]}'";
+                    values += values == null ? $"{valueStr}" : $",{valueStr}";
+                }
+                else if (chunks.Length == 1)
+                {
+                    break;
+                }
+            }
+
+            summarySB.AppendLine(
+        @"<script>
+            var ctx = document.getElementById('myChart').getContext('2d');
+            var myChart = new Chart(ctx, {
+          type: 'bar',
+          
+          data:
+            {
+            labels:["+months+@"],
+            datasets:
+                [{
+                data:["+values+@"],
+                label: '2021',
+                borderColor: '#3e95cd',
+                backgroundColor: '#7bb6dd',
+                fill: false,
+              }
+            ]
+          },
+          options:
+            {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            scales:
+                {
+                xAxes:
+                    [{
+                    ticks:
+                        {
+                        beginAtZero: true,
+        mirror: false,
+        suggestedMin: 0,
+        suggestedMax: 110,
+      },
+    }],
+}
+            },
+     });
+    </script>");
             AppendDiv();
             CreateHtmlPerfBody(perfSummaries);
             summarySB.AppendLine("</body><html>");
@@ -77,7 +141,7 @@ namespace daily.Formatters
                     {
                         AppendRow();
                     }
-                    
+
                     Append3Cells(chunks[1], $"{summaryData.Value,7: ##.00;-##.00}%", $"{summaryData.Dividend:##.00}%");
                 }
                 else if (chunks.Length == 1)
@@ -96,9 +160,9 @@ namespace daily.Formatters
 
                     Append3Cells($"{chunks[2]}", $"{summaryData.Value,6: ##.00;-##.00}%", $"{summaryData.Time}");
                 }
-             
+
             }
-            
+
             AppendRow();
             EndTable();
         }
