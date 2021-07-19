@@ -23,7 +23,7 @@ namespace daily
                 return MarketTime.MarketClosedAllDay;
             }
 
-            double time = (now.Hour - 4.0) + now.Minute / 60.0;
+            double time = now.Hour + now.Minute / 60.0;
 
             if (time >= 9.5 && time <= 16.0)
             {

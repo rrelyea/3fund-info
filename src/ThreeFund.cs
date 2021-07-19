@@ -1,4 +1,5 @@
 ﻿using daily.DataProviders;
+using daily.Formatters;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -50,11 +51,11 @@ namespace daily
 
             {
                 Console.Write("Calculating perf:");
-                await OutputThreeFundPerfSummary(startYear);
+                await CalculateAndOutputPerfSummaries(startYear);
             }
         }
 
-        public async Task OutputThreeFundPerfSummary(int startYear)
+        public async Task CalculateAndOutputPerfSummaries(int startYear)
         {
             var perfCalc = new PerfCalculator(this);
 
@@ -70,28 +71,12 @@ namespace daily
                         perfCalc.CalculateMonthlyAndYearlyPerf(stock, intl, 100 - stock, year, perfSummaries);
                     }
 
-                    await OutputTextFile(startYear, perfCalc, stock, intl, bond, perfSummaries);
+                    await TextFormatter.OutputTextFile(this, startYear, perfCalc, stock, intl, bond, perfSummaries);
+                    await HtmlFormatter.OutputHtmlFile(this, startYear, perfCalc, stock, intl, bond, perfSummaries);
                 }
             }
 
             Console.WriteLine();
-        }
-
-        private async Task OutputTextFile(int startYear, PerfCalculator perfCalc, int stock, int intl, int bond, Dictionary<string, FundValue> perfSummaries)
-        {
-            FileInfo outputFile = new FileInfo($"perf\\{stock}-{bond}\\{stock}-{bond} ({intl}% intl)-{this.StockFund.UpperSymbol}-{this.BondFund.UpperSymbol}-{this.InternationStockFund.UpperSymbol}.txt");
-            if (!outputFile.Directory.Exists)
-            {
-                outputFile.Directory.Create();
-            }
-
-            StringBuilder summarySB = new StringBuilder();
-            summarySB.AppendLine($"Performance for {stock}/{bond} ({intl}% intl)  {this.StockFund.UpperSymbol}/{this.BondFund.UpperSymbol} ({this.InternationStockFund.UpperSymbol})");
-            summarySB.AppendLine();
-            summarySB.AppendLine("  Appreciation % |  Dividend %");
-            summarySB.AppendLine(perfCalc.CreateTextPerfSummary(perfSummaries));
-            await File.WriteAllTextAsync(outputFile.FullName, summarySB.ToString());
-            Console.Write(".");
         }
     }
 }
