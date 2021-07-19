@@ -38,7 +38,8 @@ namespace daily
 
             if ((marketTime == MarketTime.Open && FundStyle == FundStyle.ETF) || (marketTime == MarketTime.MutualFundPricesPublished && FundStyle == FundStyle.MutualFund))
             {
-                DateTime now = DateTime.Now;
+                TimeZoneInfo zone = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+                DateTime now = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, zone);
                 MartketWatch.LoadRealTimePriceIntoFund(StockFund, now);
                 MartketWatch.LoadRealTimePriceIntoFund(InternationStockFund, now);
                 MartketWatch.LoadRealTimePriceIntoFund(BondFund, now);

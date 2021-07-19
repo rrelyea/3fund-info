@@ -93,7 +93,7 @@ namespace daily
                         string interimStr = null;
                         if (interim)
                         {
-                            TimeSpan captureTime = date.AddHours(3).TimeOfDay;
+                            TimeSpan captureTime = date.TimeOfDay;
                             interimStr = $" *{captureTime.Hours}:{captureTime.Minutes:00} ET";
                         }
 

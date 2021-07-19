@@ -65,7 +65,7 @@ namespace daily.Formatters
                         daysHeaderShown = true;
                     }
 
-                    summarySB.AppendLine($"    {chunks[2]}   {summaryData.Value,6: ##.00;-##.00}%");
+                    summarySB.AppendLine($"    {chunks[2]}   {summaryData.Value,6: ##.00;-##.00}% {summaryData.Time}");
                 }
             }
 
