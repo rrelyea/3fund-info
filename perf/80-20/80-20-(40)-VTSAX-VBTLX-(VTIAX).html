@@ -1,9 +1,51 @@
 <html>
 <head>
 <style> .right { text-align: right; } </style>
+<script src='https://cdn.jsdelivr.net/npm/chart.js@3.4.1/dist/chart.min.js'></script>
 </head>
 <body>
 <div>Performance for 80/20 (40% intl)  VTSAX/VBTLX (VTIAX)</div>
+<div>&nbsp</div>
+<div style='height:200px;width:500px;background:yellow;'><canvas id=myChart></canvas></div>
+<script>
+            var ctx = document.getElementById('myChart').getContext('2d');
+            var myChart = new Chart(ctx, {
+          type: 'bar',
+          
+          data:
+            {
+            labels:['Jan','Feb','Mar','Apr','May','Jun','Jul'],
+            datasets:
+                [{
+                data:[99.61,101.55,103.22,106.74,107.97,108.76,107.21],
+                label: '2021',
+                borderColor: '#3e95cd',
+                backgroundColor: '#7bb6dd',
+                fill: false,
+              }
+            ]
+          },
+          options:
+            {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            scales:
+                {
+                xAxes:
+                    [{
+                    ticks:
+                        {
+                        beginAtZero: true,
+        mirror: false,
+        suggestedMin: 0,
+        suggestedMax: 110,
+      },
+    }],
+}
+            },
+     });
+    </script>
 <div>&nbsp</div>
 <table>
 <tr><td class=right></td><td class=right>Appreciation %</td><td class=right>Dividend %</td></tr>
