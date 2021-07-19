@@ -9,6 +9,7 @@ namespace daily
         MutualFundPricesPublished,
         VanguardHistoricalPricesUpdated,
         MarketClosedAllDay,
+        MarketClosed,
     }
 
     public static class MarketTimes
@@ -39,7 +40,7 @@ namespace daily
             }
             else
             {
-                return MarketTime.None;
+                return MarketTime.MarketClosed;
             }
         }
     }

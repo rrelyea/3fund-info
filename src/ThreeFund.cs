@@ -48,6 +48,7 @@ namespace daily
             if ((marketTime == MarketTime.Open && FundStyle == FundStyle.ETF)
                 || (marketTime == MarketTime.MutualFundPricesPublished && FundStyle == FundStyle.MutualFund)
                 || (marketTime == MarketTime.VanguardHistoricalPricesUpdated)
+                || (marketTime == MarketTime.MarketClosed)
                 || (marketTime == MarketTime.MarketClosedAllDay))
 
             {
