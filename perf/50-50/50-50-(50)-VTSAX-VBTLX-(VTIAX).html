@@ -6,43 +6,28 @@
 <body>
 <div>Performance for 50/50 (50% intl)  VTSAX/VBTLX (VTIAX)</div>
 <div>&nbsp</div>
-<div style='height:200px;width:500px;background:yellow;'><canvas id=myChart></canvas></div>
+<div style='height:200px;width:500px;background:lemonChiffon'><canvas id=myChart></canvas></div>
 <script>
             var ctx = document.getElementById('myChart').getContext('2d');
             var myChart = new Chart(ctx, {
-          type: 'bar',
+          type: 'line',
           
           data:
             {
-            labels:['Jan','Feb','Mar','Apr','May','Jun','Jul'],
+            labels:['EOY','Jan','Feb','Mar','Apr','May','Jun','Jul'],
             datasets:
                 [{
-                data:[99.41,99.96,100.32,102.71,103.65,104.20,103.60],
+                data:[10000.0,9941.41,9996.39,10032.33,10270.90,10364.99,10420.44,10359.84],
                 label: '2021',
                 borderColor: '#3e95cd',
                 backgroundColor: '#7bb6dd',
                 fill: false,
-              }
-            ]
-          },
+              }]
+            },
           options:
             {
-            indexAxis: 'y',
             responsive: true,
             maintainAspectRatio: false,
-            scales:
-                {
-                xAxes:
-                    [{
-                    ticks:
-                        {
-                        beginAtZero: true,
-        mirror: false,
-        suggestedMin: 0,
-        suggestedMax: 110,
-      },
-    }],
-}
             },
      });
     </script>

@@ -6,43 +6,28 @@
 <body>
 <div>Performance for 10/90 (40% intl)  VTI/BND (VXUS)</div>
 <div>&nbsp</div>
-<div style='height:200px;width:500px;background:yellow;'><canvas id=myChart></canvas></div>
+<div style='height:200px;width:500px;background:lemonChiffon'><canvas id=myChart></canvas></div>
 <script>
             var ctx = document.getElementById('myChart').getContext('2d');
             var myChart = new Chart(ctx, {
-          type: 'bar',
+          type: 'line',
           
           data:
             {
-            labels:['Jan','Feb','Mar','Apr','May','Jun','Jul'],
+            labels:['EOY','Jan','Feb','Mar','Apr','May','Jun','Jul'],
             datasets:
                 [{
-                data:[99.29,98.05,96.99,98.00,98.25,98.95,99.70],
+                data:[10000.0,9929.09,9804.99,9698.72,9800.29,9824.99,9894.57,9969.85],
                 label: '2021',
                 borderColor: '#3e95cd',
                 backgroundColor: '#7bb6dd',
                 fill: false,
-              }
-            ]
-          },
+              }]
+            },
           options:
             {
-            indexAxis: 'y',
             responsive: true,
             maintainAspectRatio: false,
-            scales:
-                {
-                xAxes:
-                    [{
-                    ticks:
-                        {
-                        beginAtZero: true,
-        mirror: false,
-        suggestedMin: 0,
-        suggestedMax: 110,
-      },
-    }],
-}
             },
      });
     </script>

@@ -6,43 +6,28 @@
 <body>
 <div>Performance for 55/45 (20% intl)  VTI/BND (VXUS)</div>
 <div>&nbsp</div>
-<div style='height:200px;width:500px;background:yellow;'><canvas id=myChart></canvas></div>
+<div style='height:200px;width:500px;background:lemonChiffon'><canvas id=myChart></canvas></div>
 <script>
             var ctx = document.getElementById('myChart').getContext('2d');
             var myChart = new Chart(ctx, {
-          type: 'bar',
+          type: 'line',
           
           data:
             {
-            labels:['Jan','Feb','Mar','Apr','May','Jun','Jul'],
+            labels:['EOY','Jan','Feb','Mar','Apr','May','Jun','Jul'],
             datasets:
                 [{
-                data:[99.50,100.40,101.29,104.15,104.74,105.89,105.30],
+                data:[10000.0,9950.23,10039.76,10128.53,10415.19,10473.51,10588.69,10529.96],
                 label: '2021',
                 borderColor: '#3e95cd',
                 backgroundColor: '#7bb6dd',
                 fill: false,
-              }
-            ]
-          },
+              }]
+            },
           options:
             {
-            indexAxis: 'y',
             responsive: true,
             maintainAspectRatio: false,
-            scales:
-                {
-                xAxes:
-                    [{
-                    ticks:
-                        {
-                        beginAtZero: true,
-        mirror: false,
-        suggestedMin: 0,
-        suggestedMax: 110,
-      },
-    }],
-}
             },
      });
     </script>
