@@ -28,17 +28,18 @@ namespace daily.Formatters
             AppendDiv($"Performance for {stock}/{bond} ({intl}% intl)  {threeFund.StockFund.UpperSymbol}/{threeFund.BondFund.UpperSymbol} ({threeFund.InternationStockFund.UpperSymbol})");
             AppendDiv();
             summarySB.AppendLine(
-                "<div style='height:200px;width:500px;background:yellow;'><canvas id=myChart></canvas></div>"
+                "<div style='height:200px;width:500px;background:lemonChiffon'><canvas id=myChart></canvas></div>"
             );
-            double cummulativeValue = 100;
-            string months = null;
-            string values = null;
+            double scale = 10000;
+            double cummulativeValue = scale;
+            string months = "'EOY'";
+            string values = cummulativeValue.ToString("#.0");
             foreach (var date in perfSummaries.Keys)
             {
                 string[] chunks = date.Split('-');
                 if (chunks.Length == 2)
                 {
-                    cummulativeValue = cummulativeValue + perfSummaries[date].Value;
+                    cummulativeValue = cummulativeValue + perfSummaries[date].Value/100 * scale;
                     string valueStr = cummulativeValue.ToString("##.00");
                     months += months == null ? $"'{chunks[1]}'" : $",'{chunks[1]}'";
                     values += values == null ? $"{valueStr}" : $",{valueStr}";
@@ -53,7 +54,7 @@ namespace daily.Formatters
         @"<script>
             var ctx = document.getElementById('myChart').getContext('2d');
             var myChart = new Chart(ctx, {
-          type: 'bar',
+          type: 'line',
           
           data:
             {
@@ -65,27 +66,12 @@ namespace daily.Formatters
                 borderColor: '#3e95cd',
                 backgroundColor: '#7bb6dd',
                 fill: false,
-              }
-            ]
-          },
+              }]
+            },
           options:
             {
-            indexAxis: 'y',
             responsive: true,
             maintainAspectRatio: false,
-            scales:
-                {
-                xAxes:
-                    [{
-                    ticks:
-                        {
-                        beginAtZero: true,
-        mirror: false,
-        suggestedMin: 0,
-        suggestedMax: 110,
-      },
-    }],
-}
             },
      });
     </script>");
