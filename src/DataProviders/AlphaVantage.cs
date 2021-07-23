@@ -24,9 +24,9 @@ namespace daily.DataProviders
 
         private async Task FetchData()
         {
-            FileInfo montlyPriceFile = new FileInfo($"prices\\{Symbol}\\alphaVantageMonthly-{Symbol}.json");
+            FileInfo monthlyPriceFile = new FileInfo($"prices\\{Symbol}\\alphaVantageMonthly-{Symbol}.json");
             string jsonData;
-            if (!montlyPriceFile.Exists)
+            if (!monthlyPriceFile.Exists || monthlyPriceFile.LastWriteTime.CompareTo(DateTime.Now.AddDays(-2)) <= 0)
             {
                 var client = new HttpClient();
                 string apiKey = File.ReadAllText("c:\\temp\\alphaVantageApiKey.txt");
@@ -51,7 +51,7 @@ namespace daily.DataProviders
                 {
                     json_root = JsonDocument.Parse(jsonData).RootElement;
                     LastRefreshed = GetLastRefreshed(json_root);
-                    await File.WriteAllTextAsync(montlyPriceFile.FullName, jsonData);
+                    await File.WriteAllTextAsync(monthlyPriceFile.FullName, jsonData);
                     loaded = true;
                 }
                 catch (Exception)
@@ -61,7 +61,7 @@ namespace daily.DataProviders
             }
             else
             {
-                jsonData = await File.ReadAllTextAsync(montlyPriceFile.FullName);
+                jsonData = await File.ReadAllTextAsync(monthlyPriceFile.FullName);
                 json_root = JsonDocument.Parse(jsonData).RootElement;
             }
         }
