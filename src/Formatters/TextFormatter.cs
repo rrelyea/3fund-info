@@ -10,7 +10,7 @@ namespace daily.Formatters
     {
         public static async Task OutputTextFile(ThreeFund threeFund, int startYear, PerfCalculator perfCalc, int stock, int intl, int bond, Dictionary<string, FundValue> perfSummaries)
         {
-            FileInfo outputFile = new FileInfo($"perf\\{stock}-{bond}\\{stock}-{bond}-({intl})-{threeFund.StockFund.UpperSymbol}-{threeFund.BondFund.UpperSymbol}-({threeFund.InternationStockFund.UpperSymbol}).txt");
+            var outputFile = new FileInfo($"perf\\{threeFund.StockFund.Symbol}\\{stock}s-{bond}b-{intl}i.html");
             if (!outputFile.Directory.Exists)
             {
                 outputFile.Directory.Create();
