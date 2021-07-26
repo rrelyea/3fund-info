@@ -1,5 +1,5 @@
 while ($true)
 {
     & .\update.ps1
-    start-sleep -seconds 280
+    start-sleep -seconds 260
 }
