@@ -28,33 +28,48 @@ namespace daily.Formatters
             summarySB.AppendLine("<body>");
             AppendDiv($"Performance for {stock}/{bond} ({intl}% intl)  {threeFund.StockFund.UpperSymbol}/{threeFund.BondFund.UpperSymbol} ({threeFund.InternationStockFund.UpperSymbol})");
             AppendDiv();
-            summarySB.AppendLine(
-                "<div style='height:200px;width:300px;float:right;background:lemonChiffon'><canvas id=myChart></canvas></div>"
-            );
+
             double scale = 10000;
-            double cummulativeValue = scale;
+            double cummulativeValueYear = scale;
+            double cummulativeValueMonth = double.NaN;
             string months = "'EOY'";
-            string values = cummulativeValue.ToString("#.0");
+            string days = "'EOM'";
+            string monthValues = cummulativeValueYear.ToString("#.0");
+            string dayValues = null;
+            bool yearDone = false;
             foreach (var date in perfSummaries.Keys)
             {
                 string[] chunks = date.Split('-');
-                if (chunks.Length == 2)
+                if (chunks.Length == 2 && !yearDone)
                 {
-                    cummulativeValue = cummulativeValue + perfSummaries[date].Value/100 * scale;
-                    string valueStr = cummulativeValue.ToString("##.00");
+                    cummulativeValueYear = cummulativeValueYear + perfSummaries[date].Value/100 * scale;
+                    string valueStr = cummulativeValueYear.ToString("##.00");
                     months += months == null ? $"'{chunks[1]}'" : $",'{chunks[1]}'";
-                    values += values == null ? $"{valueStr}" : $",{valueStr}";
+                    monthValues += monthValues == null ? $"{valueStr}" : $",{valueStr}";
+                    if (chunks[1] == DateTime.Now.AddMonths(-1).ToString("MMMM"))
+                    {
+                        cummulativeValueMonth = cummulativeValueYear;
+                        dayValues = cummulativeValueMonth.ToString("#.0");
+                    }
+                }
+                else if (chunks.Length == 3)
+                {
+                    cummulativeValueMonth = cummulativeValueMonth + perfSummaries[date].Value / 100 * scale;
+                    string valueStr = cummulativeValueMonth.ToString("##.00");
+                    days += days == null ? $"'{chunks[2]}'" : $",'{chunks[2]}'";
+                    dayValues += dayValues == null ? $"{valueStr}" : $",{valueStr}";
                 }
                 else if (chunks.Length == 1)
                 {
-                    break;
+                    yearDone = true;
                 }
             }
 
             summarySB.AppendLine(
         @"<script>
-            var ctx = document.getElementById('myChart').getContext('2d');
-            var myChart = new Chart(ctx, {
+            function drawCharts() {
+            var yearCtx = document.getElementById('yearChartCanvas').getContext('2d');
+            var yearChart = new Chart(yearCtx, {
           type: 'line',
           
           data:
@@ -62,7 +77,7 @@ namespace daily.Formatters
             labels:["+months+@"],
             datasets:
                 [{
-                data:["+values+@"],
+                data:["+monthValues+ @"],
                 label: '2021',
                 borderColor: '#3e95cd',
                 backgroundColor: '#7bb6dd',
@@ -75,6 +90,32 @@ namespace daily.Formatters
             maintainAspectRatio: false,
             },
      });
+
+     var monthCtx = document.getElementById('monthChartCanvas').getContext('2d');
+            var monthChart = new Chart(monthCtx, {
+          type: 'line',
+          
+          data:
+            {
+            labels:[" + days + @"],
+            datasets:
+                [{
+                data:[" + dayValues + @"],
+                label: '" + DateTime.Now.ToString("MMMM") + @"',
+                borderColor: '#3e95cd',
+                backgroundColor: '#7bb6dd',
+                fill: false,
+              }]
+            },
+          options:
+            {
+            responsive: true,
+            maintainAspectRatio: false,
+            },
+     });
+     }
+            window.onload = drawCharts;
+
     </script>");
             AppendDiv();
             CreateHtmlPerfBody(perfSummaries);
@@ -119,20 +160,16 @@ namespace daily.Formatters
                 {
                     year = chunks[0];
                     AppendRow();
-                    Append3Cells($"{year}:");
+                    Append3Cells($"{year}:", null, daysHeaderShown ? null : "<canvas id=yearChartCanvas></canvas>");
                 }
                 FundValue summaryData = perfSummaries[date];
                 if (chunks.Length == 2)
                 {
-                    if (date == DateTime.Now.ToString("yyyy-MMM"))
-                    {
-                        AppendRow();
-                    }
-
                     Append3Cells(chunks[1], $"{summaryData.Value,7: ##.00;-##.00}%", $"{summaryData.Dividend:##.00}%");
                 }
                 else if (chunks.Length == 1)
                 {
+                    AppendRow();
                     string ytdStr = year == currentYear ? "YTD " : "Year";
                     Append3Cells($"{chunks[0]} {ytdStr}", $"{summaryData.Value,6: ##.00;-##.00}%", $"{summaryData.Dividend,6: ##.00}%");
                 }
@@ -141,7 +178,7 @@ namespace daily.Formatters
                     if (!daysHeaderShown)
                     {
                         AppendRow();
-                        Append3Cells($"{chunks[1]} Days");
+                        Append3Cells($"{chunks[1]} Days", null, "<canvas id=monthChartCanvas></canvas>");
                         daysHeaderShown = true;
                     }
 
