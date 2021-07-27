@@ -17,6 +17,7 @@ namespace daily
 
         internal void CalculateMonthlyAndYearlyPerf(double stock, double intl, double bond, int year, Dictionary<string, FundValue> perfSummaries)
         {
+            var perfDaySummaries = new Dictionary<string, FundValue>();
             double bondPct = bond / 100.0;
             double intlPct = stock / 100.0 * intl / 100.0;
             double stockPct = stock / 100.0 * (100 - intl) / 100.0;
@@ -32,7 +33,7 @@ namespace daily
             double lastMTD = double.NaN;
             int lastMonth = 0;
             int month = 0;
-            StringBuilder daysSection = new StringBuilder();
+            var daysSection = new StringBuilder();
             DateTime lastDate = DateTime.MinValue;
             bool storedOpenPrice = false;
             double stockDividendMTD = 0.0;
@@ -61,7 +62,7 @@ namespace daily
                     {
                         double mtdDividendPct1 = stockPct * stockDividendMTD + intlPct * intlDividendMTD + bondPct * bondDividendMTD;
 
-                        string dateKey1 = lastDate.ToString("yyyy-MMM", CultureInfo.InvariantCulture);
+                        string dateKey1 = lastDate.ToString("yyyy-MMMM", CultureInfo.InvariantCulture);
                         perfSummaries.Add(dateKey1, new FundValue() { Value = lastMTD, Dividend = mtdDividendPct1 });
 
                         stockDividendYTD += stockDividendMTD;
@@ -97,7 +98,7 @@ namespace daily
                             interimStr = $" *{captureTime.Hours}:{captureTime.Minutes:00} ET";
                         }
 
-                        perfSummaries.Add(date.ToString("yyyy-MMM-dd"), new FundValue() { Value = day, Time = interimStr });
+                        perfDaySummaries.Add(date.ToString("yyyy-MMMM-dd"), new FundValue() { Value = day, Time = interimStr });
                     }
 
                     lastMTD = mtd;
@@ -109,8 +110,7 @@ namespace daily
             }
 
             double mtdDividendPct2 = stockPct * stockDividendMTD + intlPct * intlDividendMTD + bondPct * bondDividendMTD;
-
-            string dateKey2 = lastDate.ToString("yyyy-MMM", CultureInfo.InvariantCulture);
+            string dateKey2 = lastDate.ToString("yyyy-MMMM", CultureInfo.InvariantCulture);
             perfSummaries.Add(dateKey2, new FundValue() { Value = lastMTD, Dividend = mtdDividendPct2 });
 
             stockDividendYTD += stockDividendMTD;
@@ -121,6 +121,11 @@ namespace daily
 
             string dateKey3 = lastDate.ToString("yyyy", CultureInfo.InvariantCulture);
             perfSummaries.Add(dateKey3, new FundValue() { Value = finalYtd, Dividend = finalYtdDiv });
+
+            foreach (var perfDayDate in perfDaySummaries.Keys)
+            {
+                perfSummaries.Add(perfDayDate, perfDaySummaries[perfDayDate]);
+            }
         }
 
         private static Tuple<double, double, double, double, string, double> calculateDaysPerf(FundValue[] monthlyCloses, Dictionary<DateTime, FundValue> dailyPrices, int index, double lastPrice, DateTime date)
