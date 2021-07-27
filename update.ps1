@@ -1,10 +1,13 @@
 & dotnet run --project .\src\daily.csproj
-& git add -A perf\*
+& git add -A .\*.html
+& git add -A .\*.txt
 & git commit -m "price update"
 & git push
-Copy-Item -Path perf\ -Filter *.html -Destination ..\rrelyea.github.io\3fund\ -Recurse -Force
+Copy-Item -Path .\vti -Filter *.html -Destination ..\rrelyea.github.io\3fund -Recurse -Force
+Copy-Item -Path .\vtsax -Filter *.html -Destination ..\rrelyea.github.io\3fund -Recurse -Force
 & cd ..\rrelyea.github.io
-& git add 3fund\*.html
+& git add 3fund\vti\*.html
+& git add 3fund\vtsax\*.html
 & git commit -m "price update"
 & git push
 & cd ..\3fund-info

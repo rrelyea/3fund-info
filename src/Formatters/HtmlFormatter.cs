@@ -13,7 +13,7 @@ namespace daily.Formatters
         public static async Task OutputHtmlFile(ThreeFund threeFund, int startYear, PerfCalculator perfCalc, int stock, int intl, int bond, Dictionary<string, FundValue> perfSummaries)
         {
             summarySB.Clear();
-            var outputFile = new FileInfo($"perf\\{threeFund.StockFund.Symbol}\\{stock}s-{bond}b-{intl}i.html");
+            var outputFile = new FileInfo($"{threeFund.StockFund.Symbol}\\{stock}s-{bond}b-{intl}i.html");
             if (!outputFile.Directory.Exists)
             {
                 outputFile.Directory.Create();
@@ -21,6 +21,7 @@ namespace daily.Formatters
 
             summarySB.AppendLine("<html>");
             summarySB.AppendLine("<head>");
+            summarySB.AppendLine($"<title>{threeFund.StockFund.Symbol} {stock}/{bond} ({intl}i)</title>");
             summarySB.AppendLine("<style> .right { text-align: right; } </style>");
             summarySB.AppendLine("<script src='https://cdn.jsdelivr.net/npm/chart.js@3.4.1/dist/chart.min.js'></script>");
             summarySB.AppendLine("</head>");
@@ -28,7 +29,7 @@ namespace daily.Formatters
             AppendDiv($"Performance for {stock}/{bond} ({intl}% intl)  {threeFund.StockFund.UpperSymbol}/{threeFund.BondFund.UpperSymbol} ({threeFund.InternationStockFund.UpperSymbol})");
             AppendDiv();
             summarySB.AppendLine(
-                "<div style='height:200px;width:500px;background:lemonChiffon'><canvas id=myChart></canvas></div>"
+                "<div style='height:200px;width:300px;float:right;background:lemonChiffon'><canvas id=myChart></canvas></div>"
             );
             double scale = 10000;
             double cummulativeValue = scale;
