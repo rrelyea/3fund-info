@@ -31,9 +31,24 @@ namespace daily
             if (marketTime != MarketTime.None)
             {
                 Console.WriteLine();
-                await Vanguard.LoadPricesIntoFund(StockFund, startYear, refetchCurrentYear: (marketTime == MarketTime.VanguardHistoricalPricesUpdated));
-                await Vanguard.LoadPricesIntoFund(InternationStockFund, startYear, refetchCurrentYear: (marketTime == MarketTime.VanguardHistoricalPricesUpdated));
-                await Vanguard.LoadPricesIntoFund(BondFund, startYear, refetchCurrentYear: (marketTime == MarketTime.VanguardHistoricalPricesUpdated));
+                switch (FundSource)
+                {
+                    case "Vanguard":
+                        await Vanguard.LoadPricesIntoFund(StockFund, startYear, refetchCurrentYear: (marketTime == MarketTime.VanguardHistoricalPricesUpdated));
+                        await Vanguard.LoadPricesIntoFund(InternationStockFund, startYear, refetchCurrentYear: (marketTime == MarketTime.VanguardHistoricalPricesUpdated));
+                        await Vanguard.LoadPricesIntoFund(BondFund, startYear, refetchCurrentYear: (marketTime == MarketTime.VanguardHistoricalPricesUpdated));
+                        break;
+                    default:
+                        var avS = new AlphaVantage(StockFund.Symbol, TimeSeries.Monthly);
+                        LoadPricesIntoFund(avS, StockFund);
+
+                        var avIS = new AlphaVantage(InternationStockFund.Symbol, TimeSeries.Monthly);
+                        LoadPricesIntoFund(avIS, InternationStockFund);
+
+                        var avB = new AlphaVantage(BondFund.Symbol, TimeSeries.Monthly);
+                        LoadPricesIntoFund(avB, BondFund);
+                        break;
+                }
             }
 
             if ((marketTime == MarketTime.Open && FundStyle == FundStyle.ETF) || (marketTime == MarketTime.MutualFundPricesPublished && FundStyle == FundStyle.MutualFund))
@@ -55,6 +70,37 @@ namespace daily
                 Console.Write("Calculating perf:");
                 await CalculateAndOutputPerfSummaries(startYear);
             }
+        }
+
+        private void LoadPricesIntoFund(AlphaVantage avS, Fund fund)
+        {
+            foreach (var dayData in avS.GetDataRoot().Result.EnumerateObject())
+            {
+                string dateKey = dayData.Name;
+                string close = dayData.Value.GetProperty("4. close").GetString();
+                string dividend = dayData.Value.GetProperty("7. dividend amount").GetString();
+                DateTime dateTimeKey = DateTime.Parse(dateKey);
+
+                if (dateTimeKey.Month == 12)
+                {
+                    StoreValues(fund, close, dividend, dateTimeKey, dateTimeKey.Year + 1);
+                }
+
+                StoreValues(fund, close, dividend, dateTimeKey, dateTimeKey.Year);
+            }
+        }
+
+        private static void StoreValues(Fund fund, string close, string dividend, DateTime dateTimeKey, int year)
+        {
+            YearValues yearValues = null;
+            bool found = fund.FundValues.TryGetValue(year, out yearValues);
+            if (!found)
+            {
+                yearValues = new YearValues();
+                fund.FundValues[year] = yearValues;
+            }
+
+            yearValues.Add(dateTimeKey, new FundValue() { Value = double.Parse(close), Dividend = double.Parse(dividend) });
         }
 
         public async Task CalculateAndOutputPerfSummaries(int startYear)
