@@ -22,6 +22,7 @@ namespace daily.Formatters
             summarySB.AppendLine("<html>");
             summarySB.AppendLine("<head>");
             summarySB.AppendLine($"<title>{threeFund.StockFund.Symbol} {stock}/{bond} ({intl}i)</title>");
+            summarySB.AppendLine($"<meta http-equiv='refresh' content='150' >");
             summarySB.AppendLine("<style> .right { text-align: right; font-size: 18pt} " +
             @"html, body{
                 height: 100 %;
@@ -215,7 +216,7 @@ namespace daily.Formatters
                     }
 
                     string time = summaryData.Time != null ? $"<br><span style=font-size:9pt>{summaryData.Time}</span>" : null;
-                    daysRow.Append($"<td>{summaryData.Value,6: ##.00;-##.00}%{time}</td>");
+                    daysRow.Append($"<td style=font-size:10pt>{summaryData.Value,6: ##.00;-##.00}%{time}</td>");
                 }
             }
 
