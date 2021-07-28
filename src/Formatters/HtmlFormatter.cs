@@ -22,7 +22,14 @@ namespace daily.Formatters
             summarySB.AppendLine("<html>");
             summarySB.AppendLine("<head>");
             summarySB.AppendLine($"<title>{threeFund.StockFund.Symbol} {stock}/{bond} ({intl}i)</title>");
-            summarySB.AppendLine("<style> .right { text-align: right; } </style>");
+            summarySB.AppendLine("<style> .right { text-align: right; font-size: 18pt} " +
+            @"html, body{
+                height: 100 %;
+                    width: 100 %;
+                    padding: 0;
+                    margin: 0;
+                    }" +
+                        "</style>");
             summarySB.AppendLine("<script src='https://cdn.jsdelivr.net/npm/chart.js@3.4.1/dist/chart.min.js'></script>");
             summarySB.AppendLine("</head>");
             summarySB.AppendLine("<body>");
@@ -43,7 +50,7 @@ namespace daily.Formatters
                 string[] chunks = date.Split('-');
                 if (chunks.Length == 2 && !yearDone)
                 {
-                    cummulativeValueYear = cummulativeValueYear + perfSummaries[date].Value/100 * scale;
+                    cummulativeValueYear = cummulativeValueYear + perfSummaries[date].Value / 100 * scale;
                     string valueStr = cummulativeValueYear.ToString("##.00");
                     months += months == null ? $"'{chunks[1]}'" : $",'{chunks[1]}'";
                     monthValues += monthValues == null ? $"{valueStr}" : $",{valueStr}";
@@ -76,10 +83,10 @@ namespace daily.Formatters
           
           data:
             {
-            labels:["+months+@"],
+            labels:[" + months + @"],
             datasets:
                 [{
-                data:["+monthValues+ @"],
+                data:[" + monthValues + @"],
                 label: '2021',
                 borderColor: '#3e95cd',
                 backgroundColor: '#7bb6dd',
@@ -137,7 +144,7 @@ namespace daily.Formatters
         }
         private static void StartTable()
         {
-            summarySB.AppendLine($"<table>");
+            summarySB.AppendLine($"<table style=width:100%>");
         }
         private static void EndTable()
         {
@@ -147,6 +154,11 @@ namespace daily.Formatters
         {
             summarySB.AppendLine($"<tr><td class=right>{c0}</td><td class=right>{c1}</td><td class=right>{c2}</td></tr>");
         }
+        private static void Append1CellRow(string c0)
+        {
+            summarySB.AppendLine($"<tr><td class=right colspan=3>{c0}</td></tr>");
+        }
+
 
         private static void CreateHtmlPerfBody(Dictionary<string, FundValue> perfSummaries)
         {
@@ -155,16 +167,33 @@ namespace daily.Formatters
             bool daysHeaderShown = false;
             StartTable();
             Append3Cells("", "Appreciation %", "Dividend %");
+            var daysRow = new StringBuilder();
 
             foreach (var date in perfSummaries.Keys)
             {
                 string[] chunks = date.Split('-');
+
+                if (chunks.Length == 2 && daysRow.Length > 0)
+                {
+                    Append1CellRow($"<table style=width:100%;font-size:14pt class=right><td style=width:7%>% change</td>" + daysRow.ToString() + "</table>");
+                    daysRow.Clear();
+                    AppendRow();
+                }
+                
                 if (chunks[0] != year)
                 {
                     year = chunks[0];
                     AppendRow();
-                    Append3Cells($"{year}:", null, daysHeaderShown ? null : "<canvas id=yearChartCanvas></canvas>");
+                    if (daysHeaderShown)
+                    {
+                        Append3Cells($"{year}:");
+                    }
+                    else
+                    {
+                        Append1CellRow($"<canvas id=yearChartCanvas></canvas>");
+                    }
                 }
+
                 FundValue summaryData = perfSummaries[date];
                 if (chunks.Length == 2)
                 {
@@ -181,13 +210,13 @@ namespace daily.Formatters
                     if (!daysHeaderShown)
                     {
                         AppendRow();
-                        Append3Cells($"{chunks[1]} Days", null, "<canvas id=monthChartCanvas></canvas>");
+                        Append1CellRow("<canvas id=monthChartCanvas></canvas>");
                         daysHeaderShown = true;
                     }
 
-                    Append3Cells($"{chunks[2]}", $"{summaryData.Value,6: ##.00;-##.00}%", $"{summaryData.Time}");
+                    string time = summaryData.Time != null ? $"<br><span style=font-size:9pt>{summaryData.Time}</span>" : null;
+                    daysRow.Append($"<td>{summaryData.Value,6: ##.00;-##.00}%{time}</td>");
                 }
-
             }
 
             AppendRow();
