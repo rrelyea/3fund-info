@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace daily
 {
-    public class YearValues : Dictionary<DateTime, FundValue>
+    public class YearValues : SortedDictionary<DateTime, FundValue>
     {
     }
 }

@@ -128,7 +128,7 @@ namespace daily
             }
         }
 
-        private static Tuple<double, double, double, double, string, double> calculateDaysPerf(FundValue[] monthlyCloses, Dictionary<DateTime, FundValue> dailyPrices, int index, double lastPrice, DateTime date)
+        private static Tuple<double, double, double, double, string, double> calculateDaysPerf(FundValue[] monthlyCloses, SortedDictionary<DateTime, FundValue> dailyPrices, int index, double lastPrice, DateTime date)
         {
             if (monthlyCloses[index] == null)
             {
