@@ -215,8 +215,15 @@ namespace daily.Formatters
                         daysHeaderShown = true;
                     }
 
-                    string time = summaryData.Time != null ? $"<br><span style=font-size:9pt>{summaryData.Time}</span>" : null;
-                    daysRow.Append($"<td style=font-size:10pt>{summaryData.Value,6: ##.00;-##.00}%{time}</td>");
+                    string time = null;
+                    string fontSize = "10";
+                    if (summaryData.Time != null)
+                    {
+                        time = $"<br><span style=font-size:9pt>{summaryData.Time}</span>";
+                        fontSize = "14";
+                    }
+
+                    daysRow.Append($"<td style=font-size:{fontSize}pt>{summaryData.Value,6: ##.00;-##.00}%{time}</td>");
                 }
             }
 
