@@ -117,7 +117,7 @@ namespace daily.Formatters
      });
      }
             window.onload = drawCharts;
-            window.document.title = window.document.title + ' " + lastDay.ToString("+##.00;-##.00") + @%"'; 
+            window.document.title = window.document.title + ' " + lastDay.ToString("+##.00;-##.00") + @"%'; 
 
     </script>");
             AppendDiv();
