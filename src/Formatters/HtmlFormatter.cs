@@ -36,6 +36,7 @@ namespace daily.Formatters
             string days = "'EOM'";
             string monthValues = cummulativeValueYear.ToString("#.0");
             string dayValues = null;
+            double lastDay = double.NaN;
             bool yearDone = false;
             foreach (var date in perfSummaries.Keys)
             {
@@ -58,6 +59,7 @@ namespace daily.Formatters
                     string valueStr = cummulativeValueMonth.ToString("##.00");
                     days += days == null ? $"'{chunks[2]}'" : $",'{chunks[2]}'";
                     dayValues += dayValues == null ? $"{valueStr}" : $",{valueStr}";
+                    lastDay = perfSummaries[date].Value;
                 }
                 else if (chunks.Length == 1)
                 {
@@ -115,6 +117,7 @@ namespace daily.Formatters
      });
      }
             window.onload = drawCharts;
+            window.document.title = window.document.title + ' " + lastDay.ToString("+##.00;-##.00") + @%"'; 
 
     </script>");
             AppendDiv();
