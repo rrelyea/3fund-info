@@ -1,12 +1,22 @@
 <html>
 <head>
 <title>fzrox 100/0 (50i)</title>
-<style> .right { text-align: right; font-size: 18pt} html, body{
-                height: 100 %;
-                    width: 100 %;
-                    padding: 0;
-                    margin: 0;
-                    }</style>
+<meta http-equiv='refresh' content='150' >
+<style>
+.right { text-align: right; font-size: 18pt;}
+.rightSmall { text-align: right; font-size: 10pt}
+.live {
+  text-align:right;
+  background:lightyellow;
+  font-size:18pt;
+  }
+html, body{
+    height: 100 %;
+    width: 100 %;
+    padding: 0;
+    margin: 0;
+  }
+</style>
 <script src='https://cdn.jsdelivr.net/npm/chart.js@3.4.1/dist/chart.min.js'></script>
 </head>
 <body>
@@ -23,7 +33,7 @@
             labels:['EOY','January','February','March','April','May','June','July'],
             datasets:
                 [{
-                data:[10000.0,9977.76,10235.18,10489.60,10887.57,11062.61,11167.90,11211.33],
+                data:[10000.0,9977.76,10235.18,10489.60,10887.57,11062.61,11167.90,11262.82],
                 label: '2021',
                 borderColor: '#3e95cd',
                 backgroundColor: '#7bb6dd',
@@ -43,10 +53,10 @@
           
           data:
             {
-            labels:['EOM','26'],
+            labels:['EOM','27','29'],
             datasets:
                 [{
-                data:[11167.9,11211.33],
+                data:[11167.9,11142.15,11264.31],
                 label: 'July',
                 borderColor: '#3e95cd',
                 backgroundColor: '#7bb6dd',
@@ -61,58 +71,58 @@
      });
      }
             window.onload = drawCharts;
-            window.document.title = window.document.title + ' +.43%'; 
-
+            window.document.title = '+1.22%  ' + window.document.title; 
     </script>
 <div>&nbsp</div>
 <table style=width:100%>
-<tr><td class=right></td><td class=right>Appreciation %</td><td class=right>Dividend %</td></tr>
+<tr><td class=right></td><td class=right>Appreciation %</td><td class=right style=padding-right:7%>Dividend %</td></tr>
 <tr><td>&nbsp;</td></tr>
 <tr><td class=right colspan=3><canvas id=yearChartCanvas></canvas></td></tr>
-<tr><td class=right>January</td><td class=right>   -.22%</td><td class=right>.00%</td></tr>
-<tr><td class=right>February</td><td class=right>   2.57%</td><td class=right>.00%</td></tr>
-<tr><td class=right>March</td><td class=right>   2.54%</td><td class=right>.00%</td></tr>
-<tr><td class=right>April</td><td class=right>   3.98%</td><td class=right>.00%</td></tr>
-<tr><td class=right>May</td><td class=right>   1.75%</td><td class=right>.00%</td></tr>
-<tr><td class=right>June</td><td class=right>   1.05%</td><td class=right>.00%</td></tr>
-<tr><td class=right>July</td><td class=right>    .43%</td><td class=right>.00%</td></tr>
+<tr><td class=right>January</td><td class=right>   -.22%</td><td class=right style=padding-right:7%>.00%</td></tr>
+<tr><td class=right>February</td><td class=right>   2.57%</td><td class=right style=padding-right:7%>.00%</td></tr>
+<tr><td class=right>March</td><td class=right>   2.54%</td><td class=right style=padding-right:7%>.00%</td></tr>
+<tr><td class=right>April</td><td class=right>   3.98%</td><td class=right style=padding-right:7%>.00%</td></tr>
+<tr><td class=right>May</td><td class=right>   1.75%</td><td class=right style=padding-right:7%>.00%</td></tr>
+<tr><td class=right>June</td><td class=right>   1.05%</td><td class=right style=padding-right:7%>.00%</td></tr>
+<tr><td class=right>July</td><td class=live>    .95%</td><td class=right style=padding-right:7%>.00%</td></tr>
 <tr><td>&nbsp;</td></tr>
-<tr><td class=right>2021 YTD </td><td class=right> 12.76%</td><td class=right>   .00%</td></tr>
+<tr><td class=right>2021 YTD </td><td class=live> 13.32%</td><td class=right style=padding-right:7%>   .00%</td></tr>
 <tr><td>&nbsp;</td></tr>
 <tr><td class=right colspan=3><canvas id=monthChartCanvas></canvas></td></tr>
-<tr><td class=right>26</td><td class=right>   .43%</td><td class=right></td></tr>
+<tr><td class=right colspan=3><table style=width:100%;font-size:14pt class=right><td style=width:7%>% change</td><td class=rightSmall>  -.26%</td><td class=live>  1.22%<br><span style=font-size:9pt> *18:02 ET</span></td></table></td></tr>
 <tr><td>&nbsp;</td></tr>
-<tr><td class=right>2020:</td><td class=right></td><td class=right></td></tr>
-<tr><td class=right>January</td><td class=right>  -1.76%</td><td class=right>.00%</td></tr>
-<tr><td class=right>February</td><td class=right>  -7.48%</td><td class=right>.00%</td></tr>
-<tr><td class=right>March</td><td class=right> -14.60%</td><td class=right>.00%</td></tr>
-<tr><td class=right>April</td><td class=right>  10.42%</td><td class=right>.00%</td></tr>
-<tr><td class=right>May</td><td class=right>   5.00%</td><td class=right>.00%</td></tr>
-<tr><td class=right>June</td><td class=right>   3.29%</td><td class=right>.00%</td></tr>
-<tr><td class=right>July</td><td class=right>   4.66%</td><td class=right>.00%</td></tr>
-<tr><td class=right>August</td><td class=right>   5.82%</td><td class=right>.00%</td></tr>
-<tr><td class=right>September</td><td class=right>  -2.85%</td><td class=right>.00%</td></tr>
-<tr><td class=right>October</td><td class=right>  -2.21%</td><td class=right>.00%</td></tr>
-<tr><td class=right>November</td><td class=right>  12.71%</td><td class=right>.00%</td></tr>
-<tr><td class=right>December</td><td class=right>   3.48%</td><td class=right>.18%</td></tr>
 <tr><td>&nbsp;</td></tr>
-<tr><td class=right>2020 Year</td><td class=right> 14.09%</td><td class=right>   .18%</td></tr>
+<tr><td class=right>2020:</td><td class=right></td><td class=right style=padding-right:7%></td></tr>
+<tr><td class=right>January</td><td class=right>  -1.76%</td><td class=right style=padding-right:7%>.00%</td></tr>
+<tr><td class=right>February</td><td class=right>  -7.48%</td><td class=right style=padding-right:7%>.00%</td></tr>
+<tr><td class=right>March</td><td class=right> -14.60%</td><td class=right style=padding-right:7%>.00%</td></tr>
+<tr><td class=right>April</td><td class=right>  10.42%</td><td class=right style=padding-right:7%>.00%</td></tr>
+<tr><td class=right>May</td><td class=right>   5.00%</td><td class=right style=padding-right:7%>.00%</td></tr>
+<tr><td class=right>June</td><td class=right>   3.29%</td><td class=right style=padding-right:7%>.00%</td></tr>
+<tr><td class=right>July</td><td class=right>   4.66%</td><td class=right style=padding-right:7%>.00%</td></tr>
+<tr><td class=right>August</td><td class=right>   5.82%</td><td class=right style=padding-right:7%>.00%</td></tr>
+<tr><td class=right>September</td><td class=right>  -2.85%</td><td class=right style=padding-right:7%>.00%</td></tr>
+<tr><td class=right>October</td><td class=right>  -2.21%</td><td class=right style=padding-right:7%>.00%</td></tr>
+<tr><td class=right>November</td><td class=right>  12.71%</td><td class=right style=padding-right:7%>.00%</td></tr>
+<tr><td class=right>December</td><td class=right>   3.48%</td><td class=right style=padding-right:7%>.18%</td></tr>
 <tr><td>&nbsp;</td></tr>
-<tr><td class=right>2019:</td><td class=right></td><td class=right></td></tr>
-<tr><td class=right>January</td><td class=right>   7.98%</td><td class=right>.00%</td></tr>
-<tr><td class=right>February</td><td class=right>   2.63%</td><td class=right>.00%</td></tr>
-<tr><td class=right>March</td><td class=right>   1.07%</td><td class=right>.00%</td></tr>
-<tr><td class=right>April</td><td class=right>   3.35%</td><td class=right>.00%</td></tr>
-<tr><td class=right>May</td><td class=right>  -5.89%</td><td class=right>.00%</td></tr>
-<tr><td class=right>June</td><td class=right>   6.47%</td><td class=right>.00%</td></tr>
-<tr><td class=right>July</td><td class=right>   -.19%</td><td class=right>.00%</td></tr>
-<tr><td class=right>August</td><td class=right>  -2.12%</td><td class=right>.00%</td></tr>
-<tr><td class=right>September</td><td class=right>   2.33%</td><td class=right>.00%</td></tr>
-<tr><td class=right>October</td><td class=right>   2.77%</td><td class=right>.00%</td></tr>
-<tr><td class=right>November</td><td class=right>   2.40%</td><td class=right>.00%</td></tr>
-<tr><td class=right>December</td><td class=right>   1.54%</td><td class=right>.21%</td></tr>
+<tr><td class=right>2020 Year</td><td class=right> 14.09%</td><td class=right style=padding-right:7%>   .18%</td></tr>
 <tr><td>&nbsp;</td></tr>
-<tr><td class=right>2019 Year</td><td class=right> 23.99%</td><td class=right>   .21%</td></tr>
+<tr><td class=right>2019:</td><td class=right></td><td class=right style=padding-right:7%></td></tr>
+<tr><td class=right>January</td><td class=right>   7.98%</td><td class=right style=padding-right:7%>.00%</td></tr>
+<tr><td class=right>February</td><td class=right>   2.63%</td><td class=right style=padding-right:7%>.00%</td></tr>
+<tr><td class=right>March</td><td class=right>   1.07%</td><td class=right style=padding-right:7%>.00%</td></tr>
+<tr><td class=right>April</td><td class=right>   3.35%</td><td class=right style=padding-right:7%>.00%</td></tr>
+<tr><td class=right>May</td><td class=right>  -5.89%</td><td class=right style=padding-right:7%>.00%</td></tr>
+<tr><td class=right>June</td><td class=right>   6.47%</td><td class=right style=padding-right:7%>.00%</td></tr>
+<tr><td class=right>July</td><td class=right>   -.19%</td><td class=right style=padding-right:7%>.00%</td></tr>
+<tr><td class=right>August</td><td class=right>  -2.12%</td><td class=right style=padding-right:7%>.00%</td></tr>
+<tr><td class=right>September</td><td class=right>   2.33%</td><td class=right style=padding-right:7%>.00%</td></tr>
+<tr><td class=right>October</td><td class=right>   2.77%</td><td class=right style=padding-right:7%>.00%</td></tr>
+<tr><td class=right>November</td><td class=right>   2.40%</td><td class=right style=padding-right:7%>.00%</td></tr>
+<tr><td class=right>December</td><td class=right>   1.54%</td><td class=right style=padding-right:7%>.21%</td></tr>
+<tr><td>&nbsp;</td></tr>
+<tr><td class=right>2019 Year</td><td class=right> 23.99%</td><td class=right style=padding-right:7%>   .21%</td></tr>
 <tr><td>&nbsp;</td></tr>
 </table>
 </body><html>
