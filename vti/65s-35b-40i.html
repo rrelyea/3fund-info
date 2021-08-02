@@ -27,13 +27,13 @@ html, body{
             var yearCtx = document.getElementById('yearChartCanvas').getContext('2d');
             var yearChart = new Chart(yearCtx, {
           type: 'line',
-          
+          height: 400,
           data:
             {
             labels:['EOY','January','February','March','April','May','June','July','August'],
             datasets:
                 [{
-                data:[10000.0,9957.72,10082.82,10192.59,10488.88,10591.32,10669.52,10737.92,10791.39],
+                data:[10000.0,9957.72,10082.82,10192.59,10488.88,10591.32,10669.52,10737.92,10790.81],
                 label: '2021',
                 borderColor: '#3e95cd',
                 backgroundColor: '#7bb6dd',
@@ -50,13 +50,13 @@ html, body{
      var monthCtx = document.getElementById('monthChartCanvas').getContext('2d');
             var monthChart = new Chart(monthCtx, {
           type: 'line',
-          
+          height: 400,
           data:
             {
             labels:['EOM','02'],
             datasets:
                 [{
-                data:[10737.9,10791.39],
+                data:[10737.9,10790.81],
                 label: 'August',
                 borderColor: '#3e95cd',
                 backgroundColor: '#7bb6dd',
@@ -77,7 +77,7 @@ html, body{
 <table style=width:100%>
 <tr><td class=right></td><td class=right>Appreciation %</td><td class=right style=padding-right:7%>Dividend %</td></tr>
 <tr><td>&nbsp;</td></tr>
-<tr><td class=right colspan=3><canvas id=yearChartCanvas style=height:150px></canvas></td></tr>
+<tr><td class=right colspan=3><canvas id=yearChartCanvas></canvas></td></tr>
 <tr><td class=right>January</td><td class=right>   -.42%</td><td class=right style=padding-right:7%>.00%</td></tr>
 <tr><td class=right>February</td><td class=right>   1.25%</td><td class=right style=padding-right:7%>.05%</td></tr>
 <tr><td class=right>March</td><td class=right>   1.10%</td><td class=right style=padding-right:7%>.35%</td></tr>
@@ -90,7 +90,7 @@ html, body{
 <tr><td class=right>2021 YTD </td><td class=live>  8.35%</td><td class=right style=padding-right:7%>  1.00%</td></tr>
 <tr><td>&nbsp;</td></tr>
 <tr><td class=right colspan=3><canvas id=monthChartCanvas></canvas></td></tr>
-<tr><td class=right colspan=3><table style=width:100%;font-size:14pt class=right><td style=width:7%>% change</td><td class=live>   .53%<br><span style=font-size:9pt> *11:36 ET</span></td></table></td></tr>
+<tr><td class=right colspan=3><table style=width:100%;font-size:14pt class=right><td style=width:7%>% change</td><td class=live>   .53%<br><span style=font-size:9pt> *11:39 ET</span></td></table></td></tr>
 <tr><td>&nbsp;</td></tr>
 <tr><td>&nbsp;</td></tr>
 <tr><td class=right>2020:</td><td class=right></td><td class=right style=padding-right:7%></td></tr>
