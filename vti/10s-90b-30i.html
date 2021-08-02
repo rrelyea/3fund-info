@@ -30,10 +30,10 @@ html, body{
           height: 400,
           data:
             {
-            labels:['EOY','January','February','March','April','May','June','July','August'],
+            labels:[['EOY',''],['January','-.71%'],['February','-1.23%'],['March','-1.05%'],['April','+1.04%'],['May','+.22%'],['June','+.73%'],['July','+.98%'],['August','+.21%']],
             datasets:
                 [{
-                data:[10000.0,9928.89,9805.67,9701.06,9804.97,9826.95,9900.03,9998.30,10022.95],
+                data:[10000.0,9928.89,9805.67,9701.06,9804.97,9826.95,9900.03,9998.30,10019.25],
                 label: '2021',
                 borderColor: '#3e95cd',
                 backgroundColor: '#7bb6dd',
@@ -44,16 +44,8 @@ html, body{
             {
             responsive: true,
             maintainAspectRatio: true,
-            scales: {
-                x: {
-                    ticks: {
-                        callback: function(value, index, values) {
-                        return this.getLabelForValue(value); 
-                        }
-                    }
-                }
-                }
             },
+            
      });
 
      var monthCtx = document.getElementById('monthChartCanvas').getContext('2d');
@@ -62,10 +54,10 @@ html, body{
           height: 400,
           data:
             {
-            labels:['EOM','02'],
+            labels:['EOM',['02','+.21%']],
             datasets:
                 [{
-                data:[9998.3,10022.95],
+                data:[9998.3,10019.25],
                 label: 'August',
                 borderColor: '#3e95cd',
                 backgroundColor: '#7bb6dd',
@@ -80,27 +72,17 @@ html, body{
      });
      }
             window.onload = drawCharts;
-            window.document.title = '+.25%  ' + window.document.title; 
+            window.document.title = '+.21%  ' + window.document.title; 
     </script>
 <div>&nbsp</div>
 <table style=width:100%>
 <tr><td class=right></td><td class=right>Appreciation %</td><td class=right style=padding-right:7%>Dividend %</td></tr>
 <tr><td>&nbsp;</td></tr>
 <tr><td class=right colspan=3><canvas id=yearChartCanvas></canvas></td></tr>
-<tr><td class=right>January</td><td class=right>   -.71%</td><td class=right style=padding-right:7%>.00%</td></tr>
-<tr><td class=right>February</td><td class=right>  -1.23%</td><td class=right style=padding-right:7%>.13%</td></tr>
-<tr><td class=right>March</td><td class=right>  -1.05%</td><td class=right style=padding-right:7%>.17%</td></tr>
-<tr><td class=right>April</td><td class=right>   1.04%</td><td class=right style=padding-right:7%>.17%</td></tr>
-<tr><td class=right>May</td><td class=right>    .22%</td><td class=right style=padding-right:7%>.12%</td></tr>
-<tr><td class=right>June</td><td class=right>    .73%</td><td class=right style=padding-right:7%>.18%</td></tr>
-<tr><td class=right>July</td><td class=right>    .98%</td><td class=right style=padding-right:7%>.12%</td></tr>
-<tr><td class=right>August</td><td class=live>    .25%</td><td class=right style=padding-right:7%>.00%</td></tr>
 <tr><td>&nbsp;</td></tr>
-<tr><td class=right>2021 YTD </td><td class=live>   .28%</td><td class=right style=padding-right:7%>   .89%</td></tr>
+<tr><td class=right>2021 YTD </td><td class=live>   .24%</td><td class=right style=padding-right:7%>   .89%</td></tr>
 <tr><td>&nbsp;</td></tr>
 <tr><td class=right colspan=3><canvas id=monthChartCanvas></canvas></td></tr>
-<tr><td class=right colspan=3><table style=width:100%;font-size:14pt class=right><td style=width:7%>% change</td><td class=live>   .25%<br><span style=font-size:9pt> *12:00 ET</span></td></table></td></tr>
-<tr><td>&nbsp;</td></tr>
 <tr><td>&nbsp;</td></tr>
 <tr><td class=right>2020:</td><td class=right></td><td class=right style=padding-right:7%></td></tr>
 <tr><td class=right>January</td><td class=right>   1.84%</td><td class=right style=padding-right:7%>.00%</td></tr>
