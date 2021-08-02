@@ -27,13 +27,13 @@ html, body{
             var yearCtx = document.getElementById('yearChartCanvas').getContext('2d');
             var yearChart = new Chart(yearCtx, {
           type: 'line',
-          
+          height: 400,
           data:
             {
-            labels:['EOY','January','February','March','April','May','June','July'],
+            labels:[['EOY',''],['January','-.33%'],['February','+2.25%'],['March','+2.33%'],['April','+3.86%'],['May','+1.36%'],['June','+1.28%'],['July','+1.19%'],['August','-.38%']],
             datasets:
                 [{
-                data:[10000.0,9967.15,10191.76,10424.61,10810.72,10947.13,11074.70,11141.68],
+                data:[10000.0,9967.15,10191.76,10424.61,10810.72,10947.13,11074.70,11193.32,11155.07],
                 label: '2021',
                 borderColor: '#3e95cd',
                 backgroundColor: '#7bb6dd',
@@ -43,21 +43,30 @@ html, body{
           options:
             {
             responsive: true,
-            maintainAspectRatio: false,
+            maintainAspectRatio: true,
+            scales: {
+               x: {
+                    ticks: {
+                        font: {
+                            size: 24,
+                            },
+                    }
+                }
+              }
             },
      });
 
      var monthCtx = document.getElementById('monthChartCanvas').getContext('2d');
             var monthChart = new Chart(monthCtx, {
           type: 'line',
-          
+          height: 400,
           data:
             {
-            labels:['EOM','28'],
+            labels:['EOM',['02','-.38%','18:01 ET']],
             datasets:
                 [{
-                data:[11074.7,11141.68],
-                label: 'July',
+                data:[11193.3,11155.07],
+                label: 'August',
                 borderColor: '#3e95cd',
                 backgroundColor: '#7bb6dd',
                 fill: false,
@@ -66,31 +75,31 @@ html, body{
           options:
             {
             responsive: true,
-            maintainAspectRatio: false,
+            maintainAspectRatio: true,
+                        scales: {
+               x: {
+                    ticks: {
+                        font: {
+                            size: 24,
+                            },
+                    }
+                }
+              }
             },
      });
      }
             window.onload = drawCharts;
-            window.document.title = '+.67%  ' + window.document.title; 
+            window.document.title = '-.38%  ' + window.document.title; 
     </script>
 <div>&nbsp</div>
 <table style=width:100%>
 <tr><td class=right></td><td class=right>Appreciation %</td><td class=right style=padding-right:7%>Dividend %</td></tr>
 <tr><td>&nbsp;</td></tr>
 <tr><td class=right colspan=3><canvas id=yearChartCanvas></canvas></td></tr>
-<tr><td class=right>January</td><td class=right>   -.33%</td><td class=right style=padding-right:7%>.00%</td></tr>
-<tr><td class=right>February</td><td class=right>   2.25%</td><td class=right style=padding-right:7%>.00%</td></tr>
-<tr><td class=right>March</td><td class=right>   2.33%</td><td class=right style=padding-right:7%>.00%</td></tr>
-<tr><td class=right>April</td><td class=right>   3.86%</td><td class=right style=padding-right:7%>.00%</td></tr>
-<tr><td class=right>May</td><td class=right>   1.36%</td><td class=right style=padding-right:7%>.00%</td></tr>
-<tr><td class=right>June</td><td class=right>   1.28%</td><td class=right style=padding-right:7%>.00%</td></tr>
-<tr><td class=right>July</td><td class=live>    .67%</td><td class=right style=padding-right:7%>.00%</td></tr>
 <tr><td>&nbsp;</td></tr>
-<tr><td class=right>2021 YTD </td><td class=live> 12.05%</td><td class=right style=padding-right:7%>   .01%</td></tr>
+<tr><td class=right>2021 YTD </td><td class=live> 12.18%</td><td class=right style=padding-right:7%>   .01%</td></tr>
 <tr><td>&nbsp;</td></tr>
 <tr><td class=right colspan=3><canvas id=monthChartCanvas></canvas></td></tr>
-<tr><td class=right colspan=3><table style=width:100%;font-size:14pt class=right><td style=width:7%>% change</td><td class=rightSmall>   .67%</td></table></td></tr>
-<tr><td>&nbsp;</td></tr>
 <tr><td>&nbsp;</td></tr>
 <tr><td class=right>2020:</td><td class=right></td><td class=right style=padding-right:7%></td></tr>
 <tr><td class=right>January</td><td class=right>  -1.13%</td><td class=right style=padding-right:7%>.00%</td></tr>
