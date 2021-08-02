@@ -27,13 +27,13 @@ html, body{
             var yearCtx = document.getElementById('yearChartCanvas').getContext('2d');
             var yearChart = new Chart(yearCtx, {
           type: 'line',
-          height: 400,
+          height: 600,
           data:
             {
             labels:['EOY','January','February','March','April','May','June','July','August'],
             datasets:
                 [{
-                data:[10000.0,9932.64,9860.93,9807.23,9962.95,9979.97,10079.16,10193.48,10216.35],
+                data:[10000.0,9932.64,9860.93,9807.23,9962.95,9979.97,10079.16,10193.48,10216.18],
                 label: '2021',
                 borderColor: '#3e95cd',
                 backgroundColor: '#7bb6dd',
@@ -50,13 +50,13 @@ html, body{
      var monthCtx = document.getElementById('monthChartCanvas').getContext('2d');
             var monthChart = new Chart(monthCtx, {
           type: 'line',
-          height: 400,
+          height: 600,
           data:
             {
             labels:['EOM','02'],
             datasets:
                 [{
-                data:[10193.5,10216.35],
+                data:[10193.5,10216.18],
                 label: 'August',
                 borderColor: '#3e95cd',
                 backgroundColor: '#7bb6dd',
@@ -87,10 +87,10 @@ html, body{
 <tr><td class=right>July</td><td class=right>   1.14%</td><td class=right style=padding-right:7%>.11%</td></tr>
 <tr><td class=right>August</td><td class=live>    .23%</td><td class=right style=padding-right:7%>.00%</td></tr>
 <tr><td>&nbsp;</td></tr>
-<tr><td class=right>2021 YTD </td><td class=live>  2.35%</td><td class=right style=padding-right:7%>   .96%</td></tr>
+<tr><td class=right>2021 YTD </td><td class=live>  2.34%</td><td class=right style=padding-right:7%>   .96%</td></tr>
 <tr><td>&nbsp;</td></tr>
 <tr><td class=right colspan=3><canvas id=monthChartCanvas></canvas></td></tr>
-<tr><td class=right colspan=3><table style=width:100%;font-size:14pt class=right><td style=width:7%>% change</td><td class=live>   .23%<br><span style=font-size:9pt> *11:42 ET</span></td></table></td></tr>
+<tr><td class=right colspan=3><table style=width:100%;font-size:14pt class=right><td style=width:7%>% change</td><td class=live>   .23%<br><span style=font-size:9pt> *11:43 ET</span></td></table></td></tr>
 <tr><td>&nbsp;</td></tr>
 <tr><td>&nbsp;</td></tr>
 <tr><td class=right>2020:</td><td class=right></td><td class=right style=padding-right:7%></td></tr>

@@ -27,13 +27,13 @@ html, body{
             var yearCtx = document.getElementById('yearChartCanvas').getContext('2d');
             var yearChart = new Chart(yearCtx, {
           type: 'line',
-          height: 400,
+          height: 600,
           data:
             {
             labels:['EOY','January','February','March','April','May','June','July','August'],
             datasets:
                 [{
-                data:[10000.0,9972.60,10203.01,10396.02,10759.73,10922.04,10972.63,11001.89,11074.87],
+                data:[10000.0,9972.60,10203.01,10396.02,10759.73,10922.04,10972.63,11001.89,11074.47],
                 label: '2021',
                 borderColor: '#3e95cd',
                 backgroundColor: '#7bb6dd',
@@ -50,13 +50,13 @@ html, body{
      var monthCtx = document.getElementById('monthChartCanvas').getContext('2d');
             var monthChart = new Chart(monthCtx, {
           type: 'line',
-          height: 400,
+          height: 600,
           data:
             {
             labels:['EOM','02'],
             datasets:
                 [{
-                data:[11001.9,11074.87],
+                data:[11001.9,11074.47],
                 label: 'August',
                 borderColor: '#3e95cd',
                 backgroundColor: '#7bb6dd',
@@ -90,7 +90,7 @@ html, body{
 <tr><td class=right>2021 YTD </td><td class=live> 11.29%</td><td class=right style=padding-right:7%>   .99%</td></tr>
 <tr><td>&nbsp;</td></tr>
 <tr><td class=right colspan=3><canvas id=monthChartCanvas></canvas></td></tr>
-<tr><td class=right colspan=3><table style=width:100%;font-size:14pt class=right><td style=width:7%>% change</td><td class=live>   .73%<br><span style=font-size:9pt> *11:42 ET</span></td></table></td></tr>
+<tr><td class=right colspan=3><table style=width:100%;font-size:14pt class=right><td style=width:7%>% change</td><td class=live>   .73%<br><span style=font-size:9pt> *11:43 ET</span></td></table></td></tr>
 <tr><td>&nbsp;</td></tr>
 <tr><td>&nbsp;</td></tr>
 <tr><td class=right>2020:</td><td class=right></td><td class=right style=padding-right:7%></td></tr>
