@@ -44,8 +44,16 @@ html, body{
             {
             responsive: true,
             maintainAspectRatio: true,
+            scales: {
+               x: {
+                    ticks: {
+                        font: {
+                            size: 24,
+                            },
+                    }
+                }
+              }
             },
-            
      });
 
      var monthCtx = document.getElementById('monthChartCanvas').getContext('2d');
@@ -68,6 +76,15 @@ html, body{
             {
             responsive: true,
             maintainAspectRatio: true,
+                        scales: {
+               x: {
+                    ticks: {
+                        font: {
+                            size: 24,
+                            },
+                    }
+                }
+              }
             },
      });
      }

@@ -33,7 +33,7 @@ html, body{
             labels:[['EOY',''],['January','-.41%'],['February','+1.19%'],['March','+.99%'],['April','+2.81%'],['May','+1.20%'],['June','+.55%'],['July','+.49%'],['August','+.46%']],
             datasets:
                 [{
-                data:[10000.0,9959.07,10078.42,10177.38,10458.44,10578.60,10634.03,10682.99,10728.96],
+                data:[10000.0,9959.07,10078.42,10177.38,10458.44,10578.60,10634.03,10682.99,10729.46],
                 label: '2021',
                 borderColor: '#3e95cd',
                 backgroundColor: '#7bb6dd',
@@ -44,8 +44,16 @@ html, body{
             {
             responsive: true,
             maintainAspectRatio: true,
+            scales: {
+               x: {
+                    ticks: {
+                        font: {
+                            size: 24,
+                            },
+                    }
+                }
+              }
             },
-            
      });
 
      var monthCtx = document.getElementById('monthChartCanvas').getContext('2d');
@@ -57,7 +65,7 @@ html, body{
             labels:['EOM',['02','+.46%']],
             datasets:
                 [{
-                data:[10683.0,10728.96],
+                data:[10683.0,10729.46],
                 label: 'August',
                 borderColor: '#3e95cd',
                 backgroundColor: '#7bb6dd',
@@ -68,6 +76,15 @@ html, body{
             {
             responsive: true,
             maintainAspectRatio: true,
+                        scales: {
+               x: {
+                    ticks: {
+                        font: {
+                            size: 24,
+                            },
+                    }
+                }
+              }
             },
      });
      }

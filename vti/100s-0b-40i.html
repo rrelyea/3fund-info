@@ -30,10 +30,10 @@ html, body{
           height: 400,
           data:
             {
-            labels:[['EOY',''],['January','-.24%'],['February','+2.84%'],['March','+2.47%'],['April','+4.20%'],['May','+1.52%'],['June','+.84%'],['July','+.51%'],['August','+.51%']],
+            labels:[['EOY',''],['January','-.24%'],['February','+2.84%'],['March','+2.47%'],['April','+4.20%'],['May','+1.52%'],['June','+.84%'],['July','+.51%'],['August','+.52%']],
             datasets:
                 [{
-                data:[10000.0,9975.94,10259.62,10506.88,10927.07,11078.98,11162.67,11213.97,11265.46],
+                data:[10000.0,9975.94,10259.62,10506.88,10927.07,11078.98,11162.67,11213.97,11266.08],
                 label: '2021',
                 borderColor: '#3e95cd',
                 backgroundColor: '#7bb6dd',
@@ -44,8 +44,16 @@ html, body{
             {
             responsive: true,
             maintainAspectRatio: true,
+            scales: {
+               x: {
+                    ticks: {
+                        font: {
+                            size: 24,
+                            },
+                    }
+                }
+              }
             },
-            
      });
 
      var monthCtx = document.getElementById('monthChartCanvas').getContext('2d');
@@ -54,10 +62,10 @@ html, body{
           height: 400,
           data:
             {
-            labels:['EOM',['02','+.51%']],
+            labels:['EOM',['02','+.52%']],
             datasets:
                 [{
-                data:[11214.0,11265.46],
+                data:[11214.0,11266.08],
                 label: 'August',
                 borderColor: '#3e95cd',
                 backgroundColor: '#7bb6dd',
@@ -68,11 +76,20 @@ html, body{
             {
             responsive: true,
             maintainAspectRatio: true,
+                        scales: {
+               x: {
+                    ticks: {
+                        font: {
+                            size: 24,
+                            },
+                    }
+                }
+              }
             },
      });
      }
             window.onload = drawCharts;
-            window.document.title = '+.51%  ' + window.document.title; 
+            window.document.title = '+.52%  ' + window.document.title; 
     </script>
 <div>&nbsp</div>
 <table style=width:100%>
