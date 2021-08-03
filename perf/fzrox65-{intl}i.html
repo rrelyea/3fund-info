@@ -1,0 +1,135 @@
+<html>
+<head>
+<title>fzrox 65/35 (50i)</title>
+<meta http-equiv='refresh' content='150' >
+<style>
+.right { text-align: right; font-size: 18pt;}
+.rightSmall { text-align: right; font-size: 10pt}
+.live {
+  text-align:right;
+  background:lightyellow;
+  font-size:18pt;
+  }
+html, body{
+    height: 100 %;
+    width: 100 %;
+    padding: 0;
+    margin: 0;
+  }
+</style>
+<script src='https://cdn.jsdelivr.net/npm/chart.js@3.4.1/dist/chart.min.js'></script>
+</head>
+<body>
+<div>Performance for 65/35 (50% intl)  FZROX/FXNAX (FZILX)</div>
+<div>&nbsp</div>
+<script>
+            function drawCharts() {
+            var yearCtx = document.getElementById('yearChartCanvas').getContext('2d');
+            var yearChart = new Chart(yearCtx, {
+          type: 'line',
+          height: 400,
+          data:
+            {
+            labels:[['EOY',''],['January','-.45%'],['February','+1.08%'],['March','+1.16%'],['April','+2.82%'],['May','+1.17%'],['June','+.92%'],['July','+.46%']],
+            datasets:
+                [{
+                data:[10000.0,9954.62,10062.38,10178.70,10460.79,10577.47,10669.15,10715.00],
+                label: '2021',
+                borderColor: '#3e95cd',
+                backgroundColor: '#7bb6dd',
+                fill: false,
+              }]
+            },
+          options:
+            {
+            responsive: true,
+            maintainAspectRatio: true,
+            scales: {
+               x: {
+                    ticks: {
+                        font: {
+                            size: 24,
+                            },
+                    }
+                }
+              }
+            },
+     });
+
+     var monthCtx = document.getElementById('monthChartCanvas').getContext('2d');
+            var monthChart = new Chart(monthCtx, {
+          type: 'line',
+          height: 400,
+          data:
+            {
+            labels:['EOM'],
+            datasets:
+                [{
+                data:[10715.0],
+                label: 'August',
+                borderColor: '#3e95cd',
+                backgroundColor: '#7bb6dd',
+                fill: false,
+              }]
+            },
+          options:
+            {
+            responsive: true,
+            maintainAspectRatio: true,
+                        scales: {
+               x: {
+                    ticks: {
+                        font: {
+                            size: 24,
+                            },
+                    }
+                }
+              }
+            },
+     });
+     }
+            window.onload = drawCharts;
+            window.document.title = 'NaN%  ' + window.document.title; 
+    </script>
+<div>&nbsp</div>
+<table style=width:100%;max-width:8in>
+<tr><td class=right></td><td class=right>Appreciation %</td><td class=right style=padding-right:7%>Dividend %</td></tr>
+<tr><td>&nbsp;</td></tr>
+<tr><td class=right colspan=3><canvas id=yearChartCanvas style=max-width:8in;max-height:6in></canvas></td></tr>
+<tr><td>&nbsp;</td></tr>
+<tr><td class=right>2021 YTD </td><td class=live>  7.54%</td><td class=right style=padding-right:7%>   .02%</td></tr>
+<tr><td>&nbsp;</td></tr>
+<tr><td class=right colspan=3><canvas id=yearChartCanvas style=max-width:8in;max-height:6in></canvas></td></tr>
+<tr><td class=right>January</td><td class=right>   -.50%</td><td class=right style=padding-right:7%>.01%</td></tr>
+<tr><td class=right>February</td><td class=right>  -4.32%</td><td class=right style=padding-right:7%>.01%</td></tr>
+<tr><td class=right>March</td><td class=right>  -9.63%</td><td class=right style=padding-right:7%>.01%</td></tr>
+<tr><td class=right>April</td><td class=right>   7.29%</td><td class=right style=padding-right:7%>.01%</td></tr>
+<tr><td class=right>May</td><td class=right>   3.34%</td><td class=right style=padding-right:7%>.01%</td></tr>
+<tr><td class=right>June</td><td class=right>   2.31%</td><td class=right style=padding-right:7%>.01%</td></tr>
+<tr><td class=right>July</td><td class=right>   3.47%</td><td class=right style=padding-right:7%>.01%</td></tr>
+<tr><td class=right>August</td><td class=right>   3.42%</td><td class=right style=padding-right:7%>.01%</td></tr>
+<tr><td class=right>September</td><td class=right>  -1.93%</td><td class=right style=padding-right:7%>.01%</td></tr>
+<tr><td class=right>October</td><td class=right>  -1.94%</td><td class=right style=padding-right:7%>.04%</td></tr>
+<tr><td class=right>November</td><td class=right>   8.60%</td><td class=right style=padding-right:7%>.01%</td></tr>
+<tr><td class=right>December</td><td class=right>   2.18%</td><td class=right style=padding-right:7%>.13%</td></tr>
+<tr><td>&nbsp;</td></tr>
+<tr><td class=right>2020 Year</td><td class=right> 10.74%</td><td class=right style=padding-right:7%>   .24%</td></tr>
+<tr><td>&nbsp;</td></tr>
+<tr><td class=right colspan=3><canvas id=yearChartCanvas style=max-width:8in;max-height:6in></canvas></td></tr>
+<tr><td class=right>January</td><td class=right>   5.46%</td><td class=right style=padding-right:7%>.01%</td></tr>
+<tr><td class=right>February</td><td class=right>   1.59%</td><td class=right style=padding-right:7%>.01%</td></tr>
+<tr><td class=right>March</td><td class=right>   1.32%</td><td class=right style=padding-right:7%>.01%</td></tr>
+<tr><td class=right>April</td><td class=right>   2.08%</td><td class=right style=padding-right:7%>.01%</td></tr>
+<tr><td class=right>May</td><td class=right>  -3.28%</td><td class=right style=padding-right:7%>.01%</td></tr>
+<tr><td class=right>June</td><td class=right>   4.54%</td><td class=right style=padding-right:7%>.01%</td></tr>
+<tr><td class=right>July</td><td class=right>   -.09%</td><td class=right style=padding-right:7%>.01%</td></tr>
+<tr><td class=right>August</td><td class=right>   -.55%</td><td class=right style=padding-right:7%>.01%</td></tr>
+<tr><td class=right>September</td><td class=right>   1.23%</td><td class=right style=padding-right:7%>.01%</td></tr>
+<tr><td class=right>October</td><td class=right>   1.83%</td><td class=right style=padding-right:7%>.01%</td></tr>
+<tr><td class=right>November</td><td class=right>   1.47%</td><td class=right style=padding-right:7%>.01%</td></tr>
+<tr><td class=right>December</td><td class=right>    .86%</td><td class=right style=padding-right:7%>.15%</td></tr>
+<tr><td>&nbsp;</td></tr>
+<tr><td class=right>2019 Year</td><td class=right> 17.55%</td><td class=right style=padding-right:7%>   .25%</td></tr>
+<tr><td>&nbsp;</td></tr>
+</table>
+</body><html>
