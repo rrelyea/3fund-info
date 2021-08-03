@@ -13,7 +13,7 @@ namespace daily.Formatters
         public static async Task OutputHtmlFile(ThreeFund threeFund, int startYear, PerfCalculator perfCalc, int stock, int intl, int bond, Dictionary<string, FundValue> perfSummaries)
         {
             summarySB.Clear();
-            var outputFile = new FileInfo($"{threeFund.StockFund.Symbol}\\{stock}s-{bond}b-{intl}i.html");
+            var outputFile = new FileInfo($"{threeFund.StockFund.Symbol}{stock}-{intl}i.html");
             if (!outputFile.Directory.Exists)
             {
                 outputFile.Directory.Create();
@@ -54,6 +54,7 @@ html, body{
             string dayValues = null;
             double lastDay = double.NaN;
             bool yearDone = false;
+            int currentMonth = DateTime.Now.Month;
             foreach (var date in perfSummaries.Keys)
             {
                 string[] chunks = date.Split('-');
@@ -74,7 +75,7 @@ html, body{
                     cummulativeValueMonth = cummulativeValueMonth + perfSummaries[date].Value / 100 * scale;
                     string valueStr = cummulativeValueMonth.ToString("##.00");
                     string time = perfSummaries[date].Time == null ? null : $",'{perfSummaries[date].Time}'";
-                    days += days == null ? $"'{chunks[2]}'" : $",['{chunks[2]}','{perfSummaries[date].Value.ToString("+##.00;-##.00")}%'{time}]";
+                    days += days == null ? $"'{chunks[2]}'" : $",['{currentMonth}/{int.Parse(chunks[2]).ToString()}','{perfSummaries[date].Value.ToString("+##.00;-##.00")}%'{time}]";
                     dayValues += dayValues == null ? $"{valueStr}" : $",{valueStr}";
                     lastDay = perfSummaries[date].Value;
                 }
@@ -179,7 +180,7 @@ html, body{
         }
         private static void StartTable()
         {
-            summarySB.AppendLine($"<table style=width:100%>");
+            summarySB.AppendLine($"<table style=width:100%;max-width:8in>");
         }
         private static void EndTable()
         {
@@ -206,18 +207,10 @@ html, body{
             bool daysHeaderShown = false;
             StartTable();
             Append3Cells("", "Appreciation %", "Dividend %");
-            var daysRow = new StringBuilder();
 
             foreach (var date in perfSummaries.Keys)
             {
                 string[] chunks = date.Split('-');
-
-                if (chunks.Length == 2 && daysRow.Length > 0)
-                {
-                    Append1CellRow($"<table style=width:100%;font-size:14pt class=right><td style=width:7%>% change</td>" + daysRow.ToString() + "</table>");
-                    daysRow.Clear();
-                    AppendRow();
-                }
 
                 if (chunks[0] != year)
                 {
@@ -229,7 +222,7 @@ html, body{
                     }
                     else
                     {
-                        Append1CellRow($"<canvas id=yearChartCanvas></canvas>");
+                        Append1CellRow($"<canvas id=yearChartCanvas style=max-width:8in;max-height:6in></canvas>");
                     }
                 }
 
@@ -259,7 +252,7 @@ html, body{
                     if (!daysHeaderShown)
                     {
                         AppendRow();
-                        Append1CellRow("<canvas id=monthChartCanvas></canvas>");
+                        Append1CellRow("<canvas id=monthChartCanvas style=max-width:8in;max-height:6in></canvas>");
                         daysHeaderShown = true;
                     }
 
@@ -268,8 +261,6 @@ html, body{
                     {
                         time = $"<br><span style=font-size:9pt>{summaryData.Time}</span>";
                     }
-
-                    //daysRow.Append($"<td class={className}>{summaryData.Value,6: ##.00;-##.00}%{time}</td>");
                 }
             }
 
