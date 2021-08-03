@@ -23,14 +23,22 @@ namespace daily.Formatters
             summarySB.AppendLine("<head>");
             summarySB.AppendLine($"<title>{threeFund.StockFund.Symbol} {stock}/{bond} ({intl}i)</title>");
             summarySB.AppendLine($"<meta http-equiv='refresh' content='150' >");
-            summarySB.AppendLine("<style> .right { text-align: right; font-size: 18pt} " +
-            @"html, body{
-                height: 100 %;
-                    width: 100 %;
-                    padding: 0;
-                    margin: 0;
-                    }" +
-                        "</style>");
+            summarySB.AppendLine(
+@"<style>
+.right { text-align: right; font-size: 18pt;}
+.rightSmall { text-align: right; font-size: 10pt}
+.live {
+  text-align:right;
+  background:lightyellow;
+  font-size:18pt;
+  }
+html, body{
+    height: 100 %;
+    width: 100 %;
+    padding: 0;
+    margin: 0;
+  }
+</style>");
             summarySB.AppendLine("<script src='https://cdn.jsdelivr.net/npm/chart.js@3.4.1/dist/chart.min.js'></script>");
             summarySB.AppendLine("</head>");
             summarySB.AppendLine("<body>");
@@ -40,7 +48,7 @@ namespace daily.Formatters
             double scale = 10000;
             double cummulativeValueYear = scale;
             double cummulativeValueMonth = double.NaN;
-            string months = "'EOY'";
+            string months = "['EOY','']";
             string days = "'EOM'";
             string monthValues = cummulativeValueYear.ToString("#.0");
             string dayValues = null;
@@ -53,7 +61,7 @@ namespace daily.Formatters
                 {
                     cummulativeValueYear = cummulativeValueYear + perfSummaries[date].Value / 100 * scale;
                     string valueStr = cummulativeValueYear.ToString("##.00");
-                    months += months == null ? $"'{chunks[1]}'" : $",'{chunks[1]}'";
+                    months += months == null ? $"'{chunks[1]}'" : $",['{chunks[1]}','{perfSummaries[date].Value.ToString("+##.00;-##.00")}%']";
                     monthValues += monthValues == null ? $"{valueStr}" : $",{valueStr}";
                     if (chunks[1] == DateTime.Now.AddMonths(-1).ToString("MMMM"))
                     {
@@ -65,7 +73,8 @@ namespace daily.Formatters
                 {
                     cummulativeValueMonth = cummulativeValueMonth + perfSummaries[date].Value / 100 * scale;
                     string valueStr = cummulativeValueMonth.ToString("##.00");
-                    days += days == null ? $"'{chunks[2]}'" : $",'{chunks[2]}'";
+                    string time = perfSummaries[date].Time == null ? null : $",'{perfSummaries[date].Time}'";
+                    days += days == null ? $"'{chunks[2]}'" : $",['{chunks[2]}','{perfSummaries[date].Value.ToString("+##.00;-##.00")}%'{time}]";
                     dayValues += dayValues == null ? $"{valueStr}" : $",{valueStr}";
                     lastDay = perfSummaries[date].Value;
                 }
@@ -81,7 +90,7 @@ namespace daily.Formatters
             var yearCtx = document.getElementById('yearChartCanvas').getContext('2d');
             var yearChart = new Chart(yearCtx, {
           type: 'line',
-          
+          height: 400,
           data:
             {
             labels:[" + months + @"],
@@ -97,14 +106,23 @@ namespace daily.Formatters
           options:
             {
             responsive: true,
-            maintainAspectRatio: false,
+            maintainAspectRatio: true,
+            scales: {
+               x: {
+                    ticks: {
+                        font: {
+                            size: 24,
+                            },
+                    }
+                }
+              }
             },
      });
 
      var monthCtx = document.getElementById('monthChartCanvas').getContext('2d');
             var monthChart = new Chart(monthCtx, {
           type: 'line',
-          
+          height: 400,
           data:
             {
             labels:[" + days + @"],
@@ -120,13 +138,21 @@ namespace daily.Formatters
           options:
             {
             responsive: true,
-            maintainAspectRatio: false,
+            maintainAspectRatio: true,
+                        scales: {
+               x: {
+                    ticks: {
+                        font: {
+                            size: 24,
+                            },
+                    }
+                }
+              }
             },
      });
      }
             window.onload = drawCharts;
-            window.document.title = window.document.title + ' " + lastDay.ToString("+##.00;-##.00") + @"%'; 
-
+            window.document.title = '" + lastDay.ToString("+##.00;-##.00") + @"%  ' + window.document.title; 
     </script>");
             AppendDiv();
             CreateHtmlPerfBody(perfSummaries);
@@ -135,10 +161,18 @@ namespace daily.Formatters
             Console.Write(".");
         }
 
-        private static void AppendDiv(string line = "&nbsp")
+        private static void AppendDiv(string line = "&nbsp", string className = null)
         {
-            summarySB.AppendLine($"<div>{line}</div>");
+            if (className == null)
+            {
+                summarySB.AppendLine($"<div>{line}</div>");
+            }
+            else
+            {
+                summarySB.AppendLine($"<div class={className}>{line}</div>");
+            }
         }
+
         private static void AppendRow()
         {
             summarySB.AppendLine($"<tr><td>&nbsp;</td></tr>");
@@ -153,7 +187,11 @@ namespace daily.Formatters
         }
         private static void Append3Cells(string c0, string c1 = null, string c2 = null)
         {
-            summarySB.AppendLine($"<tr><td class=right>{c0}</td><td class=right>{c1}</td><td class=right>{c2}</td></tr>");
+            summarySB.AppendLine($"<tr><td class=right>{c0}</td><td class=right>{c1}</td><td class=right style=padding-right:7%>{c2}</td></tr>");
+        }
+        private static void Append3LiveCells(string c0, string c1 = null, string c2 = null)
+        {
+            summarySB.AppendLine($"<tr><td class=right>{c0}</td><td class=live>{c1}</td><td class=right style=padding-right:7%>{c2}</td></tr>");
         }
         private static void Append1CellRow(string c0)
         {
@@ -180,7 +218,7 @@ namespace daily.Formatters
                     daysRow.Clear();
                     AppendRow();
                 }
-                
+
                 if (chunks[0] != year)
                 {
                     year = chunks[0];
@@ -198,13 +236,23 @@ namespace daily.Formatters
                 FundValue summaryData = perfSummaries[date];
                 if (chunks.Length == 2)
                 {
-                    Append3Cells(chunks[1], $"{summaryData.Value,7: ##.00;-##.00}%", $"{summaryData.Dividend:##.00}%");
+                    if (chunks[0] != currentYear)
+                    {
+                        Append3Cells(chunks[1], $"{summaryData.Value,7: ##.00;-##.00}%", $"{summaryData.Dividend:##.00}%");
+                    }
                 }
                 else if (chunks.Length == 1)
                 {
                     AppendRow();
                     string ytdStr = year == currentYear ? "YTD " : "Year";
-                    Append3Cells($"{chunks[0]} {ytdStr}", $"{summaryData.Value,6: ##.00;-##.00}%", $"{summaryData.Dividend,6: ##.00}%");
+                    if (chunks[0] == currentYear)
+                    {
+                        Append3LiveCells($"{chunks[0]} {ytdStr}", $"{summaryData.Value,6: ##.00;-##.00}%", $"{summaryData.Dividend,6: ##.00}%");
+                    }
+                    else
+                    {
+                        Append3Cells($"{chunks[0]} {ytdStr}", $"{summaryData.Value,6: ##.00;-##.00}%", $"{summaryData.Dividend,6: ##.00}%");
+                    }
                 }
                 else
                 {
@@ -216,14 +264,12 @@ namespace daily.Formatters
                     }
 
                     string time = null;
-                    string fontSize = "10";
                     if (summaryData.Time != null)
                     {
                         time = $"<br><span style=font-size:9pt>{summaryData.Time}</span>";
-                        fontSize = "14";
                     }
 
-                    daysRow.Append($"<td style=font-size:{fontSize}pt>{summaryData.Value,6: ##.00;-##.00}%{time}</td>");
+                    //daysRow.Append($"<td class={className}>{summaryData.Value,6: ##.00;-##.00}%{time}</td>");
                 }
             }
 
