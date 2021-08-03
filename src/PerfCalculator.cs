@@ -95,7 +95,7 @@ namespace daily
                         if (interim)
                         {
                             TimeSpan captureTime = date.TimeOfDay;
-                            interimStr = $" *{captureTime.Hours}:{captureTime.Minutes:00} ET";
+                            interimStr = $"{captureTime.Hours}:{captureTime.Minutes:00} ET";
                         }
 
                         perfDaySummaries.Add(date.ToString("yyyy-MMMM-dd"), new FundValue() { Value = day, Time = interimStr });
