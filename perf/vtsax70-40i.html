@@ -30,10 +30,10 @@ html, body{
           height: 400,
           data:
             {
-            labels:[['EOY',''],['January','-.46%'],['February','+1.49%'],['March','+1.26%'],['April','+3.18%'],['May','+1.09%'],['June','+.77%'],['July','+.68%'],['August','+.18%']],
+            labels:[['EOY',''],['January','-.46%'],['February','+1.49%'],['March','+1.26%'],['April','+3.18%'],['May','+1.09%'],['June','+.77%'],['July','+.68%'],['August','+.65%']],
             datasets:
                 [{
-                data:[10000.0,9954.41,10103.54,10229.09,10547.17,10656.33,10733.51,10801.59,10819.56],
+                data:[10000.0,9954.41,10103.54,10229.09,10547.17,10656.33,10733.51,10801.59,10866.91],
                 label: '2021',
                 borderColor: '#3e95cd',
                 backgroundColor: '#7bb6dd',
@@ -62,10 +62,10 @@ html, body{
           height: 400,
           data:
             {
-            labels:['EOM',['8/2','+.18%']],
+            labels:['EOM',['8/2','+.18%'],['8/3','+.47%','18:02 ET']],
             datasets:
                 [{
-                data:[10801.6,10819.56],
+                data:[10801.6,10819.56,10866.86],
                 label: 'August',
                 borderColor: '#3e95cd',
                 backgroundColor: '#7bb6dd',
@@ -89,7 +89,7 @@ html, body{
      });
      }
             window.onload = drawCharts;
-            window.document.title = '+.18%  ' + window.document.title; 
+            window.document.title = '+.47%  ' + window.document.title; 
     </script>
 <div>&nbsp</div>
 <table style=width:100%;max-width:8in>
@@ -97,7 +97,7 @@ html, body{
 <tr><td>&nbsp;</td></tr>
 <tr><td class=right colspan=3><canvas id=yearChartCanvas style=max-width:8in;max-height:6in></canvas></td></tr>
 <tr><td>&nbsp;</td></tr>
-<tr><td class=right>2021 YTD </td><td class=live>  8.62%</td><td class=right style=padding-right:7%>   .40%</td></tr>
+<tr><td class=right>2021 YTD </td><td class=live>  9.15%</td><td class=right style=padding-right:7%>   .40%</td></tr>
 <tr><td>&nbsp;</td></tr>
 <tr><td class=right colspan=3><canvas id=monthChartCanvas style=max-width:8in;max-height:6in></canvas></td></tr>
 <tr><td>&nbsp;</td></tr>
