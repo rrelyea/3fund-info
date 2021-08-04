@@ -13,7 +13,8 @@ namespace daily.Formatters
         public static async Task OutputHtmlFile(ThreeFund threeFund, int startYear, PerfCalculator perfCalc, int stock, int intl, int bond, Dictionary<string, FundValue> perfSummaries)
         {
             summarySB.Clear();
-            var outputFile = new FileInfo($"{threeFund.StockFund.Symbol}{stock}-{intl}i.html");
+            string intlStr = intl != 0 ? $"-{intl}i" : "";
+            var outputFile = new FileInfo($"perf\\{threeFund.StockFund.Symbol}{stock}{intlStr}.html");
             if (!outputFile.Directory.Exists)
             {
                 outputFile.Directory.Create();
