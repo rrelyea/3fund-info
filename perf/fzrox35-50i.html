@@ -4,6 +4,7 @@
 <meta http-equiv='refresh' content='150' >
 <style>
 .right { text-align: right; font-size: 18pt;}
+.left { text-align: left; font-size: 20pt;}
 .rightSmall { text-align: right; font-size: 10pt}
 .live {
   text-align:right;
@@ -20,8 +21,7 @@ html, body{
 <script src='https://cdn.jsdelivr.net/npm/chart.js@3.4.1/dist/chart.min.js'></script>
 </head>
 <body>
-<div>Performance for 35/65 (50% intl)  FZROX/FXNAX (FZILX)</div>
-<div>&nbsp</div>
+<tr><td class=left>Performance for 35/65 (50% intl)  FZROX/FXNAX (FZILX)</td><td class=left></td><td class=left style=padding-right:7%></td></tr>
 <script>
             function drawCharts() {
             var yearCtx = document.getElementById('yearChartCanvas').getContext('2d');
@@ -30,10 +30,10 @@ html, body{
           height: 400,
           data:
             {
-            labels:[['EOY',''],['January','-.65%'],['February','-.21%'],['March','-.02%'],['April','+1.83%'],['May','+.67%'],['June','+.80%'],['July','+.67%'],['August','+.32%']],
+            labels:[['EOY',''],['Jan','-.65%'],['Feb','-.21%'],['Mar','-.02%'],['Apr','+1.83%'],['May','+.67%'],['Jun','+.80%'],['Jul','+.67%'],['Aug','+.46%']],
             datasets:
                 [{
-                data:[10000.0,9934.79,9914.27,9912.22,10094.98,10161.65,10241.65,10308.20,10340.07],
+                data:[10000.0,9934.79,9914.27,9912.22,10094.98,10161.65,10241.65,10308.20,10354.49],
                 label: '2021',
                 borderColor: '#3e95cd',
                 backgroundColor: '#7bb6dd',
@@ -48,7 +48,7 @@ html, body{
                x: {
                     ticks: {
                         font: {
-                            size: 24,
+                            size: 20,
                             },
                     }
                 }
@@ -62,10 +62,10 @@ html, body{
           height: 400,
           data:
             {
-            labels:['EOM',['8/2','+.32%']],
+            labels:['EOM',['8/2','+.32%'],['8/4','+.14%','18:03 ET']],
             datasets:
                 [{
-                data:[10308.2,10340.07],
+                data:[10308.2,10340.07,10354.42],
                 label: 'August',
                 borderColor: '#3e95cd',
                 backgroundColor: '#7bb6dd',
@@ -89,19 +89,22 @@ html, body{
      });
      }
             window.onload = drawCharts;
-            window.document.title = '+.32%  ' + window.document.title; 
+            window.document.title = '+.14%  ' + window.document.title; 
     </script>
 <div>&nbsp</div>
 <table style=width:100%;max-width:8in>
-<tr><td class=right></td><td class=right>Appreciation %</td><td class=right style=padding-right:7%>Dividend %</td></tr>
 <tr><td>&nbsp;</td></tr>
+<tr><td class=left>2021 YTD:</td><td class=left></td><td class=left style=padding-right:7%></td></tr>
 <tr><td class=right colspan=3><canvas id=yearChartCanvas style=max-width:8in;max-height:6in></canvas></td></tr>
 <tr><td>&nbsp;</td></tr>
-<tr><td class=right>2021 YTD </td><td class=live>  3.60%</td><td class=right style=padding-right:7%>   .04%</td></tr>
+<tr><td class=right>2021 YTD </td><td class=live>  3.76%</td><td class=right style=padding-right:7%>   .04%</td></tr>
 <tr><td>&nbsp;</td></tr>
+<tr><td class=left>August 2021 MTD:</td><td class=left></td><td class=left style=padding-right:7%></td></tr>
 <tr><td class=right colspan=3><canvas id=monthChartCanvas style=max-width:8in;max-height:6in></canvas></td></tr>
 <tr><td>&nbsp;</td></tr>
-<tr><td class=right>2020:</td><td class=right></td><td class=right style=padding-right:7%></td></tr>
+<tr><td class=right></td><td class=right>Appreciation %</td><td class=right style=padding-right:7%>Dividend %</td></tr>
+<tr><td>&nbsp;</td></tr>
+<tr><td class=left>2020:</td><td class=left></td><td class=left style=padding-right:7%></td></tr>
 <tr><td class=right>January</td><td class=right>    .58%</td><td class=right style=padding-right:7%>.02%</td></tr>
 <tr><td class=right>February</td><td class=right>  -1.60%</td><td class=right style=padding-right:7%>.02%</td></tr>
 <tr><td class=right>March</td><td class=right>  -5.37%</td><td class=right style=padding-right:7%>.02%</td></tr>
@@ -117,7 +120,7 @@ html, body{
 <tr><td>&nbsp;</td></tr>
 <tr><td class=right>2020 Year</td><td class=right>  7.88%</td><td class=right style=padding-right:7%>   .30%</td></tr>
 <tr><td>&nbsp;</td></tr>
-<tr><td class=right>2019:</td><td class=right></td><td class=right style=padding-right:7%></td></tr>
+<tr><td class=left>2019:</td><td class=left></td><td class=left style=padding-right:7%></td></tr>
 <tr><td class=right>January</td><td class=right>   3.31%</td><td class=right style=padding-right:7%>.02%</td></tr>
 <tr><td class=right>February</td><td class=right>    .69%</td><td class=right style=padding-right:7%>.02%</td></tr>
 <tr><td class=right>March</td><td class=right>   1.52%</td><td class=right style=padding-right:7%>.02%</td></tr>
