@@ -119,7 +119,6 @@ namespace daily
                         perfCalc.CalculateMonthlyAndYearlyPerf(stock, intl, 100 - stock, year, perfSummaries);
                     }
 
-                    await TextFormatter.OutputTextFile(this, startYear, perfCalc, stock, intl, bond, perfSummaries);
                     await HtmlFormatter.OutputHtmlFile(this, startYear, perfCalc, stock, intl, bond, perfSummaries);
                 }
             }

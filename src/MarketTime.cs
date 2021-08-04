@@ -40,7 +40,7 @@ namespace daily
             }
             else
             {
-                return MarketTime.MarketClosedAllDay;
+                return MarketTime.None;
             }
         }
     }
