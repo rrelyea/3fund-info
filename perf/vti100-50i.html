@@ -30,10 +30,10 @@ html, body{
           height: 400,
           data:
             {
-            labels:[['EOY',''],['January','-.22%'],['February','+2.75%'],['March','+2.31%'],['April','+3.97%'],['May','+1.79%'],['June','+.49%'],['July','+.21%'],['August','+.92%']],
+            labels:[['EOY',''],['January','-.22%'],['February','+2.75%'],['March','+2.31%'],['April','+3.97%'],['May','+1.79%'],['June','+.49%'],['July','+.21%'],['August','+.90%']],
             datasets:
                 [{
-                data:[10000.0,9978.02,10252.84,10483.48,10880.24,11059.42,11108.07,11129.45,11221.63],
+                data:[10000.0,9978.02,10252.84,10483.48,10880.24,11059.42,11108.07,11129.45,11219.42],
                 label: '2021',
                 borderColor: '#3e95cd',
                 backgroundColor: '#7bb6dd',
@@ -62,10 +62,10 @@ html, body{
           height: 400,
           data:
             {
-            labels:['EOM',['8/2','+.23%'],['8/3','+.67%'],['8/4','+.02%','11:11 ET']],
+            labels:['EOM',['8/2','+.23%'],['8/3','+.67%'],['8/4','-+.00%','11:16 ET']],
             datasets:
                 [{
-                data:[11129.5,11152.54,11219.50,11221.40],
+                data:[11129.5,11152.54,11219.50,11219.22],
                 label: 'August',
                 borderColor: '#3e95cd',
                 backgroundColor: '#7bb6dd',
@@ -89,7 +89,7 @@ html, body{
      });
      }
             window.onload = drawCharts;
-            window.document.title = '+.02%  ' + window.document.title; 
+            window.document.title = '-+.00%  ' + window.document.title; 
     </script>
 <div>&nbsp</div>
 <table style=width:100%;max-width:8in>
@@ -97,7 +97,7 @@ html, body{
 <tr><td>&nbsp;</td></tr>
 <tr><td class=right colspan=3><canvas id=yearChartCanvas style=max-width:8in;max-height:6in></canvas></td></tr>
 <tr><td>&nbsp;</td></tr>
-<tr><td class=right>2021 YTD </td><td class=live> 12.83%</td><td class=right style=padding-right:7%>  1.01%</td></tr>
+<tr><td class=right>2021 YTD </td><td class=live> 12.81%</td><td class=right style=padding-right:7%>  1.01%</td></tr>
 <tr><td>&nbsp;</td></tr>
 <tr><td class=right colspan=3><canvas id=monthChartCanvas style=max-width:8in;max-height:6in></canvas></td></tr>
 <tr><td>&nbsp;</td></tr>
