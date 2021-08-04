@@ -21,8 +21,7 @@ html, body{
 <script src='https://cdn.jsdelivr.net/npm/chart.js@3.4.1/dist/chart.min.js'></script>
 </head>
 <body>
-<div>Performance for 45/55 (10% intl)  VTI/BND (VXUS)</div>
-<div>&nbsp</div>
+<tr><td class=left>Performance for 45/55 (10% intl)  VTI/BND (VXUS)</td><td class=left></td><td class=left style=padding-right:7%></td></tr>
 <script>
             function drawCharts() {
             var yearCtx = document.getElementById('yearChartCanvas').getContext('2d');
@@ -31,10 +30,10 @@ html, body{
           height: 400,
           data:
             {
-            labels:[['EOY',''],['Jan','-.55%'],['Feb','+.46%'],['Mar','+.54%'],['Apr','+2.57%'],['May','+.37%'],['Jun','+1.22%'],['Jul','+1.19%'],['Aug','+.19%']],
+            labels:[['EOY',''],['Jan','-.55%'],['Feb','+.46%'],['Mar','+.54%'],['Apr','+2.57%'],['May','+.37%'],['Jun','+1.22%'],['Jul','+1.19%'],['Aug','+.16%']],
             datasets:
                 [{
-                data:[10000.0,9944.51,9990.94,10044.59,10301.70,10339.07,10461.44,10580.00,10598.99],
+                data:[10000.0,9944.51,9990.94,10044.59,10301.70,10339.07,10461.44,10580.00,10595.77],
                 label: '2021',
                 borderColor: '#3e95cd',
                 backgroundColor: '#7bb6dd',
@@ -63,10 +62,10 @@ html, body{
           height: 400,
           data:
             {
-            labels:['EOM',['8/2','+.03%'],['8/3','+.32%'],['8/4','-.16%','12:13 ET']],
+            labels:['EOM',['8/2','+.03%'],['8/3','+.32%'],['8/4','-.19%','12:18 ET']],
             datasets:
                 [{
-                data:[10580.0,10582.86,10614.97,10599.09],
+                data:[10580.0,10582.86,10614.97,10595.89],
                 label: 'August',
                 borderColor: '#3e95cd',
                 backgroundColor: '#7bb6dd',
@@ -90,7 +89,7 @@ html, body{
      });
      }
             window.onload = drawCharts;
-            window.document.title = '-.16%  ' + window.document.title; 
+            window.document.title = '-.19%  ' + window.document.title; 
     </script>
 <div>&nbsp</div>
 <table style=width:100%;max-width:8in>
@@ -98,7 +97,7 @@ html, body{
 <tr><td class=left>2021 YTD:</td><td class=left></td><td class=left style=padding-right:7%></td></tr>
 <tr><td class=right colspan=3><canvas id=yearChartCanvas style=max-width:8in;max-height:6in></canvas></td></tr>
 <tr><td>&nbsp;</td></tr>
-<tr><td class=right>2021 YTD </td><td class=live>  6.39%</td><td class=right style=padding-right:7%>  1.05%</td></tr>
+<tr><td class=right>2021 YTD </td><td class=live>  6.35%</td><td class=right style=padding-right:7%>  1.05%</td></tr>
 <tr><td>&nbsp;</td></tr>
 <tr><td class=left>August 2021 MTD:</td><td class=left></td><td class=left style=padding-right:7%></td></tr>
 <tr><td class=right colspan=3><canvas id=monthChartCanvas style=max-width:8in;max-height:6in></canvas></td></tr>
