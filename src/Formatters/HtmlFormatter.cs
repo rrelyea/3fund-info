@@ -27,6 +27,7 @@ namespace daily.Formatters
             summarySB.AppendLine(
 @"<style>
 .right { text-align: right; font-size: 18pt;}
+.left { text-align: left; font-size: 20pt;}
 .rightSmall { text-align: right; font-size: 10pt}
 .live {
   text-align:right;
@@ -43,8 +44,7 @@ html, body{
             summarySB.AppendLine("<script src='https://cdn.jsdelivr.net/npm/chart.js@3.4.1/dist/chart.min.js'></script>");
             summarySB.AppendLine("</head>");
             summarySB.AppendLine("<body>");
-            AppendDiv($"Performance for {stock}/{bond} ({intl}% intl)  {threeFund.StockFund.UpperSymbol}/{threeFund.BondFund.UpperSymbol} ({threeFund.InternationStockFund.UpperSymbol})");
-            AppendDiv();
+            Append3Cells($"Performance for {stock}/{bond} ({intl}% intl)  {threeFund.StockFund.UpperSymbol}/{threeFund.BondFund.UpperSymbol} ({threeFund.InternationStockFund.UpperSymbol})", className: "left");
 
             double scale = 10000;
             double cummulativeValueYear = scale;
@@ -63,7 +63,7 @@ html, body{
                 {
                     cummulativeValueYear = cummulativeValueYear + perfSummaries[date].Value / 100 * scale;
                     string valueStr = cummulativeValueYear.ToString("##.00");
-                    months += months == null ? $"'{chunks[1]}'" : $",['{chunks[1]}','{perfSummaries[date].Value.ToString("+##.00;-##.00")}%']";
+                    months += months == null ? $"'{chunks[1]}'" : $",['{chunks[1].Substring(0,3)}','{perfSummaries[date].Value.ToString("+##.00;-##.00")}%']";
                     monthValues += monthValues == null ? $"{valueStr}" : $",{valueStr}";
                     if (chunks[1] == DateTime.Now.AddMonths(-1).ToString("MMMM"))
                     {
@@ -113,7 +113,7 @@ html, body{
                x: {
                     ticks: {
                         font: {
-                            size: 24,
+                            size: 20,
                             },
                     }
                 }
@@ -187,9 +187,9 @@ html, body{
         {
             summarySB.AppendLine($"</table>");
         }
-        private static void Append3Cells(string c0, string c1 = null, string c2 = null)
+        private static void Append3Cells(string c0, string c1 = null, string c2 = null, string className = "right")
         {
-            summarySB.AppendLine($"<tr><td class=right>{c0}</td><td class=right>{c1}</td><td class=right style=padding-right:7%>{c2}</td></tr>");
+            summarySB.AppendLine($"<tr><td class={className}>{c0}</td><td class={className}>{c1}</td><td class={className} style=padding-right:7%>{c2}</td></tr>");
         }
         private static void Append3LiveCells(string c0, string c1 = null, string c2 = null)
         {
@@ -207,7 +207,6 @@ html, body{
             string currentYear = DateTime.Now.Year.ToString();
             bool daysHeaderShown = false;
             StartTable();
-            Append3Cells("", "Appreciation %", "Dividend %");
 
             foreach (var date in perfSummaries.Keys)
             {
@@ -219,10 +218,11 @@ html, body{
                     AppendRow();
                     if (daysHeaderShown)
                     {
-                        Append3Cells($"{year}:");
+                        Append3Cells($"{year}:", className:"left");
                     }
                     else
                     {
+                        Append3Cells($"{year} YTD:", className: "left");
                         Append1CellRow($"<canvas id=yearChartCanvas style=max-width:8in;max-height:6in></canvas>");
                     }
                 }
@@ -253,8 +253,11 @@ html, body{
                     if (!daysHeaderShown)
                     {
                         AppendRow();
+                        Append3Cells($"{chunks[1]} {chunks[0]} MTD:", className: "left");
                         Append1CellRow("<canvas id=monthChartCanvas style=max-width:8in;max-height:6in></canvas>");
                         daysHeaderShown = true;
+                        AppendRow();
+                        Append3Cells("", "Appreciation %", "Dividend %");
                     }
 
                     string time = null;
