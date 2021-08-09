@@ -30,10 +30,10 @@ html, body{
           height: 400,
           data:
             {
-            labels:[['EOY',''],['Jan','-.74%'],['Feb','-.58%'],['Mar','-.32%'],['Apr','+1.61%'],['May','+.38%'],['Jun','+.91%'],['Jul','+.89%'],['Aug','+.32%']],
+            labels:[['EOY',''],['Jan','-.74%'],['Feb','-.58%'],['Mar','-.32%'],['Apr','+1.61%'],['May','+.38%'],['Jun','+.91%'],['Jul','+.89%'],['Aug','-.07%']],
             datasets:
                 [{
-                data:[10000.0,9925.95,9868.20,9836.63,9998.10,10035.89,10126.54,10215.83,10247.96],
+                data:[10000.0,9925.95,9868.20,9836.63,9998.10,10035.89,10126.54,10215.83,10209.13],
                 label: '2021',
                 borderColor: '#3e95cd',
                 backgroundColor: '#7bb6dd',
@@ -62,10 +62,10 @@ html, body{
           height: 400,
           data:
             {
-            labels:['EOM',['8/5','+.32%']],
+            labels:['EOM',['8/6','-.07%']],
             datasets:
                 [{
-                data:[10215.8,10247.96],
+                data:[10215.8,10209.13],
                 label: 'August',
                 borderColor: '#3e95cd',
                 backgroundColor: '#7bb6dd',
@@ -89,7 +89,7 @@ html, body{
      });
      }
             window.onload = drawCharts;
-            window.document.title = '+.32%  ' + window.document.title; 
+            window.document.title = '-.07%  ' + window.document.title; 
     </script>
 <div>&nbsp</div>
 <table style=width:100%;max-width:8in>
@@ -97,7 +97,7 @@ html, body{
 <tr><td class=left>2021 YTD:</td><td class=left></td><td class=left style=padding-right:7%></td></tr>
 <tr><td class=right colspan=3><canvas id=yearChartCanvas style=max-width:8in;max-height:6in></canvas></td></tr>
 <tr><td>&nbsp;</td></tr>
-<tr><td class=right>2021 YTD </td><td class=live>  2.69%</td><td class=right style=padding-right:7%>   .07%</td></tr>
+<tr><td class=right>2021 YTD </td><td class=live>  2.31%</td><td class=right style=padding-right:7%>   .07%</td></tr>
 <tr><td>&nbsp;</td></tr>
 <tr><td class=left>August 2021 MTD:</td><td class=left></td><td class=left style=padding-right:7%></td></tr>
 <tr><td class=right colspan=3><canvas id=monthChartCanvas style=max-width:8in;max-height:6in></canvas></td></tr>
