@@ -30,10 +30,10 @@ html, body{
           height: 400,
           data:
             {
-            labels:[['EOY',''],['Jan','-.73%'],['Feb','-.32%'],['Mar','-.04%'],['Apr','+1.87%'],['May','+.36%'],['Jun','+1.04%'],['Jul','+.99%'],['Aug','-.08%']],
+            labels:[['EOY',''],['Jan','-.73%'],['Feb','-.32%'],['Mar','-.04%'],['Apr','+1.87%'],['May','+.36%'],['Jun','+1.04%'],['Jul','+.99%'],['Aug','-.14%']],
             datasets:
                 [{
-                data:[10000.0,9927.48,9895.54,9891.64,10079.11,10115.48,10219.71,10318.22,10310.54],
+                data:[10000.0,9927.48,9895.54,9891.64,10079.11,10115.48,10219.71,10318.22,10304.27],
                 label: '2021',
                 borderColor: '#3e95cd',
                 backgroundColor: '#7bb6dd',
@@ -62,10 +62,10 @@ html, body{
           height: 400,
           data:
             {
-            labels:['EOM',['8/9','-.14%'],['8/11','+.06%','18:05 ET']],
+            labels:['EOM',['8/9','-.14%']],
             datasets:
                 [{
-                data:[10318.2,10304.27,10310.40],
+                data:[10318.2,10304.27],
                 label: 'August',
                 borderColor: '#3e95cd',
                 backgroundColor: '#7bb6dd',
@@ -89,7 +89,7 @@ html, body{
      });
      }
             window.onload = drawCharts;
-            window.document.title = '+.06%  ' + window.document.title; 
+            window.document.title = '-.14%  ' + window.document.title; 
     </script>
 <div>&nbsp</div>
 <table style=width:100%;max-width:8in>
@@ -97,7 +97,7 @@ html, body{
 <tr><td class=left>2021 YTD:</td><td class=left></td><td class=left style=padding-right:7%></td></tr>
 <tr><td class=right colspan=3><canvas id=yearChartCanvas style=max-width:8in;max-height:6in></canvas></td></tr>
 <tr><td>&nbsp;</td></tr>
-<tr><td class=right>2021 YTD </td><td class=live>  3.41%</td><td class=right style=padding-right:7%>   .06%</td></tr>
+<tr><td class=right>2021 YTD </td><td class=live>  3.33%</td><td class=right style=padding-right:7%>   .06%</td></tr>
 <tr><td>&nbsp;</td></tr>
 <tr><td class=left>August 2021 MTD:</td><td class=left></td><td class=left style=padding-right:7%></td></tr>
 <tr><td class=right colspan=3><canvas id=monthChartCanvas style=max-width:8in;max-height:6in></canvas></td></tr>
