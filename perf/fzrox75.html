@@ -30,10 +30,10 @@ html, body{
           height: 400,
           data:
             {
-            labels:[['EOY',''],['Jan','-.55%'],['Feb','+1.92%'],['Mar','+2.30%'],['Apr','+4.04%'],['May','+.42%'],['Jun','+2.05%'],['Jul','+1.58%'],['Aug','+2.23%']],
+            labels:[['EOY',''],['Jan','-.55%'],['Feb','+1.92%'],['Mar','+2.30%'],['Apr','+4.04%'],['May','+.42%'],['Jun','+2.05%'],['Jul','+1.58%'],['Aug','+2.23%'],['Sep','-.07%']],
             datasets:
                 [{
-                data:[10000.0,9944.55,10136.56,10366.86,10770.62,10812.48,11017.07,11174.88,11398.35],
+                data:[10000.0,9944.55,10136.56,10366.86,10770.62,10812.48,11017.07,11174.88,11398.35,11391.71],
                 label: '2021',
                 borderColor: '#3e95cd',
                 backgroundColor: '#7bb6dd',
@@ -62,11 +62,11 @@ html, body{
           height: 400,
           data:
             {
-            labels:['EOM',['8/30','+2.23%']],
+            labels:['EOM',['9/1','-.07%','18:04 ET']],
             datasets:
                 [{
-                data:[11174.9,11398.35],
-                label: 'August',
+                data:[11398.4,11391.71],
+                label: 'September',
                 borderColor: '#3e95cd',
                 backgroundColor: '#7bb6dd',
                 fill: false,
@@ -89,7 +89,7 @@ html, body{
      });
      }
             window.onload = drawCharts;
-            window.document.title = '+2.23%  ' + window.document.title; 
+            window.document.title = '-.07%  ' + window.document.title; 
     </script>
 <div>&nbsp</div>
 <table style=width:100%;max-width:8in>
@@ -97,9 +97,9 @@ html, body{
 <tr><td class=left>2021 YTD:</td><td class=left></td><td class=left style=padding-right:7%></td></tr>
 <tr><td class=right colspan=3><canvas id=yearChartCanvas style=max-width:8in;max-height:6in></canvas></td></tr>
 <tr><td>&nbsp;</td></tr>
-<tr><td class=right>2021 YTD </td><td class=live> 15.16%</td><td class=right style=padding-right:7%>   .02%</td></tr>
+<tr><td class=right>2021 YTD </td><td class=live> 15.09%</td><td class=right style=padding-right:7%>   .02%</td></tr>
 <tr><td>&nbsp;</td></tr>
-<tr><td class=left>August 2021 MTD:</td><td class=left></td><td class=left style=padding-right:7%></td></tr>
+<tr><td class=left>September 2021 MTD:</td><td class=left></td><td class=left style=padding-right:7%></td></tr>
 <tr><td class=right colspan=3><canvas id=monthChartCanvas style=max-width:8in;max-height:6in></canvas></td></tr>
 <tr><td>&nbsp;</td></tr>
 <tr><td class=right></td><td class=right>Appreciation %</td><td class=right style=padding-right:7%>Dividend %</td></tr>

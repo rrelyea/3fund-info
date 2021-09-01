@@ -30,10 +30,10 @@ html, body{
           height: 400,
           data:
             {
-            labels:[['EOY',''],['Jan','-.73%'],['Feb','-.61%'],['Mar','-.37%'],['Apr','+1.56%'],['May','+.44%'],['Jun','+.83%'],['Jul','+.81%'],['Aug','+.48%']],
+            labels:[['EOY',''],['Jan','-.73%'],['Feb','-.61%'],['Mar','-.37%'],['Apr','+1.56%'],['May','+.44%'],['Jun','+.83%'],['Jul','+.81%'],['Aug','+.48%'],['Sep','+.05%']],
             datasets:
                 [{
-                data:[10000.0,9927.06,9866.55,9830.01,9985.57,10029.46,10112.85,10194.21,10242.15],
+                data:[10000.0,9927.06,9866.55,9830.01,9985.57,10029.46,10112.85,10194.21,10242.15,10247.15],
                 label: '2021',
                 borderColor: '#3e95cd',
                 backgroundColor: '#7bb6dd',
@@ -62,11 +62,11 @@ html, body{
           height: 400,
           data:
             {
-            labels:['EOM',['8/30','+.48%']],
+            labels:['EOM',['9/1','+.05%','18:04 ET']],
             datasets:
                 [{
-                data:[10194.2,10242.15],
-                label: 'August',
+                data:[10242.2,10247.15],
+                label: 'September',
                 borderColor: '#3e95cd',
                 backgroundColor: '#7bb6dd',
                 fill: false,
@@ -89,7 +89,7 @@ html, body{
      });
      }
             window.onload = drawCharts;
-            window.document.title = '+.48%  ' + window.document.title; 
+            window.document.title = '+.05%  ' + window.document.title; 
     </script>
 <div>&nbsp</div>
 <table style=width:100%;max-width:8in>
@@ -97,9 +97,9 @@ html, body{
 <tr><td class=left>2021 YTD:</td><td class=left></td><td class=left style=padding-right:7%></td></tr>
 <tr><td class=right colspan=3><canvas id=yearChartCanvas style=max-width:8in;max-height:6in></canvas></td></tr>
 <tr><td>&nbsp;</td></tr>
-<tr><td class=right>2021 YTD </td><td class=live>  2.67%</td><td class=right style=padding-right:7%>   .07%</td></tr>
+<tr><td class=right>2021 YTD </td><td class=live>  2.73%</td><td class=right style=padding-right:7%>   .07%</td></tr>
 <tr><td>&nbsp;</td></tr>
-<tr><td class=left>August 2021 MTD:</td><td class=left></td><td class=left style=padding-right:7%></td></tr>
+<tr><td class=left>September 2021 MTD:</td><td class=left></td><td class=left style=padding-right:7%></td></tr>
 <tr><td class=right colspan=3><canvas id=monthChartCanvas style=max-width:8in;max-height:6in></canvas></td></tr>
 <tr><td>&nbsp;</td></tr>
 <tr><td class=right></td><td class=right>Appreciation %</td><td class=right style=padding-right:7%>Dividend %</td></tr>

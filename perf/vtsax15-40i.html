@@ -30,10 +30,10 @@ html, body{
           height: 400,
           data:
             {
-            labels:[['EOY',''],['Jan','-.84%'],['Feb','-.98%'],['Mar','-.98%'],['Apr','+1.32%'],['May','+.30%'],['Jun','+.65%'],['Jul','+.98%'],['Aug','+.06%']],
+            labels:[['EOY',''],['Jan','-.84%'],['Feb','-.98%'],['Mar','-.98%'],['Apr','+1.32%'],['May','+.30%'],['Jun','+.65%'],['Jul','+.98%'],['Aug','+.06%'],['Sep','+.06%']],
             datasets:
                 [{
-                data:[10000.0,9915.85,9818.11,9720.07,9851.71,9882.10,9947.57,10045.52,10051.90],
+                data:[10000.0,9915.85,9818.11,9720.07,9851.71,9882.10,9947.57,10045.52,10051.90,10058.09],
                 label: '2021',
                 borderColor: '#3e95cd',
                 backgroundColor: '#7bb6dd',
@@ -62,11 +62,11 @@ html, body{
           height: 400,
           data:
             {
-            labels:['EOM',['8/2','+.24%'],['8/3','+.10%'],['8/4','-.04%'],['8/5','-.14%'],['8/6','-.39%'],['8/9','-.15%'],['8/10','-.13%'],['8/11','+.05%'],['8/12','+.01%'],['8/13','+.32%'],['8/16','+.04%'],['8/17','-.14%'],['8/18','-.09%'],['8/19','-.01%'],['8/20','+.09%'],['8/23','+.16%'],['8/24','-.07%'],['8/25','-.11%'],['8/26','-.10%'],['8/27','+.38%'],['8/30','+.12%'],['8/31','-.07%']],
+            labels:['EOM',['9/1','+.06%','18:04 ET']],
             datasets:
                 [{
-                data:[10045.5,10070.00,10080.13,10075.65,10061.88,10022.44,10007.20,9993.75,9999.17,10000.06,10031.88,10036.10,10022.36,10013.03,10011.97,10021.20,10037.20,10030.54,10019.28,10009.00,10047.03,10059.03,10052.26],
-                label: 'August',
+                data:[10051.9,10058.09],
+                label: 'September',
                 borderColor: '#3e95cd',
                 backgroundColor: '#7bb6dd',
                 fill: false,
@@ -89,7 +89,7 @@ html, body{
      });
      }
             window.onload = drawCharts;
-            window.document.title = '-.07%  ' + window.document.title; 
+            window.document.title = '+.06%  ' + window.document.title; 
     </script>
 <div>&nbsp</div>
 <table style=width:100%;max-width:8in>
@@ -97,9 +97,9 @@ html, body{
 <tr><td class=left>2021 YTD:</td><td class=left></td><td class=left style=padding-right:7%></td></tr>
 <tr><td class=right colspan=3><canvas id=yearChartCanvas style=max-width:8in;max-height:6in></canvas></td></tr>
 <tr><td>&nbsp;</td></tr>
-<tr><td class=right>2021 YTD </td><td class=live>   .64%</td><td class=right style=padding-right:7%>   .00%</td></tr>
+<tr><td class=right>2021 YTD </td><td class=live>   .71%</td><td class=right style=padding-right:7%>   .18%</td></tr>
 <tr><td>&nbsp;</td></tr>
-<tr><td class=left>August 2021 MTD:</td><td class=left></td><td class=left style=padding-right:7%></td></tr>
+<tr><td class=left>September 2021 MTD:</td><td class=left></td><td class=left style=padding-right:7%></td></tr>
 <tr><td class=right colspan=3><canvas id=monthChartCanvas style=max-width:8in;max-height:6in></canvas></td></tr>
 <tr><td>&nbsp;</td></tr>
 <tr><td class=right></td><td class=right>Appreciation %</td><td class=right style=padding-right:7%>Dividend %</td></tr>
