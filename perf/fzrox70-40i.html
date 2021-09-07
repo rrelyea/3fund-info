@@ -30,10 +30,10 @@ html, body{
           height: 400,
           data:
             {
-            labels:[['EOY',''],['Jan','-.45%'],['Feb','+1.37%'],['Mar','+1.50%'],['Apr','+3.15%'],['May','+1.08%'],['Jun','+1.14%'],['Jul','+.65%'],['Aug','+1.65%'],['Sep','+.52%']],
+            labels:[['EOY',''],['Jan','-.45%'],['Feb','+1.37%'],['Mar','+1.50%'],['Apr','+3.15%'],['May','+1.08%'],['Jun','+1.14%'],['Jul','+.65%'],['Aug','+1.65%'],['Sep','+.39%']],
             datasets:
                 [{
-                data:[10000.0,9954.81,10091.70,10241.66,10556.83,10664.77,10778.75,10843.34,11008.18,11060.30],
+                data:[10000.0,9954.81,10091.70,10241.66,10556.83,10664.77,10778.75,10843.34,11008.18,11047.55],
                 label: '2021',
                 borderColor: '#3e95cd',
                 backgroundColor: '#7bb6dd',
@@ -62,10 +62,10 @@ html, body{
           height: 400,
           data:
             {
-            labels:['EOM',['9/2','+.52%']],
+            labels:['EOM',['9/3','+.63%'],['9/7','-.23%','18:03 ET']],
             datasets:
                 [{
-                data:[11008.2,11060.30],
+                data:[11008.2,11070.74,11047.58],
                 label: 'September',
                 borderColor: '#3e95cd',
                 backgroundColor: '#7bb6dd',
@@ -89,7 +89,7 @@ html, body{
      });
      }
             window.onload = drawCharts;
-            window.document.title = '+.52%  ' + window.document.title; 
+            window.document.title = '-.23%  ' + window.document.title; 
     </script>
 <div>&nbsp</div>
 <table style=width:100%;max-width:8in>
@@ -97,7 +97,7 @@ html, body{
 <tr><td class=left>2021 YTD:</td><td class=left></td><td class=left style=padding-right:7%></td></tr>
 <tr><td class=right colspan=3><canvas id=yearChartCanvas style=max-width:8in;max-height:6in></canvas></td></tr>
 <tr><td>&nbsp;</td></tr>
-<tr><td class=right>2021 YTD </td><td class=live> 11.40%</td><td class=right style=padding-right:7%>   .03%</td></tr>
+<tr><td class=right>2021 YTD </td><td class=live> 11.25%</td><td class=right style=padding-right:7%>   .03%</td></tr>
 <tr><td>&nbsp;</td></tr>
 <tr><td class=left>September 2021 MTD:</td><td class=left></td><td class=left style=padding-right:7%></td></tr>
 <tr><td class=right colspan=3><canvas id=monthChartCanvas style=max-width:8in;max-height:6in></canvas></td></tr>
