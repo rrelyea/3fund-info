@@ -30,10 +30,10 @@ html, body{
           height: 400,
           data:
             {
-            labels:[['EOY',''],['Jan','-.83%'],['Feb','-1.24%'],['Mar','-.95%'],['Apr','+1.07%'],['May','+.18%'],['Jun','+.79%'],['Jul','+.93%'],['Aug','-.02%'],['Sep','-1.32%']],
+            labels:[['EOY',''],['Jan','-.83%'],['Feb','-1.24%'],['Mar','-.95%'],['Apr','+1.07%'],['May','+.18%'],['Jun','+.79%'],['Jul','+.93%'],['Aug','-.02%'],['Sep','-1.32%'],['Oct','+.33%']],
             datasets:
                 [{
-                data:[10000.0,9916.92,9792.82,9698.09,9805.18,9822.84,9901.84,9995.13,9992.74,9861.12],
+                data:[10000.0,9916.92,9792.82,9698.09,9805.18,9822.84,9901.84,9995.13,9992.74,9861.12,9893.75],
                 label: '2021',
                 borderColor: '#3e95cd',
                 backgroundColor: '#7bb6dd',
@@ -62,10 +62,10 @@ html, body{
           height: 400,
           data:
             {
-            labels:['EOM'],
+            labels:['EOM',['10/1','+.33%']],
             datasets:
                 [{
-                data:[9861.1],
+                data:[9861.1,9893.75],
                 label: 'October',
                 borderColor: '#3e95cd',
                 backgroundColor: '#7bb6dd',
@@ -89,7 +89,7 @@ html, body{
      });
      }
             window.onload = drawCharts;
-            window.document.title = 'NaN%  ' + window.document.title; 
+            window.document.title = '+.33%  ' + window.document.title; 
     </script>
 <div>&nbsp</div>
 <table style=width:100%;max-width:8in>
@@ -97,10 +97,14 @@ html, body{
 <tr><td class=left>2021 YTD:</td><td class=left></td><td class=left style=padding-right:7%></td></tr>
 <tr><td class=right colspan=3><canvas id=yearChartCanvas style=max-width:8in;max-height:6in></canvas></td></tr>
 <tr><td>&nbsp;</td></tr>
-<tr><td class=right>2021 YTD </td><td class=live> -1.34%</td><td class=right style=padding-right:7%>   .09%</td></tr>
+<tr><td class=right>2021 YTD </td><td class=live> -1.00%</td><td class=right style=padding-right:7%>   .09%</td></tr>
 <tr><td>&nbsp;</td></tr>
-<tr><td class=left>2020 YTD:</td><td class=left></td><td class=left style=padding-right:7%></td></tr>
-<tr><td class=right colspan=3><canvas id=yearChartCanvas style=max-width:8in;max-height:6in></canvas></td></tr>
+<tr><td class=left>October 2021 MTD:</td><td class=left></td><td class=left style=padding-right:7%></td></tr>
+<tr><td class=right colspan=3><canvas id=monthChartCanvas style=max-width:8in;max-height:6in></canvas></td></tr>
+<tr><td>&nbsp;</td></tr>
+<tr><td class=right></td><td class=right>Appreciation %</td><td class=right style=padding-right:7%>Dividend %</td></tr>
+<tr><td>&nbsp;</td></tr>
+<tr><td class=left>2020:</td><td class=left></td><td class=left style=padding-right:7%></td></tr>
 <tr><td class=right>January</td><td class=right>   1.58%</td><td class=right style=padding-right:7%>.02%</td></tr>
 <tr><td class=right>February</td><td class=right>    .62%</td><td class=right style=padding-right:7%>.02%</td></tr>
 <tr><td class=right>March</td><td class=right>  -1.78%</td><td class=right style=padding-right:7%>.02%</td></tr>
@@ -116,8 +120,7 @@ html, body{
 <tr><td>&nbsp;</td></tr>
 <tr><td class=right>2020 Year</td><td class=right>  5.78%</td><td class=right style=padding-right:7%>   .34%</td></tr>
 <tr><td>&nbsp;</td></tr>
-<tr><td class=left>2019 YTD:</td><td class=left></td><td class=left style=padding-right:7%></td></tr>
-<tr><td class=right colspan=3><canvas id=yearChartCanvas style=max-width:8in;max-height:6in></canvas></td></tr>
+<tr><td class=left>2019:</td><td class=left></td><td class=left style=padding-right:7%></td></tr>
 <tr><td class=right>January</td><td class=right>   1.55%</td><td class=right style=padding-right:7%>.02%</td></tr>
 <tr><td class=right>February</td><td class=right>    .00%</td><td class=right style=padding-right:7%>.02%</td></tr>
 <tr><td class=right>March</td><td class=right>   1.72%</td><td class=right style=padding-right:7%>.03%</td></tr>
