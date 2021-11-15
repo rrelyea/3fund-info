@@ -30,10 +30,10 @@ html, body{
           height: 400,
           data:
             {
-            labels:[['EOY',''],['Jan','-.82%'],['Feb','-.68%'],['Mar','-.64%'],['Apr','+1.67%'],['May','+.16%'],['Jun','+.94%'],['Jul','+1.19%'],['Aug','+.29%'],['Sep','-1.80%'],['Oct','+1.20%'],['Nov','+.26%']],
+            labels:[['EOY',''],['Jan','-.82%'],['Feb','-.68%'],['Mar','-.64%'],['Apr','+1.67%'],['May','+.16%'],['Jun','+.94%'],['Jul','+1.19%'],['Aug','+.29%'],['Sep','-1.80%'],['Oct','+1.20%'],['Nov','-.03%']],
             datasets:
                 [{
-                data:[10000.0,9917.72,9849.42,9785.02,9952.33,9968.16,10062.65,10181.82,10211.10,10031.14,10151.47,10177.48],
+                data:[10000.0,9917.72,9849.42,9785.02,9952.33,9968.16,10062.65,10181.82,10211.10,10031.14,10151.47,10148.51],
                 label: '2021',
                 borderColor: '#3e95cd',
                 backgroundColor: '#7bb6dd',
@@ -62,10 +62,10 @@ html, body{
           height: 400,
           data:
             {
-            labels:['EOM',['11/1','+.02%'],['11/2','+.20%'],['11/3','-.07%'],['11/4','+.35%'],['11/5','+.44%'],['11/8','-.18%'],['11/9','+.23%'],['11/10','-.76%'],['11/11','-.11%'],['11/12','+.15%']],
+            labels:['EOM',['11/1','+.02%'],['11/2','+.20%'],['11/3','-.07%'],['11/4','+.35%'],['11/5','+.44%'],['11/8','-.18%'],['11/9','+.23%'],['11/10','-.76%'],['11/11','-.11%'],['11/12','+.15%'],['11/15','-.29%','18:04 ET']],
             datasets:
                 [{
-                data:[10151.5,10153.55,10173.48,10166.97,10202.13,10245.79,10227.98,10250.57,10174.22,10163.25,10177.81],
+                data:[10151.5,10153.55,10173.48,10166.97,10202.13,10245.79,10227.98,10250.57,10174.22,10163.25,10177.81,10148.80],
                 label: 'November',
                 borderColor: '#3e95cd',
                 backgroundColor: '#7bb6dd',
@@ -89,7 +89,7 @@ html, body{
      });
      }
             window.onload = drawCharts;
-            window.document.title = '+.15%  ' + window.document.title; 
+            window.document.title = '-.29%  ' + window.document.title; 
     </script>
 <div>&nbsp</div>
 <table style=width:100%;max-width:8in>
@@ -97,7 +97,7 @@ html, body{
 <tr><td class=left>2021 YTD:</td><td class=left></td><td class=left style=padding-right:7%></td></tr>
 <tr><td class=right colspan=3><canvas id=yearChartCanvas style=max-width:8in;max-height:6in></canvas></td></tr>
 <tr><td>&nbsp;</td></tr>
-<tr><td class=right>2021 YTD </td><td class=live>  2.16%</td><td class=right style=padding-right:7%>   .33%</td></tr>
+<tr><td class=right>2021 YTD </td><td class=live>  1.87%</td><td class=right style=padding-right:7%>   .33%</td></tr>
 <tr><td>&nbsp;</td></tr>
 <tr><td class=left>November 2021 MTD:</td><td class=left></td><td class=left style=padding-right:7%></td></tr>
 <tr><td class=right colspan=3><canvas id=monthChartCanvas style=max-width:8in;max-height:6in></canvas></td></tr>
