@@ -30,10 +30,10 @@ html, body{
           height: 400,
           data:
             {
-            labels:[['EOY',''],['Jan','-.70%'],['Feb','-.08%'],['Mar','-.17%'],['Apr','+1.99%'],['May','+.59%'],['Jun','+.70%'],['Jul','+.87%'],['Aug','+.62%'],['Sep','-2.24%'],['Oct','+1.67%'],['Nov','-.81%'],['Dec','-.26%']],
+            labels:[['EOY',''],['Jan','-.70%'],['Feb','-.08%'],['Mar','-.17%'],['Apr','+1.99%'],['May','+.59%'],['Jun','+.70%'],['Jul','+.87%'],['Aug','+.62%'],['Sep','-2.24%'],['Oct','+1.67%'],['Nov','-.81%'],['Dec','+.13%']],
             datasets:
                 [{
-                data:[10000.0,9929.87,9921.90,9905.17,10104.60,10163.64,10233.37,10320.46,10381.99,10158.06,10324.84,10243.49,10217.56],
+                data:[10000.0,9929.87,9921.90,9905.17,10104.60,10163.64,10233.37,10320.46,10381.99,10158.06,10324.84,10243.49,10256.26],
                 label: '2021',
                 borderColor: '#3e95cd',
                 backgroundColor: '#7bb6dd',
@@ -62,10 +62,10 @@ html, body{
           height: 400,
           data:
             {
-            labels:['EOM',['12/1','-.26%']],
+            labels:['EOM',['12/1','-.26%'],['12/2','+.39%','18:04 ET']],
             datasets:
                 [{
-                data:[10243.5,10217.56],
+                data:[10243.5,10217.56,10256.78],
                 label: 'December',
                 borderColor: '#3e95cd',
                 backgroundColor: '#7bb6dd',
@@ -89,17 +89,17 @@ html, body{
      });
      }
             window.onload = drawCharts;
-            window.document.title = '-.26%  ' + window.document.title; 
+            window.document.title = '+.39%  ' + window.document.title; 
     </script>
 <div>&nbsp</div>
 <table style=width:100%;max-width:8in>
 <tr><td>&nbsp;</td></tr>
 <tr><td class=left>January 2021 MTD:</td><td class=left></td><td class=left style=padding-right:7%></td></tr>
 <tr><td class=right colspan=3><canvas id=monthChartCanvas style=max-width:8in;max-height:6in></canvas></td></tr>
-<tr><td class=right colspan=3>last day:-.26%</td></tr>
+<tr><td class=right colspan=3>last day:+.39%</td></tr>
 <tr><td>&nbsp;</td></tr>
 <tr><td>&nbsp;</td></tr>
-<tr><td class=right>2021 YTD </td><td class=live>  2.30%</td><td class=right style=padding-right:7%>   .00%</td></tr>
+<tr><td class=right>2021 YTD </td><td class=live>  2.76%</td><td class=right style=padding-right:7%>   .39%</td></tr>
 <tr><td>&nbsp;</td></tr>
 <tr><td class=right colspan=3><canvas id=yearChartCanvas style=max-width:8in;max-height:6in></canvas></td></tr>
 <tr><td>&nbsp;</td></tr>
