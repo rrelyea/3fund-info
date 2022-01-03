@@ -30,10 +30,10 @@ html, body{
           height: 400,
           data:
             {
-            labels:[['EOY',''],['Jan','-.60%'],['Feb','+.59%'],['Mar','+.44%'],['Apr','+2.50%'],['May','+.81%'],['Jun','+.73%'],['Jul','+.79%'],['Aug','+1.03%'],['Sep','-2.75%'],['Oct','+2.46%'],['Nov','-1.24%'],['Dec','+1.18%']],
+            labels:[['EOY',''],['Jan','-.23%']],
             datasets:
                 [{
-                data:[10000.0,9940.39,9999.74,10044.00,10294.27,10374.79,10447.71,10526.66,10629.56,10354.82,10600.68,10476.84,10595.20],
+                data:[10000.0,9977.39],
                 label: '2021',
                 borderColor: '#3e95cd',
                 backgroundColor: '#7bb6dd',
@@ -62,11 +62,11 @@ html, body{
           height: 400,
           data:
             {
-            labels:['EOM',['12/1','-.41%'],['12/2','+.64%'],['12/3','-.25%'],['12/6','+.36%'],['12/7','+.94%'],['12/8','+.01%'],['12/9','-.38%'],['12/10','+.24%'],['12/13','-.36%'],['12/14','-.42%'],['12/15','+.52%'],['12/16','-.22%'],['12/17','-.60%'],['12/20','-.62%'],['12/21','+.81%'],['12/22','+.45%'],['12/23','+.13%'],['12/27','+.54%'],['12/28','-.10%'],['12/29','-.11%'],['12/30','+.06%'],['12/31','-.01%']],
+            labels:['EOM',['1/3','-.23%','18:03 ET']],
             datasets:
                 [{
-                data:[10476.8,10436.00,10499.62,10474.31,10510.73,10604.86,10605.98,10568.43,10592.60,10556.57,10514.87,10567.22,10545.61,10485.55,10423.10,10504.20,10549.15,10561.71,10615.60,10605.71,10594.69,10600.41,10599.08],
-                label: 'December',
+                data:[NaN],
+                label: 'January',
                 borderColor: '#3e95cd',
                 backgroundColor: '#7bb6dd',
                 fill: false,
@@ -89,19 +89,35 @@ html, body{
      });
      }
             window.onload = drawCharts;
-            window.document.title = '-.01%  ' + window.document.title; 
+            window.document.title = '-.23%  ' + window.document.title; 
     </script>
 <div>&nbsp</div>
 <table style=width:100%;max-width:8in>
 <tr><td>&nbsp;</td></tr>
-<tr><td class=left>January 2021 MTD:</td><td class=left></td><td class=left style=padding-right:7%></td></tr>
+<tr><td class=left>January 2022 MTD:</td><td class=left></td><td class=left style=padding-right:7%></td></tr>
 <tr><td class=right colspan=3><canvas id=monthChartCanvas style=max-width:8in;max-height:6in></canvas></td></tr>
-<tr><td class=right colspan=3>last day:-.01%</td></tr>
+<tr><td class=right colspan=3>last day:-.23%</td></tr>
 <tr><td>&nbsp;</td></tr>
 <tr><td>&nbsp;</td></tr>
-<tr><td class=right>2021 YTD </td><td class=live>  6.45%</td><td class=right style=padding-right:7%>   .73%</td></tr>
+<tr><td class=right>2022 YTD </td><td class=live>  -.23%</td><td class=right style=padding-right:7%>   .00%</td></tr>
 <tr><td>&nbsp;</td></tr>
 <tr><td class=right colspan=3><canvas id=yearChartCanvas style=max-width:8in;max-height:6in></canvas></td></tr>
+<tr><td>&nbsp;</td></tr>
+<tr><td class=left>2021:</td><td class=left></td><td class=left style=padding-right:7%></td></tr>
+<tr><td class=right>January</td><td class=right>   -.60%</td><td class=right style=padding-right:7%>.00%</td></tr>
+<tr><td class=right>February</td><td class=right>    .59%</td><td class=right style=padding-right:7%>.01%</td></tr>
+<tr><td class=right>March</td><td class=right>    .44%</td><td class=right style=padding-right:7%>.13%</td></tr>
+<tr><td class=right>April</td><td class=right>   2.50%</td><td class=right style=padding-right:7%>.01%</td></tr>
+<tr><td class=right>May</td><td class=right>    .81%</td><td class=right style=padding-right:7%>.01%</td></tr>
+<tr><td class=right>June</td><td class=right>    .73%</td><td class=right style=padding-right:7%>.16%</td></tr>
+<tr><td class=right>July</td><td class=right>    .79%</td><td class=right style=padding-right:7%>.01%</td></tr>
+<tr><td class=right>August</td><td class=right>   1.03%</td><td class=right style=padding-right:7%>.01%</td></tr>
+<tr><td class=right>September</td><td class=right>  -2.75%</td><td class=right style=padding-right:7%>.15%</td></tr>
+<tr><td class=right>October</td><td class=right>   2.46%</td><td class=right style=padding-right:7%>.01%</td></tr>
+<tr><td class=right>November</td><td class=right>  -1.24%</td><td class=right style=padding-right:7%>.01%</td></tr>
+<tr><td class=right>December</td><td class=right>   1.18%</td><td class=right style=padding-right:7%>.23%</td></tr>
+<tr><td>&nbsp;</td></tr>
+<tr><td class=right>2021 Year</td><td class=right>  6.45%</td><td class=right style=padding-right:7%>   .73%</td></tr>
 <tr><td>&nbsp;</td></tr>
 <tr><td class=left>2020:</td><td class=left></td><td class=left style=padding-right:7%></td></tr>
 <tr><td class=right>January</td><td class=right>    .26%</td><td class=right style=padding-right:7%>.01%</td></tr>
