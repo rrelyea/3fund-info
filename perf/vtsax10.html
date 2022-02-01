@@ -62,11 +62,11 @@ html, body{
           height: 400,
           data:
             {
-            labels:['EOM',['1/3','-.67%'],['1/4','-.02%'],['1/5','-.46%'],['1/6','-.16%'],['1/7','-.29%'],['1/10','-.10%'],['1/11','+.26%'],['1/12','+.01%'],['1/13','-.06%'],['1/14','-.40%'],['1/18','-.77%'],['1/19','+.15%'],['1/20','-.03%'],['1/21','+.05%'],['1/24','-.11%'],['1/25','-.22%'],['1/26','-.53%'],['1/27','+.18%'],['1/28','+.33%'],['1/31','+.14%']],
+            labels:['EOM'],
             datasets:
                 [{
-                data:[10000.0,9933.48,9931.79,9885.53,9869.18,9839.90,9830.16,9856.62,9858.09,9851.60,9811.28,9734.11,9748.75,9745.53,9750.48,9739.21,9717.51,9664.86,9682.48,9715.26,9728.77],
-                label: 'January',
+                data:[9730.6],
+                label: 'February',
                 borderColor: '#3e95cd',
                 backgroundColor: '#7bb6dd',
                 fill: false,
@@ -89,21 +89,22 @@ html, body{
      });
      }
             window.onload = drawCharts;
-            window.document.title = '+.14%  ' + window.document.title; 
+            window.document.title = 'NaN%  ' + window.document.title; 
     </script>
 <div>&nbsp</div>
 <table style=width:100%;max-width:8in>
 <tr><td>&nbsp;</td></tr>
 <tr><td class=left>January 2022 MTD:</td><td class=left></td><td class=left style=padding-right:7%></td></tr>
 <tr><td class=right colspan=3><canvas id=monthChartCanvas style=max-width:8in;max-height:6in></canvas></td></tr>
-<tr><td class=right colspan=3>last day:+.14%</td></tr>
+<tr><td class=right colspan=3>last day:NaN%</td></tr>
 <tr><td>&nbsp;</td></tr>
 <tr><td>&nbsp;</td></tr>
 <tr><td class=right>2022 YTD </td><td class=live> -2.69%</td><td class=right style=padding-right:7%>   .00%</td></tr>
 <tr><td>&nbsp;</td></tr>
-<tr><td class=right colspan=3><canvas id=yearChartCanvas style=max-width:8in;max-height:6in></canvas></td></tr>
+<tr><td class=left>January 2021 MTD:</td><td class=left></td><td class=left style=padding-right:7%></td></tr>
+<tr><td class=right colspan=3><canvas id=monthChartCanvas style=max-width:8in;max-height:6in></canvas></td></tr>
+<tr><td class=right colspan=3>last day:NaN%</td></tr>
 <tr><td>&nbsp;</td></tr>
-<tr><td class=left>2021:</td><td class=left></td><td class=left style=padding-right:7%></td></tr>
 <tr><td class=right>January</td><td class=right>   -.88%</td><td class=right style=padding-right:7%>.00%</td></tr>
 <tr><td class=right>February</td><td class=right>  -1.17%</td><td class=right style=padding-right:7%>.02%</td></tr>
 <tr><td class=right>March</td><td class=right>  -1.12%</td><td class=right style=padding-right:7%>.06%</td></tr>
@@ -119,7 +120,10 @@ html, body{
 <tr><td>&nbsp;</td></tr>
 <tr><td class=right>2021 Year</td><td class=right>  -.92%</td><td class=right style=padding-right:7%>   .34%</td></tr>
 <tr><td>&nbsp;</td></tr>
-<tr><td class=left>2020:</td><td class=left></td><td class=left style=padding-right:7%></td></tr>
+<tr><td class=left>January 2020 MTD:</td><td class=left></td><td class=left style=padding-right:7%></td></tr>
+<tr><td class=right colspan=3><canvas id=monthChartCanvas style=max-width:8in;max-height:6in></canvas></td></tr>
+<tr><td class=right colspan=3>last day:NaN%</td></tr>
+<tr><td>&nbsp;</td></tr>
 <tr><td class=right>January</td><td class=right>   1.70%</td><td class=right style=padding-right:7%>.02%</td></tr>
 <tr><td class=right>February</td><td class=right>    .54%</td><td class=right style=padding-right:7%>.02%</td></tr>
 <tr><td class=right>March</td><td class=right>  -2.13%</td><td class=right style=padding-right:7%>.05%</td></tr>
@@ -135,7 +139,10 @@ html, body{
 <tr><td>&nbsp;</td></tr>
 <tr><td class=right>2020 Year</td><td class=right>  6.53%</td><td class=right style=padding-right:7%>   .38%</td></tr>
 <tr><td>&nbsp;</td></tr>
-<tr><td class=left>2019:</td><td class=left></td><td class=left style=padding-right:7%></td></tr>
+<tr><td class=left>January 2019 MTD:</td><td class=left></td><td class=left style=padding-right:7%></td></tr>
+<tr><td class=right colspan=3><canvas id=monthChartCanvas style=max-width:8in;max-height:6in></canvas></td></tr>
+<tr><td class=right colspan=3>last day:NaN%</td></tr>
+<tr><td>&nbsp;</td></tr>
 <tr><td class=right>January</td><td class=right>   1.55%</td><td class=right style=padding-right:7%>.02%</td></tr>
 <tr><td class=right>February</td><td class=right>    .10%</td><td class=right style=padding-right:7%>.02%</td></tr>
 <tr><td class=right>March</td><td class=right>   1.63%</td><td class=right style=padding-right:7%>.06%</td></tr>
@@ -151,7 +158,10 @@ html, body{
 <tr><td>&nbsp;</td></tr>
 <tr><td class=right>2019 Year</td><td class=right>  8.00%</td><td class=right style=padding-right:7%>   .41%</td></tr>
 <tr><td>&nbsp;</td></tr>
-<tr><td class=left>2018:</td><td class=left></td><td class=left style=padding-right:7%></td></tr>
+<tr><td class=left>January 2018 MTD:</td><td class=left></td><td class=left style=padding-right:7%></td></tr>
+<tr><td class=right colspan=3><canvas id=monthChartCanvas style=max-width:8in;max-height:6in></canvas></td></tr>
+<tr><td class=right colspan=3>last day:NaN%</td></tr>
+<tr><td>&nbsp;</td></tr>
 <tr><td class=right>January</td><td class=right>   -.64%</td><td class=right style=padding-right:7%>.02%</td></tr>
 <tr><td class=right>February</td><td class=right>  -1.47%</td><td class=right style=padding-right:7%>.02%</td></tr>
 <tr><td class=right>March</td><td class=right>    .11%</td><td class=right style=padding-right:7%>.03%</td></tr>
@@ -167,7 +177,10 @@ html, body{
 <tr><td>&nbsp;</td></tr>
 <tr><td class=right>2018 Year</td><td class=right> -3.21%</td><td class=right style=padding-right:7%>   .37%</td></tr>
 <tr><td>&nbsp;</td></tr>
-<tr><td class=left>2017:</td><td class=left></td><td class=left style=padding-right:7%></td></tr>
+<tr><td class=left>January 2017 MTD:</td><td class=left></td><td class=left style=padding-right:7%></td></tr>
+<tr><td class=right colspan=3><canvas id=monthChartCanvas style=max-width:8in;max-height:6in></canvas></td></tr>
+<tr><td class=right colspan=3>last day:NaN%</td></tr>
+<tr><td>&nbsp;</td></tr>
 <tr><td class=right>January</td><td class=right>    .28%</td><td class=right style=padding-right:7%>.02%</td></tr>
 <tr><td class=right>February</td><td class=right>    .79%</td><td class=right style=padding-right:7%>.02%</td></tr>
 <tr><td class=right>March</td><td class=right>   -.29%</td><td class=right style=padding-right:7%>.05%</td></tr>
@@ -183,7 +196,10 @@ html, body{
 <tr><td>&nbsp;</td></tr>
 <tr><td class=right>2017 Year</td><td class=right>  2.74%</td><td class=right style=padding-right:7%>   .36%</td></tr>
 <tr><td>&nbsp;</td></tr>
-<tr><td class=left>2016:</td><td class=left></td><td class=left style=padding-right:7%></td></tr>
+<tr><td class=left>January 2016 MTD:</td><td class=left></td><td class=left style=padding-right:7%></td></tr>
+<tr><td class=right colspan=3><canvas id=monthChartCanvas style=max-width:8in;max-height:6in></canvas></td></tr>
+<tr><td class=right colspan=3>last day:NaN%</td></tr>
+<tr><td>&nbsp;</td></tr>
 <tr><td class=right>January</td><td class=right>    .53%</td><td class=right style=padding-right:7%>.02%</td></tr>
 <tr><td class=right>February</td><td class=right>    .41%</td><td class=right style=padding-right:7%>.02%</td></tr>
 <tr><td class=right>March</td><td class=right>   1.32%</td><td class=right style=padding-right:7%>.04%</td></tr>
@@ -199,7 +215,10 @@ html, body{
 <tr><td>&nbsp;</td></tr>
 <tr><td class=right>2016 Year</td><td class=right>  1.13%</td><td class=right style=padding-right:7%>   .35%</td></tr>
 <tr><td>&nbsp;</td></tr>
-<tr><td class=left>2015:</td><td class=left></td><td class=left style=padding-right:7%></td></tr>
+<tr><td class=left>January 2015 MTD:</td><td class=left></td><td class=left style=padding-right:7%></td></tr>
+<tr><td class=right colspan=3><canvas id=monthChartCanvas style=max-width:8in;max-height:6in></canvas></td></tr>
+<tr><td class=right colspan=3>last day:NaN%</td></tr>
+<tr><td>&nbsp;</td></tr>
 <tr><td class=right>January</td><td class=right>   1.63%</td><td class=right style=padding-right:7%>.02%</td></tr>
 <tr><td class=right>February</td><td class=right>   -.56%</td><td class=right style=padding-right:7%>.02%</td></tr>
 <tr><td class=right>March</td><td class=right>    .02%</td><td class=right style=padding-right:7%>.07%</td></tr>
@@ -215,7 +234,10 @@ html, body{
 <tr><td>&nbsp;</td></tr>
 <tr><td class=right>2015 Year</td><td class=right> -2.06%</td><td class=right style=padding-right:7%>   .37%</td></tr>
 <tr><td>&nbsp;</td></tr>
-<tr><td class=left>2014:</td><td class=left></td><td class=left style=padding-right:7%></td></tr>
+<tr><td class=left>January 2014 MTD:</td><td class=left></td><td class=left style=padding-right:7%></td></tr>
+<tr><td class=right colspan=3><canvas id=monthChartCanvas style=max-width:8in;max-height:6in></canvas></td></tr>
+<tr><td class=right colspan=3>last day:NaN%</td></tr>
+<tr><td>&nbsp;</td></tr>
 <tr><td class=right>January</td><td class=right>    .88%</td><td class=right style=padding-right:7%>.02%</td></tr>
 <tr><td class=right>February</td><td class=right>    .73%</td><td class=right style=padding-right:7%>.02%</td></tr>
 <tr><td class=right>March</td><td class=right>   -.33%</td><td class=right style=padding-right:7%>.07%</td></tr>
@@ -231,7 +253,10 @@ html, body{
 <tr><td>&nbsp;</td></tr>
 <tr><td class=right>2014 Year</td><td class=right>  3.69%</td><td class=right style=padding-right:7%>   .39%</td></tr>
 <tr><td>&nbsp;</td></tr>
-<tr><td class=left>2013:</td><td class=left></td><td class=left style=padding-right:7%></td></tr>
+<tr><td class=left>January 2013 MTD:</td><td class=left></td><td class=left style=padding-right:7%></td></tr>
+<tr><td class=right colspan=3><canvas id=monthChartCanvas style=max-width:8in;max-height:6in></canvas></td></tr>
+<tr><td class=right colspan=3>last day:NaN%</td></tr>
+<tr><td>&nbsp;</td></tr>
 <tr><td class=right>January</td><td class=right>   -.26%</td><td class=right style=padding-right:7%>.02%</td></tr>
 <tr><td class=right>February</td><td class=right>    .46%</td><td class=right style=padding-right:7%>.02%</td></tr>
 <tr><td class=right>March</td><td class=right>    .10%</td><td class=right style=padding-right:7%>.09%</td></tr>
@@ -247,7 +272,10 @@ html, body{
 <tr><td>&nbsp;</td></tr>
 <tr><td class=right>2013 Year</td><td class=right> -1.20%</td><td class=right style=padding-right:7%>   .38%</td></tr>
 <tr><td>&nbsp;</td></tr>
-<tr><td class=left>2012:</td><td class=left></td><td class=left style=padding-right:7%></td></tr>
+<tr><td class=left>January 2012 MTD:</td><td class=left></td><td class=left style=padding-right:7%></td></tr>
+<tr><td class=right colspan=3><canvas id=monthChartCanvas style=max-width:8in;max-height:6in></canvas></td></tr>
+<tr><td class=right colspan=3>last day:NaN%</td></tr>
+<tr><td>&nbsp;</td></tr>
 <tr><td class=right>January</td><td class=right>   1.08%</td><td class=right style=padding-right:7%>.02%</td></tr>
 <tr><td class=right>February</td><td class=right>    .18%</td><td class=right style=padding-right:7%>.02%</td></tr>
 <tr><td class=right>March</td><td class=right>   -.55%</td><td class=right style=padding-right:7%>.08%</td></tr>
@@ -263,7 +291,10 @@ html, body{
 <tr><td>&nbsp;</td></tr>
 <tr><td class=right>2012 Year</td><td class=right>  2.13%</td><td class=right style=padding-right:7%>   .43%</td></tr>
 <tr><td>&nbsp;</td></tr>
-<tr><td class=left>2011:</td><td class=left></td><td class=left style=padding-right:7%></td></tr>
+<tr><td class=left>January 2011 MTD:</td><td class=left></td><td class=left style=padding-right:7%></td></tr>
+<tr><td class=right colspan=3><canvas id=monthChartCanvas style=max-width:8in;max-height:6in></canvas></td></tr>
+<tr><td class=right colspan=3>last day:NaN%</td></tr>
+<tr><td>&nbsp;</td></tr>
 <tr><td class=right>January</td><td class=right>    .05%</td><td class=right style=padding-right:7%>.03%</td></tr>
 <tr><td class=right>February</td><td class=right>    .28%</td><td class=right style=padding-right:7%>.03%</td></tr>
 <tr><td class=right>March</td><td class=right>   -.25%</td><td class=right style=padding-right:7%>.04%</td></tr>
